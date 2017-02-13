@@ -139,7 +139,10 @@ public class LobbyMenu extends JPanel {
 	private void returnName(String input){
 		this.NAME = input;
 		System.out.println(NAME);
+<<<<<<< HEAD
 		
+=======
+>>>>>>> initial commit
 	}
 	
 	private void returnAnts(String input){
@@ -188,8 +191,11 @@ public class LobbyMenu extends JPanel {
 				add(menu);
 				
 			}
+<<<<<<< HEAD
 				
 				
+=======
+>>>>>>> initial commit
 		}
 	}
 	

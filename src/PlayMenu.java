@@ -4,10 +4,13 @@ import javax.swing.*;
 
 public class PlayMenu extends JPanel {
 
+<<<<<<< HEAD
 
 	/**
 	 * 
 	 */
+=======
+>>>>>>> initial commit
 	private static final long serialVersionUID = 1L;
 	private JButton joinButton;
 	private JButton hostButton;
