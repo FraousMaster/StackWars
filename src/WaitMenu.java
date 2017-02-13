@@ -96,14 +96,11 @@ public class WaitMenu extends JPanel {
 				}
 				add(menu);	
 			}
-<<<<<<< HEAD
-=======
 			else if(e.getSource() == start)
 			{
 				new Game();
 			}
->>>>>>> initial commit
-				
+
 		}
 
 	}
