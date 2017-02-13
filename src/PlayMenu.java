@@ -22,7 +22,7 @@ public class PlayMenu extends JPanel {
 		GridBagConstraints c = new GridBagConstraints();
 		joinButton = new JButton("Join");
 		hostButton = new JButton("Host");
-		backButton = new JButton("back");
+		backButton = new JButton("Back");
 		
 		joinButton.addActionListener(new Handler());
 		hostButton.addActionListener(new Handler());
