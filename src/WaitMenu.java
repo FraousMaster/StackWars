@@ -1,4 +1,4 @@
-import java.awt.*;
+ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
@@ -13,8 +13,10 @@ public class WaitMenu extends JPanel {
 	private JLabel p4;
 	private JButton start;
 	private JButton back;
+	private int cameFrom;
 	
-	public WaitMenu(){
+	public WaitMenu(int from){
+		this.cameFrom = from;
 		setLayout(new GridBagLayout());
 		create();
 		
@@ -81,12 +83,17 @@ public class WaitMenu extends JPanel {
 	}
 	
 	public class Handler implements ActionListener {
-
+		LobbyMenu menu;
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if(e.getSource() == back){
 				remove();
-				LobbyMenu menu = new LobbyMenu(0);
+				if(cameFrom == 0){
+				 menu = new LobbyMenu(0);
+				}
+				else{
+				 menu = new LobbyMenu(1);
+				}
 				add(menu);	
 			}
 				

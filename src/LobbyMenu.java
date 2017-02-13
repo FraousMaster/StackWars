@@ -177,14 +177,14 @@ public class LobbyMenu extends JPanel {
 			}	
 			else if(e.getSource() == gameButton ){
 				remove();
-				WaitMenu menu = new WaitMenu();
+				WaitMenu menu = new WaitMenu(0);
 				add(menu);
 				
 				
 			}	
 			else if(e.getSource() == joinButton ){
 				remove();
-				WaitMenu menu = new WaitMenu();
+				WaitMenu menu = new WaitMenu(1);
 				add(menu);
 				
 			}
