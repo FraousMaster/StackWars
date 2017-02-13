@@ -11,5 +11,8 @@ public class Game {
         gamView = new GameView();
         gamController = new GameController();
     }
+    private void getnull(){
+        
+    }
 
 }
