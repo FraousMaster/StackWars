@@ -16,10 +16,7 @@ public class Menu extends JFrame {
 	final PlayMenu playMenu = new PlayMenu();
 	final StartMenu startMenu = new StartMenu();
 	
-	public Menu(int fromState,int toState){
-		this.menuState = toState;
-		this.previous = fromState;
-
+	public Menu(){
 		frame();
 		add(startMenu);
 	}

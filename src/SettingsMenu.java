@@ -5,8 +5,11 @@ import javax.swing.*;
 
 public class SettingsMenu extends JPanel {
 
-	private JButton AudioButton;
+
 	private JButton backButton;
+	private JComboBox volume;
+	private final String[] volSet = {"Volume","1","2","3","4","5"};
+	private String VOL;
 	
 	public SettingsMenu(){
 		setLayout(new GridBagLayout());
@@ -15,19 +18,20 @@ public class SettingsMenu extends JPanel {
 	
 	private void buttons(){
 		GridBagConstraints c = new GridBagConstraints();
-		AudioButton = new JButton("Audio");
+		volume = new JComboBox(volSet);
 		backButton = new JButton("Back");
 		
-		AudioButton.addActionListener(new Handler());
+		
+		volume.addActionListener(new Handler());
 		backButton.addActionListener(new Handler());
-		AudioButton.setPreferredSize(new Dimension(100, 50));
+		volume.setPreferredSize(new Dimension(100, 50));
 		backButton.setPreferredSize(new Dimension(100, 50));
 
 		
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 3;
 		c.gridy = 0;
-		add(AudioButton, c);
+		add(volume, c);
 	
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 3;
@@ -35,7 +39,12 @@ public class SettingsMenu extends JPanel {
 		add(backButton, c);
 	}
 	
-	public void remove(){
+	private void returnVol(String input){
+		this.VOL = input;
+		System.out.println(VOL);
+	}
+	
+	private void remove(){
 		this.removeAll();
 		this.revalidate();
 		this.repaint();
@@ -50,8 +59,9 @@ public class SettingsMenu extends JPanel {
 				StartMenu menu = new StartMenu();
 				add(menu);
 			}
-			else if(e.getSource() == AudioButton ){
-					
+			else if(e.getSource() == volume ){
+				String value = volume.getSelectedItem().toString();
+				returnVol(value);
 			
 			}
 				

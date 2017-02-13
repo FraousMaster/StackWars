@@ -6,50 +6,62 @@ import javax.swing.*;
 
 public class LobbyMenu extends JPanel {
 
-	private JButton ipButton;
-	private JButton nameButton;
-	private JButton antButton;
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private JTextField ipField;
+	private JTextField nameField;
+	@SuppressWarnings("rawtypes")
+	private JComboBox antBox;
 	private JButton mapButton;
 	private JButton gameButton;
 	private JButton backButton;
 	private JButton joinButton;
+	private String IP_ADDRESS;
+	private String NAME;
+	private String antNr;
+	private final String[] ants = {"Ants","5","6","7","8","9","10"};
 
 	
-	public LobbyMenu(int x){
+	public LobbyMenu(int to){
 		setLayout(new GridBagLayout());
-		if(x == 0){
+		if(to == 0){
 		settings();
 		}
 		else{
 		joinSettings();
 		}
 	}
+
+	
 	private void joinSettings(){
 		GridBagConstraints c = new GridBagConstraints();
-		ipButton = new JButton("Ip Address");
-		nameButton = new JButton("Name");
+		ipField = new JTextField("Ip Address");
+		nameField = new JTextField("Name");
 		joinButton = new JButton("Join");
 		backButton = new JButton("Back");
 		
-		ipButton.addActionListener(new Handler());
-		nameButton.addActionListener(new Handler());
+		ipField.addActionListener(new Handler());
+		nameField.addActionListener(new Handler());
 		joinButton.addActionListener(new Handler());
 		backButton.addActionListener(new Handler());
 		
-		ipButton.setPreferredSize(new Dimension(100, 50));
-		nameButton.setPreferredSize(new Dimension(100, 50));
+		ipField.setPreferredSize(new Dimension(100, 50));
+		nameField.setPreferredSize(new Dimension(100, 50));
 		joinButton.setPreferredSize(new Dimension(100, 50));
 		backButton.setPreferredSize(new Dimension(100, 50));
 		
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 3;
 		c.gridy = 0;
-		add(ipButton, c);
+		add(ipField, c);
 		
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 3;
 		c.gridy = 1;
-		add(nameButton, c);
+		add(nameField, c);
 		
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 3;
@@ -65,23 +77,23 @@ public class LobbyMenu extends JPanel {
 	private void settings(){
 		GridBagConstraints c = new GridBagConstraints();
 		
-		ipButton = new JButton("Ip Address");
-		nameButton = new JButton("Name");
-		antButton = new JButton("Ants");
+		ipField = new JTextField("Ip Address");
+		nameField = new JTextField("Name");
+		antBox = new JComboBox(ants);
 		mapButton = new JButton("Map");
 		gameButton = new JButton("Create Game");
 		backButton = new JButton("Back");
 		
-		ipButton.addActionListener(new Handler());
-		nameButton.addActionListener(new Handler());
-		antButton.addActionListener(new Handler());
+		ipField.addActionListener(new Handler());
+		nameField.addActionListener(new Handler());
+		antBox.addActionListener(new Handler());
 		mapButton.addActionListener(new Handler());
 		gameButton.addActionListener(new Handler());
 		backButton.addActionListener(new Handler());
 		
-		ipButton.setPreferredSize(new Dimension(100, 50));
-		nameButton.setPreferredSize(new Dimension(100, 50));
-		antButton.setPreferredSize(new Dimension(100, 50));
+		ipField.setPreferredSize(new Dimension(100, 50));
+		nameField.setPreferredSize(new Dimension(100, 50));
+		antBox.setPreferredSize(new Dimension(100, 50));
 		mapButton.setPreferredSize(new Dimension(100, 50));
 		gameButton.setPreferredSize(new Dimension(150, 50));
 		backButton.setPreferredSize(new Dimension(100, 50));
@@ -90,17 +102,17 @@ public class LobbyMenu extends JPanel {
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 3;
 		c.gridy = 0;
-		add(ipButton, c);
+		add(ipField, c);
 	
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 3;
 		c.gridy = 1;
-		add(nameButton, c);
+		add(nameField, c);
 		
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 3;
 		c.gridy = 2;
-		add(antButton, c);
+		add(antBox, c);
 		
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 3;
@@ -118,6 +130,23 @@ public class LobbyMenu extends JPanel {
 		add(backButton, c);
 	}
 	
+	private void returnIP(String input){
+		this.IP_ADDRESS = input;
+		System.out.println(IP_ADDRESS);
+		
+	}
+	
+	private void returnName(String input){
+		this.NAME = input;
+		System.out.println(NAME);
+		
+	}
+	
+	private void returnAnts(String input){
+		this.antNr = input;
+		System.out.println(antNr);
+	}
+	
 	public void remove(){
 		this.removeAll();
 		this.revalidate();
@@ -133,24 +162,30 @@ public class LobbyMenu extends JPanel {
 				PlayMenu menu = new PlayMenu();
 				add(menu);
 			}
+			else if(e.getSource() == ipField ){
+				String input = ipField.getText();
+				returnIP(input);
+			}
+			else if(e.getSource() == nameField ){
+				String input = nameField.getText();
+				returnName(input);
+			}
+			else if(e.getSource() == antBox ){
+				String value = antBox.getSelectedItem().toString();
+				returnAnts(value);
+				
+			}	
 			else if(e.getSource() == gameButton ){
-					
-			
-			}
-			else if(e.getSource() == antButton ){
-				
-				
-			}
-			else if(e.getSource() == antButton ){
+				remove();
+				WaitMenu menu = new WaitMenu();
+				add(menu);
 				
 				
 			}	
-			else if(e.getSource() == antButton ){
-				
-				
-			}	
-			else if(e.getSource() == antButton ){
-				
+			else if(e.getSource() == joinButton ){
+				remove();
+				WaitMenu menu = new WaitMenu();
+				add(menu);
 				
 			}
 				
