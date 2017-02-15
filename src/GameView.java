@@ -1,23 +1,30 @@
 import java.awt.EventQueue;
 import java.awt.*;
 import java.awt.event.*;
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import javax.swing.*;
 
 public class GameView {
 
-    public GameView(){
+    private GameState gameState;
+
+    public GameView(GameState gameState){
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new GameFrame();
             }
         });
+        this.gameState = gameState;
     }
 
 
     public class GameFrame extends JFrame {
 
-        private static final int D_W = 2000;
-        private static final int D_H = 2000;
+        private static final int D_W = 1920;
+        private static final int D_H = 1080;
         int x = 0;
         int y = 0;
 
@@ -26,15 +33,15 @@ public class GameView {
         public GameFrame() {
             ActionListener listener = new AbstractAction() {
                 public void actionPerformed(ActionEvent e) {
-                    if (x >= D_W) {
-                        x = 0;
-                        drawPanel.repaint();
+                   for(Ant a : gameState.getUppdates()) {
+                        if (a.getPosX() >= D_W) {
+                            a.setPos(0,a.getPosY());
+                            drawPanel.repaint();
+                        } else {
+                            a.setPos(a.getPosX() + 1, a.getPosY()+ 1);
+                            drawPanel.repaint();
+                        }
                     }
-                    else {
-                        x += 10;
-                        drawPanel.repaint();
-                    }
-
                 }
             };
             Timer timer = new Timer(10, listener);
@@ -48,11 +55,27 @@ public class GameView {
         }
 
         private class DrawPanel extends JPanel {
-
+            private BufferedImage image;
             protected void paintComponent(Graphics g) {
+                try {
+                    image = ImageIO.read(new File("Graphics\\Map.png"));
+                }
+                catch(IOException e)
+                {
+                    e.printStackTrace();
+                }
                 super.paintComponent(g);
-                g.setColor(Color.GREEN);
-                g.fillRect(x, y, 50, 50);
+                g.drawImage(image, 0, 0, 1920, 1080, null);
+                try {
+                    image = ImageIO.read(new File("Graphics\\Ant\\AntV4.png"));
+                }
+                catch(IOException e)
+                {
+                    e.printStackTrace();
+                }
+                for(Ant a : gameState.getUppdates()) {
+                    g.drawImage(image, a.getPosX(), a.getPosY(), 82, 70, null);
+                }
             }
 
             public Dimension getPreferredSize() {
