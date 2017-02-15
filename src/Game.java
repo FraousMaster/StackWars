@@ -1,18 +1,14 @@
-import java.lang.reflect.GenericArrayType;
-
-/**
- * Created by Frost on 2017-02-13.
- */
 public class Game {
     private GameView gamView;
     private GameController gamController;
+    private GameState gamState;
 
     public Game(){
-        gamView = new GameView();
         gamController = new GameController();
+        gamState = new GameState();
+        gamView = new GameView(gamState);
     }
     private void getnull(){
-        
-    }
 
+    }
 }
