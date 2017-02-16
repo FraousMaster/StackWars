@@ -2,6 +2,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+
 import javax.swing.*;
 
 public class LobbyMenu extends JPanel {
@@ -24,14 +25,16 @@ public class LobbyMenu extends JPanel {
 	private String antNr;
 	private final String[] ants = {"Ants","5","6","7","8","9","10"};
 
+
 	
 	public LobbyMenu(int to){
 		setLayout(new GridBagLayout());
 		if(to == 0){
-		settings();
+		hostSettings();
 		}
 		else{
 		joinSettings();
+		
 		}
 	}
 
@@ -74,7 +77,10 @@ public class LobbyMenu extends JPanel {
 		add(backButton, c);
 	}
 	
-	private void settings(){
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	private void hostSettings(){
+		
+		
 		GridBagConstraints c = new GridBagConstraints();
 		
 		ipField = new JTextField("Ip Address");
@@ -130,10 +136,12 @@ public class LobbyMenu extends JPanel {
 		add(backButton, c);
 	}
 	
-	private void returnIP(String input){
+	private void setIP(String input){
 		this.IP_ADDRESS = input;
-		System.out.println(IP_ADDRESS);
-		
+	}
+	
+	public String returnIP(){
+		return IP_ADDRESS;
 	}
 	
 	private void returnName(String input){
@@ -153,6 +161,18 @@ public class LobbyMenu extends JPanel {
 		this.repaint();
 	}
 	
+	private void createHost(){
+		WaitMenu menu = new WaitMenu(0, NAME, this );
+		add(menu);
+		
+	}
+	
+    private void createClient(){
+    	WaitMenu menu = new WaitMenu(1, NAME, this );	
+		add(menu);
+		
+	}
+	
 	public class Handler implements ActionListener {
 
 		@Override
@@ -164,7 +184,7 @@ public class LobbyMenu extends JPanel {
 			}
 			else if(e.getSource() == ipField ){
 				String input = ipField.getText();
-				returnIP(input);
+				setIP(input);
 			}
 			else if(e.getSource() == nameField ){
 				String input = nameField.getText();
@@ -177,20 +197,21 @@ public class LobbyMenu extends JPanel {
 			}	
 			else if(e.getSource() == gameButton ){
 				remove();
-				WaitMenu menu = new WaitMenu(0);
-				add(menu);
-				
-				
+				createHost();
 			}	
 			else if(e.getSource() == joinButton ){
 				remove();
-				WaitMenu menu = new WaitMenu(1);
-				add(menu);
-				
-			}
+				createClient();
+					}
 				
 				
+		
+			
+			
 		}
 	}
-	
 }
+
+
+	
+
