@@ -1,7 +1,7 @@
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import java.net.UnknownHostException;
 
 import javax.swing.*;
 
@@ -38,6 +38,9 @@ public class LobbyMenu extends JPanel {
 		}
 	}
 
+	public String getName(){
+		return NAME;
+	}
 	
 	private void joinSettings(){
 		GridBagConstraints c = new GridBagConstraints();
@@ -90,8 +93,6 @@ public class LobbyMenu extends JPanel {
 		gameButton = new JButton("Create Game");
 		backButton = new JButton("Back");
 		
-		ipField.addActionListener(new Handler());
-		nameField.addActionListener(new Handler());
 		antBox.addActionListener(new Handler());
 		mapButton.addActionListener(new Handler());
 		gameButton.addActionListener(new Handler());
@@ -146,13 +147,11 @@ public class LobbyMenu extends JPanel {
 	
 	private void returnName(String input){
 		this.NAME = input;
-		System.out.println(NAME);
 		
 	}
 	
 	private void returnAnts(String input){
 		this.antNr = input;
-		System.out.println(antNr);
 	}
 	
 	public void remove(){
@@ -161,14 +160,14 @@ public class LobbyMenu extends JPanel {
 		this.repaint();
 	}
 	
-	private void createHost(){
-		WaitMenu menu = new WaitMenu(0, NAME, this );
+	private void createHost() throws UnknownHostException{
+		WaitMenu menu = new WaitMenu(0, this );
 		add(menu);
 		
 	}
 	
-    private void createClient(){
-    	WaitMenu menu = new WaitMenu(1, NAME, this );	
+    private void createClient() throws UnknownHostException{
+    	WaitMenu menu = new WaitMenu(1, this );	
 		add(menu);
 		
 	}
@@ -182,27 +181,34 @@ public class LobbyMenu extends JPanel {
 				PlayMenu menu = new PlayMenu();
 				add(menu);
 			}
-			else if(e.getSource() == ipField ){
-				String input = ipField.getText();
-				setIP(input);
-			}
-			else if(e.getSource() == nameField ){
-				String input = nameField.getText();
-				returnName(input);
-			}
 			else if(e.getSource() == antBox ){
 				String value = antBox.getSelectedItem().toString();
-				returnAnts(value);
-				
+				returnAnts(value);	
 			}	
 			else if(e.getSource() == gameButton ){
+				String input2 = nameField.getText();
+				returnName(input2);
 				remove();
-				createHost();
+				try {
+					createHost();
+				} catch (UnknownHostException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}	
 			else if(e.getSource() == joinButton ){
+				String input2 = nameField.getText();
+				returnName(input2);
+				String input = ipField.getText();
+				setIP(input);
 				remove();
-				createClient();
-					}
+				try {
+					createClient();
+				} catch (UnknownHostException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
 				
 				
 		

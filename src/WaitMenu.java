@@ -1,5 +1,9 @@
  import java.awt.*;
 import java.awt.event.*;
+import java.net.SocketException;
+import java.net.UnknownHostException;
+import java.util.LinkedList;
+
 import javax.swing.*;
 
 public class WaitMenu extends JPanel {
@@ -11,10 +15,6 @@ public class WaitMenu extends JPanel {
 	private JLabel p2;
 	private JLabel p3;
 	private JLabel p4;
-	private String HOSTish = null;
-	private String p2name ="Waiting...";
-	private String p3name ="Waiting...";
-	private String p4name ="Waiting...";
 	private JButton start;
 	private JButton back;
 	private int cameFrom;
@@ -22,66 +22,64 @@ public class WaitMenu extends JPanel {
 	private Client client;
 	private LobbyMenu lMenu;
 	
-	public WaitMenu(int from, String host, LobbyMenu menu){
+	public WaitMenu(int from, LobbyMenu menu) throws UnknownHostException{
+		String IP = null;
 		this.lMenu = menu;
-		this.HOSTish = host;
 		this.cameFrom = from;
 		setLayout(new GridBagLayout());
 		create();
 		
 		if(from == 0){
 		try {
-			server = new Server(HOSTish, this);
+			IP = lMenu.returnIP();
+			server = new Server();
 			server.start();
+			client = new Client(IP , menu.getName(), this);
+			client.start();
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
 		}
 		if(from == 1){
-			String IP = null;
 			IP = lMenu.returnIP();
-			client = new Client(IP , HOSTish, this);
-			client.run();
+			try {
+				client = new Client(IP , menu.getName(), this);
+			} catch (SocketException e) {
+				e.printStackTrace();
+			}
+			client.start();
 			
 		}
+	}
+
 	
-	}
-	public String getHOST(){
-		return HOSTish;
-	}
-	
-	public void setHOST(String name){
-		p1.setText(name);
-		
-	}
-	public void setNames(String name){
-		if(p1.equals(null)){
-			p1.setText(name);
+	public void setPlayers(String name){
+		if(p1.getText().equals("Waiting...")){
+			p1.setText(name);	
 		}
-		if(p2.equals("Waiting...")){
-			p2.setText(name);
-			 
-		 }
+
+	    else if(p2.getText().equals("Waiting...")){
+			p2.setText(name);	
+		}
+
+	  else if(p3.getText().equals("Waiting...")){
+			p3.setText(name);	
+		}
+	else if(p4.getText().equals("Waiting...")){
+			p4.setText(name);	
+		}
 	}
 	
-	public void setP2(String py2){
-		p2.setText(py2);
-	}
-	public void setP3(String p3){
-		this.p3name = p3;
-	}
-	public void setP4(String p4){
-		this.p4name = p4;
-	}
-
-
+	
+	
+	
 	
 	private void create(){
 		GridBagConstraints c = new GridBagConstraints();
-		p1 = new JLabel(HOSTish);
-		p2 = new JLabel(p2name);
-		p3 = new JLabel(p3name);
-		p4 = new JLabel(p4name);
+		p1 = new JLabel("Waiting...");
+		p2 = new JLabel("Waiting...");
+		p3 = new JLabel("Waiting...");
+		p4 = new JLabel("Waiting...");
 		start = new JButton("Start");
 		back = new JButton("Back");
 		
@@ -138,15 +136,7 @@ public class WaitMenu extends JPanel {
 	}
 
 
-	public void setP2name(String p2name) {
-		this.p2name = p2name;
-	}
-	public void setP3name(String p3name) {
-		this.p3name = p3name;
-	}
-	public void setP4name(String p4name) {
-		this.p4name = p4name;
-	}
+
 
 	public class Handler implements ActionListener {
 		LobbyMenu menu;

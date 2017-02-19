@@ -6,6 +6,10 @@ import javax.swing.*;
 public class StartMenu extends JPanel {
 	
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JButton startButton;
 	private JButton optionsButton;
 	private JButton creditsButton;
