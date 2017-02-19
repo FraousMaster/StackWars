@@ -28,7 +28,7 @@ public class Client extends Thread{
 		
 			try {
 				
-				host = InetAddress.getByName("65.99.151.33");
+				host = InetAddress.getByName(IP_ADDRESS);
 				
 				clientSocket.setSoTimeout(500);
 				SendMessage = name;
