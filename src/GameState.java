@@ -1,8 +1,5 @@
-<<<<<<< HEAD
- import java.util.ArrayList;
-=======
 import java.util.ArrayList;
->>>>>>> 9b7b0c82e943d14319b62ef8609f8c30d4dbd02a
+
 
 public class GameState {
 
