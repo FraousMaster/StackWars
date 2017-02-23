@@ -80,10 +80,11 @@ public class Client extends Thread{
 					System.out.println("This was received from multi: " + messageReceived);	
 					new Player(messageReceived).run();
 					
-					System.out.println("not entered startpressed");
-					if(menu.startPressed()){
 					
-						new Game();
+					if(menu.startPressed()){
+						System.out.println(" entered startpressed" + menu.startPressed());
+				
+						//new Game();
 	
 					}
 			 }
@@ -94,6 +95,7 @@ public class Client extends Thread{
  
 	public class Player extends Thread {
 		String name;
+
 		
 		public Player(String player){
 			this.name = player;
