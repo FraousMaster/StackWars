@@ -5,10 +5,13 @@ import javax.swing.*;
 
 public class SettingsMenu extends JPanel {
 
+<<<<<<< HEAD
 
 	/**
 	 * 
 	 */
+=======
+>>>>>>> Devel
 	private static final long serialVersionUID = 1L;
 	private JButton backButton;
 	private JComboBox volume;

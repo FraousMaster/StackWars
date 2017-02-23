@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 
+
 public class GameState {
 
     private ArrayList<Ant> ants;
