@@ -34,7 +34,5 @@ public class GameState extends Observable{
     public void uppdateGameState(Observable o, ArrayList<Ant> a){
         ants = a;
     }
-
-    
 }
 
