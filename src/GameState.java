@@ -27,12 +27,6 @@ public class GameState extends Observable{
     public ArrayList<Stack> getStacks()
     {
     	return stacks;
-    }
-    
-    public void uppdateGameState(Observable o, ArrayList<Ant> a){
-        ants = a;
-    }
-
-    
+    } 
 }
 

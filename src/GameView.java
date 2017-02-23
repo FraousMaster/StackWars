@@ -5,9 +5,12 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Observable;
+import java.util.Observer;
+
 import javax.swing.*;
 
-public class GameView {
+public class GameView extends Observable implements Observer{
 
     private GameState gameState;
 
@@ -31,22 +34,14 @@ public class GameView {
         DrawPanel drawPanel = new DrawPanel();
 
         public GameFrame() {
-            ActionListener listener = new AbstractAction() {
-                public void actionPerformed(ActionEvent e) {
-                   for(Ant a : gameState.getUppdates()) {
-                        if (a.getPosX() >= D_W) {
-                            a.setPos(0,a.getPosY());
-                            drawPanel.repaint();
-                        } else {
-                            a.setPos(a.getPosX() + 1, a.getPosY()+ 1);
-                            drawPanel.repaint();
-                        }
-                    }
-                }
-            };
-            Timer timer = new Timer(10, listener);
-            timer.start();
-
+            drawPanel.addMouseListener(new MouseAdapter(){
+            	public void mouseClicked(MouseEvent e)
+            	{
+            		System.out.println("Hellow world this is working");
+            		setChanged();
+            		notifyObservers();
+            	}
+            });
             add(drawPanel);
             pack();
             setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -88,6 +83,15 @@ public class GameView {
             }
         }
     }
+
+
+	@Override
+	public void update(Observable o, Object arg1) {
+		if(o == gameState)
+		{
+			
+		}
+	}
 
 }
 
