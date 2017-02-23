@@ -1,12 +1,9 @@
-<<<<<<< HEAD
-import java.util.ArrayList;
 
-=======
+import java.util.ArrayList;
  import java.util.ArrayList;
  import java.util.*;
  import java.util.ArrayList;
  import java.util.*;
->>>>>>> e0c7c80f0b7a80695ecf8ed9c9d20b9358e27020
 
 public class GameState extends Observable{
 
