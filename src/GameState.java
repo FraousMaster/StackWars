@@ -1,10 +1,13 @@
  import java.util.ArrayList;
+ import java.util.*;
 
-public class GameState {
+public class GameState extends Observable{
 
     private ArrayList<Ant> ants;
+    private ArrayList<Stack> stacks;
     public GameState(){
         ants = new ArrayList<Ant>();
+        stacks = new ArrayList<Stack>();
         initGame();
     }
 
@@ -18,7 +21,7 @@ public class GameState {
         return ants;
     }
 
-    public void uppdateGameState(ArrayList<Ant> a){
+    public void uppdateGameState(Observable o, ArrayList<Ant> a){
         ants = a;
     }
 
