@@ -13,9 +13,8 @@ public class Client extends Thread{
 	private LobbyMenu menu;
 	private String messageReceived;
 	private LinkedList<String> players ;
-	private boolean gameGo = true;
-	private ArrayList<Ant> ants;
-	private GameState state;
+	private boolean Lobby = true;
+	private MulticastSocket multiSocket;
 	
 	@SuppressWarnings("static-access")
 	public Client(String IP, String name, LobbyMenu menu) throws SocketException{
@@ -24,7 +23,7 @@ public class Client extends Thread{
 		this.menu = menu;
 		players = new LinkedList<String>();
 		clientSocket = new DatagramSocket();	
-		state.initGame();
+	
 	}
 	
 	 public void run(){
@@ -42,13 +41,14 @@ public class Client extends Thread{
 				System.out.println("This was sent from clientsocket: " + SendMessage);
 		
 				try{
-				while(true){
+				while(Lobby){
 				
 				DatagramPacket receivethis = new DatagramPacket(receiveData, receiveData.length);
 				clientSocket.receive(receivethis);
 				byte[] data = receivethis.getData();
 				messageReceived = new String(data, 0, receivethis.getLength());
 				new Player(messageReceived).start();
+				
 						}
 				} catch (SocketTimeoutException e) {
 					System.out.println("socket timeout");
@@ -59,7 +59,8 @@ public class Client extends Thread{
 		} catch (IOException e) {
 		e.printStackTrace();
 	}
-	 }
+}
+	 
 
 	 private void multicastInit() throws UnknownHostException{
 		 DatagramPacket receivePacket = new DatagramPacket(receiveData,receiveData.length);
@@ -69,15 +70,22 @@ public class Client extends Thread{
 		try {
 			address = InetAddress.getByName(INET_ADDR);
 
-			 MulticastSocket multiSocket = new MulticastSocket(8888);
+			 multiSocket = new MulticastSocket(8888);
 			 multiSocket.joinGroup(address);
-			 while(gameGo){
+			 while(Lobby){
 				 	receiveData = receivePacket.getData();
 				 	multiSocket.receive(receivePacket);
 					messageReceived = new String(receiveData, 0 ,receivePacket.getLength() );
 
 					System.out.println("This was received from multi: " + messageReceived);	
 					new Player(messageReceived).run();
+					
+					System.out.println("not entered startpressed");
+					if(menu.startPressed()){
+					
+						new Game();
+	
+					}
 			 }
 		}catch (IOException e) {
 			e.printStackTrace();

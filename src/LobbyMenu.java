@@ -21,6 +21,7 @@ public class LobbyMenu extends JPanel {
 	private Server server;
 	private Client client;
 	private GameMenu lMenu;
+	private boolean started = false;
 	
 	public LobbyMenu(int from, GameMenu menu) throws UnknownHostException{
 		String IP = null;
@@ -135,6 +136,10 @@ public class LobbyMenu extends JPanel {
 		this.repaint();
 	}
 
+	public boolean startPressed(){
+		started = true;
+		return started;
+	}
 
 
 
@@ -154,7 +159,7 @@ public class LobbyMenu extends JPanel {
 			}
 			else if(e.getSource() == start)
 			{
-				new Game();
+				startPressed();
 			}
 				
 		}
