@@ -55,9 +55,7 @@ public class GameView {
         }
 
         private class DrawPanel extends JPanel {
-            /**
-			 * 
-			 */
+
 			private static final long serialVersionUID = 1L;
 			private BufferedImage image;
             protected void paintComponent(Graphics g) {
@@ -70,14 +68,15 @@ public class GameView {
                 }
                 super.paintComponent(g);
                 g.drawImage(image, 0, 0, 1920, 1080, null);
-                try {
-                    image = ImageIO.read(new File("Graphics\\Ant\\AntV4.png"));
-                }
-                catch(IOException e)
+                
+                for(Stack s : gameState.getStacks())
                 {
-                    e.printStackTrace();
+                	image = s.getImage();
+                	g.drawImage(image, s.getX(), s.getY(), 82, 70, null);
                 }
+                
                 for(Ant a : gameState.getUppdates()) {
+                	image = a.getImage();
                     g.drawImage(image, a.getPosX(), a.getPosY(), 82, 70, null);
                 }
             }
@@ -89,3 +88,4 @@ public class GameView {
     }
 
 }
+

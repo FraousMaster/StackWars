@@ -3,9 +3,7 @@ import javax.swing.*;
 
 public class Menu extends JFrame {
 	
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	final StartMenu startMenu = new StartMenu();
 	
