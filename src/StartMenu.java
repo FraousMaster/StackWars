@@ -75,7 +75,11 @@ public class StartMenu extends JPanel {
 				add(menu);
 			}
 			else if(e.getSource() == creditsButton){
+<<<<<<< HEAD
 				new Credits();
+=======
+				new Game();
+>>>>>>> origin/JohannesBranchv2
 			}
 			else if(e.getSource() == exitButton){
 					System.exit(0);

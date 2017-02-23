@@ -28,7 +28,8 @@ public class Stack extends JComponent{
         catch (IOException e)
         {
             e.printStackTrace();
-        }
+        } 
+     
     }
 
     public BufferedImage getImage()

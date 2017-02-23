@@ -1,9 +1,8 @@
  import java.awt.*;
 import java.awt.event.*;
 import java.net.SocketException;
+import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
-import java.util.LinkedList;
-
 import javax.swing.*;
 
 public class LobbyMenu extends JPanel {
@@ -19,7 +18,11 @@ public class LobbyMenu extends JPanel {
 	private Server server;
 	private Client client;
 	private GameMenu lMenu;
+<<<<<<< HEAD
 	private boolean started = false;
+=======
+	private boolean isPressed = false;
+>>>>>>> origin/JohannesBranchv2
 	
 	public LobbyMenu(int from, GameMenu menu) throws UnknownHostException{
 		String IP = null;
@@ -28,7 +31,7 @@ public class LobbyMenu extends JPanel {
 		setLayout(new GridBagLayout());
 		create();
 		
-		if(from == 0){
+		if(from == 0){ 
 		try {
 			IP = lMenu.returnIP();
 			server = new Server();
@@ -68,10 +71,6 @@ public class LobbyMenu extends JPanel {
 			p4.setText(name);	
 		}
 	}
-	
-	
-	
-	
 	
 	private void create(){
 		GridBagConstraints c = new GridBagConstraints();
@@ -133,6 +132,14 @@ public class LobbyMenu extends JPanel {
 		this.revalidate();
 		this.repaint();
 	}
+	
+	public boolean startPressed(){
+		isPressed = true;
+	
+		System.out.println(isPressed);
+		return isPressed;
+		
+	}
 
 	public boolean startPressed(){
 		started = true;
@@ -158,6 +165,15 @@ public class LobbyMenu extends JPanel {
 			else if(e.getSource() == start)
 			{
 				startPressed();
+<<<<<<< HEAD
+=======
+				try {
+					client.sendData("start");
+				} catch (SocketTimeoutException | SocketException | UnknownHostException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} 
+>>>>>>> origin/JohannesBranchv2
 			}
 				
 		}
