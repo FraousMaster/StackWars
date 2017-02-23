@@ -1,9 +1,11 @@
 import java.util.*;
 import java.awt.*;
+import java.awt.event.MouseEvent;
 
 public class GameController implements Observer{
 	private GameView gameView = null;
 	private GameState gameState = null;
+	private Stack stackSelected;
 	public GameController(GameView gameView, GameState gameState)
 	{
 		this.gameView = gameView;
@@ -13,24 +15,48 @@ public class GameController implements Observer{
 	public void update(Observable o, Object arg) {
 		if(o == gameView)
 		{
-			System.out.println("Something happened in GameView");
-			
-			if(arg.equals(new Point()))
+			System.out.println("Something happened in GameView" + arg);
+			try
 			{
-				Point point = (Point) arg;
+				MouseEvent mouseClick = (MouseEvent)arg;
+				Point point = new Point(mouseClick.getX(),mouseClick.getY());
+				
+				System.out.println("Hellow");
 				for(Stack s : gameState.getStacks())
 				{
-					if(point.getX() == s.getX())
+					System.out.println("This is stacks position: " + s.getX() + " " + s.getY());
+					
+					if(point.getX() >= s.getX() && point.getX() <= (s.getX() + 96) && 
+					   point.getY() >= s.getY() && point.getY() <= (s.getY() + 54))
 					{
-						System.out.println("hellow");
+						
+						
+						if(mouseClick.getButton() == 1)
+						{
+							this.stackSelected = s;
+							System.out.println("Shows the menu for this stack");
+						}
+						else if(mouseClick.getButton() == 3)
+						{
+							System.out.println("Trying to move to this stack");
+							gameState.uppdateGameState(new Ant(stackSelected.getX() + 96, stackSelected.getY() + 54, 1));
+						}
+						
+						System.out.println("This is truly a stack!");
 					}
 				}
 			}
+			catch(Exception e)
+			{
+				e.printStackTrace();
+			}
+			
+			
 			gameState.moveStack();
 		}
 		if(o == gameState)
 		{
-			//System.out.println("Something happened in GameState");
+			gameView.updateFrame();
 			
 		}
 	}
