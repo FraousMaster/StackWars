@@ -21,15 +21,17 @@ public class Client extends Thread{
 		players = new LinkedList<String>();
 		clientSocket = new DatagramSocket();	
 		
+		
 	}
 	
 	 public void run(){
 		 InetAddress host;
+		 
 		
 			try {
 				
-				host = InetAddress.getByName(IP_ADDRESS);
 				
+				host = InetAddress.getByName(IP_ADDRESS);
 				clientSocket.setSoTimeout(500);
 				SendMessage = name;
 				sendData = SendMessage.getBytes();
@@ -45,16 +47,36 @@ public class Client extends Thread{
 				byte[] data = receivethis.getData();
 				messageReceived = new String(data, 0, receivethis.getLength());
 				new Player(messageReceived).start();
+		
 						}
 				} catch (SocketTimeoutException e) {
 					System.out.println("socket timeout");
 					multicastInit();
+					
 				    }
 				} catch (SocketTimeoutException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 		e.printStackTrace();
 	}
+			
+}
+	 public void sendData(String x) throws SocketTimeoutException, SocketException, UnknownHostException{
+		 try{
+			 
+			clientSocket.setSoTimeout(500);
+			SendMessage = x;
+			sendData = SendMessage.getBytes();
+			DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, InetAddress.getByName(IP_ADDRESS), 1203);
+		 	clientSocket.send(sendPacket);
+			System.out.println("This was sent from clientsocket: " + SendMessage);
+		
+		 }catch (IOException e) {
+			 e.printStackTrace();
+		 }
+		 
+		 
+		 
 	 }
 
 	 private void multicastInit() throws UnknownHostException{
@@ -67,13 +89,26 @@ public class Client extends Thread{
 
 			 MulticastSocket multiSocket = new MulticastSocket(8888);
 			 multiSocket.joinGroup(address);
+			 
+			
 			 while(gameGo){
 				 	receiveData = receivePacket.getData();
 				 	multiSocket.receive(receivePacket);
 					messageReceived = new String(receiveData, 0 ,receivePacket.getLength() );
 
 					System.out.println("This was received from multi: " + messageReceived);	
-					new Player(messageReceived).run();
+					if(!(messageReceived.equals("start"))){
+					new Player(messageReceived).start();
+					}
+					else if(messageReceived.equals("start")){
+						
+						System.out.println("entered start");
+						new Game();
+					}
+				
+						
+						
+					
 			 }
 		}catch (IOException e) {
 			e.printStackTrace();

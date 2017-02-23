@@ -1,9 +1,8 @@
  import java.awt.*;
 import java.awt.event.*;
 import java.net.SocketException;
+import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
-import java.util.LinkedList;
-
 import javax.swing.*;
 
 public class LobbyMenu extends JPanel {
@@ -21,6 +20,7 @@ public class LobbyMenu extends JPanel {
 	private Server server;
 	private Client client;
 	private GameMenu lMenu;
+	private boolean isPressed = false;
 	
 	public LobbyMenu(int from, GameMenu menu) throws UnknownHostException{
 		String IP = null;
@@ -69,10 +69,6 @@ public class LobbyMenu extends JPanel {
 			p4.setText(name);	
 		}
 	}
-	
-	
-	
-	
 	
 	private void create(){
 		GridBagConstraints c = new GridBagConstraints();
@@ -134,6 +130,14 @@ public class LobbyMenu extends JPanel {
 		this.revalidate();
 		this.repaint();
 	}
+	
+	public boolean startPressed(){
+		isPressed = true;
+	
+		System.out.println(isPressed);
+		return isPressed;
+		
+	}
 
 
 
@@ -154,7 +158,13 @@ public class LobbyMenu extends JPanel {
 			}
 			else if(e.getSource() == start)
 			{
-				new Game();
+				startPressed();
+				try {
+					client.sendData("start");
+				} catch (SocketTimeoutException | SocketException | UnknownHostException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} 
 			}
 				
 		}
