@@ -66,13 +66,13 @@ public class PlayMenu extends JPanel {
 			}
 			else if(e.getSource() == joinButton ){
 				remove();
-				LobbyMenu menu = new LobbyMenu(1);
+				GameMenu menu = new GameMenu(1);
 				add(menu);	
 			
 			}
 			else if(e.getSource() == hostButton ){
 				remove();
-				LobbyMenu menu = new LobbyMenu(0);
+				GameMenu menu = new GameMenu(0);
 				add(menu);	
 				
 			}

@@ -1,17 +1,14 @@
-import java.util.HashMap;
+public class Game {
+    private GameView gamView;
+    private GameController gamController;
+    private GameState gamState;
 
-public class Game{
-	private int MapChoice;
-	private Server connection;
-	private static HashMap<Integer, String> players;
-	//private static Network network;
-	
-	
-	public Game(){
-		
-		
-	}
-	
-	
-	
+    public Game(){
+        gamController = new GameController();
+        gamState = new GameState();
+        gamView = new GameView(gamState);
+    }
+    private void getnull(){
+
+    }
 }
