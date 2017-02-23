@@ -6,7 +6,9 @@ import java.net.UnknownHostException;
 import javax.swing.*;
 
 public class LobbyMenu extends JPanel {
-
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
 	private JLabel p1;
 	private JLabel p2;
@@ -18,11 +20,7 @@ public class LobbyMenu extends JPanel {
 	private Server server;
 	private Client client;
 	private GameMenu lMenu;
-<<<<<<< HEAD
-	private boolean started = false;
-=======
 	private boolean isPressed = false;
->>>>>>> origin/JohannesBranchv2
 	
 	public LobbyMenu(int from, GameMenu menu) throws UnknownHostException{
 		String IP = null;
@@ -133,21 +131,14 @@ public class LobbyMenu extends JPanel {
 		this.repaint();
 	}
 	
-	public boolean startPressed(){
+	public void startPressed(int x){
 		isPressed = true;
-	
 		System.out.println(isPressed);
-		return isPressed;
+		if(x == 0)
+		new Game();
 		
 	}
-
-	public boolean startPressed(){
-		started = true;
-		return started;
-	}
-
-
-
+	
 	public class Handler implements ActionListener {
 		GameMenu menu;
 		@Override
@@ -164,16 +155,14 @@ public class LobbyMenu extends JPanel {
 			}
 			else if(e.getSource() == start)
 			{
-				startPressed();
-<<<<<<< HEAD
-=======
+				
 				try {
 					client.sendData("start");
 				} catch (SocketTimeoutException | SocketException | UnknownHostException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
-				} 
->>>>>>> origin/JohannesBranchv2
+				}
+				startPressed(1);	
 			}
 				
 		}

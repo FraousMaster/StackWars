@@ -2,7 +2,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-@SuppressWarnings("deprecation")
+
 public class SettingsMenu extends JPanel {
 
 	private static final long serialVersionUID = 1L;
