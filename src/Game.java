@@ -1,19 +1,17 @@
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.*;
 
-public class Game implements Observer {
-    private GameView gamView;
-    private GameController gamController;
-    private GameState gamState;
-
-    public Game() {
-        gamController = new GameController();
-        gamState = new GameState();
-        gamView = new GameView(gamState);
-    }
+public class Game {
+    private GameView gameView = null;
+    private GameController gameController = null;
+    private GameState gameState = null;
     
-	@Override
-	public void update(Observable o, Object arg) {
-		// TODO Auto-generated method stub
-		
-	}
+    public Game() {
+        gameState = new GameState();
+        gameView = new GameView(gameState);
+        gameState.addObserver(gameView);
+        gameController = new GameController(gameView);
+        gameView.addObserver(gameController);     
+    }
 }

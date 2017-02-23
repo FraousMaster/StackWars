@@ -1,5 +1,13 @@
 import javax.imageio.ImageIO;
 import javax.swing.*;
+
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -35,5 +43,8 @@ public class Stack extends JComponent{
     public int getY(){
         return stackPosY;
     }
-
+    
+    public Dimension getPreferredSize() {
+        return new Dimension(image.getWidth(), image.getHeight());
+  }
 }

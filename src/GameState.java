@@ -29,10 +29,14 @@ public class GameState extends Observable{
     public ArrayList<Stack> getStacks()
     {
     	return stacks;
+<<<<<<< HEAD
     }
     
     public void uppdateGameState(Observable o, ArrayList<Ant> a){
         ants = a;
     }
+=======
+    } 
+>>>>>>> IAMTHEONE
 }
 
