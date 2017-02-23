@@ -1,9 +1,8 @@
-
 import java.util.ArrayList;
- import java.util.ArrayList;
- import java.util.*;
- import java.util.ArrayList;
- import java.util.*;
+import java.util.ArrayList;
+import java.util.*;
+import java.util.ArrayList;
+import java.util.*;
 
 public class GameState extends Observable{
 
@@ -29,7 +28,15 @@ public class GameState extends Observable{
     public ArrayList<Stack> getStacks(){
     	return stacks;
     }
-    
+    public void moveStack()
+    {
+    	for(Stack s : stacks)
+    	{
+    		s.setPos();
+    		setChanged();
+        	notifyObservers();
+    	}
+    }
     public void uppdateGameState(Observable o, ArrayList<Ant> a){
         ants = a;
     }

@@ -14,10 +14,12 @@ public class GameView extends Observable implements Observer{
 
     private GameState gameState;
     private Map map;
+    private GameFrame gameFrame;
+    
     public GameView(GameState gameState){
         EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new GameFrame();
+                gameFrame = new GameFrame();
             }
         });
         this.gameState = gameState;
@@ -38,9 +40,10 @@ public class GameView extends Observable implements Observer{
             drawPanel.addMouseListener(new MouseAdapter(){
             	public void mouseClicked(MouseEvent e)
             	{
-            		System.out.println("Hellow world this is working");
+            		int x = e.getX();
+            		int y = e.getY();
             		setChanged();
-            		notifyObservers();
+            		notifyObservers(new Point(x, y));
             	}
             });
             add(drawPanel);
@@ -49,7 +52,20 @@ public class GameView extends Observable implements Observer{
             setLocationRelativeTo(null);
             setVisible(true);
         }
-
+        
+        public void updateFrame()
+        {
+        	for(Ant a : gameState.getUppdates()) {
+                if (a.getPosX() >= D_W) {
+                    a.setPos(0,a.getPosY());
+                    drawPanel.repaint();
+                } else {
+                    a.setPos(a.getPosX() + 1, a.getPosY()+ 1);
+                    drawPanel.repaint();
+                }
+        	}
+        }
+        
         private class DrawPanel extends JPanel {
 
 			private static final long serialVersionUID = 1L;
@@ -81,7 +97,9 @@ public class GameView extends Observable implements Observer{
 	public void update(Observable o, Object arg1) {
 		if(o == gameState)
 		{
-			
+			this.gameState = gameState;
+			gameFrame.updateFrame();
+
 		}
 	}
 
