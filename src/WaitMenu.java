@@ -3,9 +3,7 @@ import java.awt.event.*;
 import javax.swing.*;
 
 public class WaitMenu extends JPanel {
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	private JLabel p1;
 	private JLabel p2;
