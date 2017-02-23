@@ -13,15 +13,11 @@ import javax.swing.*;
 public class GameView extends Observable implements Observer{
 
     private GameState gameState;
-    private Map map;
+
     public GameView(GameState gameState){
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new GameFrame();
-            }
-        });
+        new GameFrame();
         this.gameState = gameState;
-        this.map = map;
+
     }
 
 

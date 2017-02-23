@@ -27,7 +27,6 @@ public class Map {
         try {
             fr = new FileReader("Graphics\\Maps\\Map1.txt");
             while ((i = fr.read()) != -1) {
-                System.out.println(i);
                 if (i == 49) {
                     try {
                         image = ImageIO.read(new File("Graphics\\Part1.png"));
