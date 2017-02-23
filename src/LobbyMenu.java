@@ -7,9 +7,7 @@ import java.util.LinkedList;
 import javax.swing.*;
 
 public class LobbyMenu extends JPanel {
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	private JLabel p1;
 	private JLabel p2;
