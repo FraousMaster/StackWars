@@ -23,8 +23,7 @@ public class Client extends Thread{
 		this.name = name;
 		this.menu = menu;
 		players = new LinkedList<String>();
-		clientSocket = new DatagramSocket();	
-		state.initGame();
+		clientSocket = new DatagramSocket();
 	}
 	
 	 public void run(){
