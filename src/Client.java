@@ -1,8 +1,7 @@
 import java.io.*;
 import java.net.*;
-import java.util.ArrayList;
-import java.util.ConcurrentModificationException;
 import java.util.LinkedList;
+
 public class Client extends Thread{
 	private static String IP_ADDRESS;
 	private static String name;
@@ -14,9 +13,6 @@ public class Client extends Thread{
 	private String messageReceived;
 	private LinkedList<String> players ;
 	private boolean gameGo = true;
-	private ArrayList<Ant> ants;
-	private GameState state;
-	
 	@SuppressWarnings("static-access")
 	public Client(String IP, String name, LobbyMenu menu) throws SocketException{
 		this.IP_ADDRESS = IP;
@@ -24,7 +20,7 @@ public class Client extends Thread{
 		this.menu = menu;
 		players = new LinkedList<String>();
 		clientSocket = new DatagramSocket();	
-		state.initGame();
+		
 	}
 	
 	 public void run(){

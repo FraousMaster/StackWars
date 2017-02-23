@@ -1,7 +1,7 @@
 
 public class Main {
 
-	public static void Main(final String[] args){
+	public static void main(final String[] args){
 		new Menu();
 	}
 	
