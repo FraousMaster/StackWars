@@ -13,7 +13,7 @@ import javax.swing.*;
 public class GameView extends Observable implements Observer{
 
     private GameState gameState;
-
+    private Map map;
     public GameView(GameState gameState){
         EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -21,6 +21,7 @@ public class GameView extends Observable implements Observer{
             }
         });
         this.gameState = gameState;
+        this.map = map;
     }
 
 
@@ -54,21 +55,14 @@ public class GameView extends Observable implements Observer{
 			private static final long serialVersionUID = 1L;
 			private BufferedImage image;
             protected void paintComponent(Graphics g) {
-                try {
-                    image = ImageIO.read(new File("Graphics\\Map.png"));
-                }
-                catch(IOException e)
-                {
-                    e.printStackTrace();
-                }
                 super.paintComponent(g);
-                g.drawImage(image, 0, 0, 1920, 1080, null);
-                
-                for(Stack s : gameState.getStacks())
+                g.drawImage(gameState.getMap().getImage(), 0, 0, 1920, 1080, null);
+
+              /*  for(Stack s : gameState.getStacks())
                 {
                 	image = s.getImage();
                 	g.drawImage(image, s.getX(), s.getY(), 82, 70, null);
-                }
+                }*/
                 
                 for(Ant a : gameState.getUppdates()) {
                 	image = a.getImage();
