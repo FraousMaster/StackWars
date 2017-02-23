@@ -44,6 +44,12 @@ public class Stack extends JComponent{
         return stackPosY;
     }
     
+    public void setPos()
+    {
+    	stackPosX += 100;
+    	stackPosY += 100;
+    }
+    
     public Dimension getPreferredSize() {
         return new Dimension(image.getWidth(), image.getHeight());
   }

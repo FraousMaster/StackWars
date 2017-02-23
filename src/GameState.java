@@ -7,6 +7,7 @@ public class GameState extends Observable{
 
     private ArrayList<Ant> ants;
     private ArrayList<Stack> stacks;
+    
     public GameState(){
         ants = new ArrayList<Ant>();
         stacks = new ArrayList<Stack>();
@@ -28,5 +29,15 @@ public class GameState extends Observable{
     {
     	return stacks;
     } 
+    
+    public void moveStack()
+    {
+    	for(Stack s : stacks)
+    	{
+    		s.setPos();
+    		setChanged();
+        	notifyObservers();
+    	}
+    }
 }
 

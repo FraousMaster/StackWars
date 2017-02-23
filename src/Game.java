@@ -10,8 +10,9 @@ public class Game {
     public Game() {
         gameState = new GameState();
         gameView = new GameView(gameState);
+        gameController = new GameController(gameView, gameState);
         gameState.addObserver(gameView);
-        gameController = new GameController(gameView);
+        gameState.addObserver(gameController);
         gameView.addObserver(gameController);     
     }
 }

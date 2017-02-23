@@ -13,11 +13,13 @@ import javax.swing.*;
 public class GameView extends Observable implements Observer{
 
     private GameState gameState;
+    private GameFrame gameFrame;
+    
 
     public GameView(GameState gameState){
         EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new GameFrame();
+                gameFrame = new GameFrame();
             }
         });
         this.gameState = gameState;
@@ -34,12 +36,15 @@ public class GameView extends Observable implements Observer{
         DrawPanel drawPanel = new DrawPanel();
 
         public GameFrame() {
+        	
             drawPanel.addMouseListener(new MouseAdapter(){
             	public void mouseClicked(MouseEvent e)
             	{
-            		System.out.println("Hellow world this is working");
+            		//System.out.println("Hellow world this is working");
+            		int x = e.getX();
+            		int y = e.getY();
             		setChanged();
-            		notifyObservers();
+            		notifyObservers(new Point(x, y));
             	}
             });
             add(drawPanel);
@@ -47,6 +52,19 @@ public class GameView extends Observable implements Observer{
             setDefaultCloseOperation(EXIT_ON_CLOSE);
             setLocationRelativeTo(null);
             setVisible(true);
+        }
+        
+        public void updateFrame()
+        {
+        	for(Ant a : gameState.getUppdates()) {
+                if (a.getPosX() >= D_W) {
+                    a.setPos(0,a.getPosY());
+                    drawPanel.repaint();
+                } else {
+                    a.setPos(a.getPosX() + 1, a.getPosY()+ 1);
+                    drawPanel.repaint();
+                }
+        }
         }
 
         private class DrawPanel extends JPanel {
@@ -82,16 +100,17 @@ public class GameView extends Observable implements Observer{
                 return new Dimension(D_W, D_H);
             }
         }
-    }
+   }
+    
 
-
-	@Override
 	public void update(Observable o, Object arg1) {
 		if(o == gameState)
 		{
-			
+			//System.out.println("This is it");
+			this.gameState = gameState;
+			gameFrame.updateFrame();
 		}
 	}
-
 }
+
 
