@@ -157,11 +157,7 @@ public class LobbyMenu extends JPanel {
 			}
 			else if(e.getSource() == start)
 			{
-<<<<<<< HEAD
-				
-=======
 				startPressed();
->>>>>>> 5305f9e809368b0585590ce744f93e4a33e14c8f
 			}
 				
 		}
