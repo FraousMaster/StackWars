@@ -29,7 +29,7 @@ public class LobbyMenu extends JPanel {
 		setLayout(new GridBagLayout());
 		create();
 		
-		if(from == 0){
+		if(from == 0){ 
 		try {
 			IP = lMenu.returnIP();
 			server = new Server();
