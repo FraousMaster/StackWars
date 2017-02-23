@@ -19,8 +19,11 @@ public class GameView extends Observable implements Observer{
         gameFrame = new GameFrame();
         this.gameState = gameState;
     }
-
-
+    public void updateFrame()
+    {
+    	gameFrame.updateThisFrame();
+    }
+    
     public class GameFrame extends JFrame {
 
         private static final int D_W = 1920;
@@ -37,7 +40,7 @@ public class GameView extends Observable implements Observer{
             		int x = e.getX();
             		int y = e.getY();
             		setChanged();
-            		notifyObservers(new Point(x, y));
+            		notifyObservers(e);
             	}
             });
             add(drawPanel);
@@ -46,8 +49,7 @@ public class GameView extends Observable implements Observer{
             setLocationRelativeTo(null);
             setVisible(true);
         }
-        
-        public void updateFrame()
+        private void updateThisFrame()
         {
         	for(Ant a : gameState.getUppdates()) {
                 if (a.getPosX() >= D_W) {
@@ -59,7 +61,7 @@ public class GameView extends Observable implements Observer{
                 }
         	}
         }
-        
+                
         private class DrawPanel extends JPanel {
 
 			private static final long serialVersionUID = 1L;
@@ -68,7 +70,7 @@ public class GameView extends Observable implements Observer{
                 super.paintComponent(g);
                 g.drawImage(gameState.getMap().getImage(), 0, 0, 1920, 1080, null);
 
-              /*  for(Stack s : gameState.getStacks())
+                /*for(Stack s : gameState.getStacks())
                 {
                 	image = s.getImage();
                 	g.drawImage(image, s.getX(), s.getY(), 82, 70, null);
@@ -92,7 +94,7 @@ public class GameView extends Observable implements Observer{
 		if(o == gameState)
 		{
 			this.gameState = gameState;
-			gameFrame.updateFrame();
+			gameFrame.updateThisFrame();
 
 		}
 	}

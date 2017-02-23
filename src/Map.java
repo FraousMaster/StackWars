@@ -56,15 +56,17 @@ public class Map {
                     try {
                         image = ImageIO.read(new File("Graphics\\Stack.png"));
                         g.drawImage(image, 96 * x, 54 * y, 96, 54, null);
+                        stacks.add(new Stack( 96 * x, 54 * y));
                         x++;
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                    stacks.add(new Stack( 96 * x, 54 * y));
+                    
                     if (x == 20) {
                         y++;
                         x = 0;
                     }
+                    
                 }
             }
         }
