@@ -6,6 +6,10 @@ import javax.swing.*;
 public class SettingsMenu extends JPanel {
 
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JButton backButton;
 	private JComboBox volume;
 	private final String[] volSet = {"Volume","1","2","3","4","5"};

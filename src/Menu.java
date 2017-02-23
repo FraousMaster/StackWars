@@ -1,19 +1,12 @@
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import javax.swing.*;
 
 
 public class Menu extends JFrame {
 	
-	private int menuState;
-	private int previous;
-	final PlayMenu playMenu = new PlayMenu();
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	final StartMenu startMenu = new StartMenu();
 	
 	public Menu(){

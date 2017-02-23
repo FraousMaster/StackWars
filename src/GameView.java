@@ -55,7 +55,9 @@ public class GameView {
         }
 
         private class DrawPanel extends JPanel {
-            private BufferedImage image;
+
+			private static final long serialVersionUID = 1L;
+			private BufferedImage image;
             protected void paintComponent(Graphics g) {
                 try {
                     image = ImageIO.read(new File("Graphics\\Map.png"));
