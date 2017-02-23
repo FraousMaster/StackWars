@@ -30,7 +30,7 @@ public class Server extends Thread{
 				byte[] data = receivePacket.getData();
 				 messageReceived = new String(data, 0, receivePacket.getLength());
 				 if(!(messageReceived.equals("start"))){
-					 new Player(messageReceived).start();
+					 new Player(messageReceived);
 				 }
 				
 				
@@ -78,7 +78,7 @@ public class Server extends Thread{
 				e.printStackTrace();
 			}
      	}
-		public class Player extends Thread{
+		public class Player{
 			String name;
 			
 			public Player(String player) throws InterruptedException{

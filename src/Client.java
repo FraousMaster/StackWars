@@ -13,6 +13,7 @@ public class Client extends Thread{
 	private String messageReceived;
 	private LinkedList<String> players ;
 	private boolean gameGo = true;
+	private MulticastSocket multiSocket;
 	@SuppressWarnings("static-access")
 	public Client(String IP, String name, LobbyMenu menu) throws SocketException{
 		this.IP_ADDRESS = IP;
@@ -46,7 +47,7 @@ public class Client extends Thread{
 				clientSocket.receive(receivethis);
 				byte[] data = receivethis.getData();
 				messageReceived = new String(data, 0, receivethis.getLength());
-				new Player(messageReceived).start();
+				new Player(messageReceived);
 		
 						}
 				} catch (SocketTimeoutException e) {
@@ -87,7 +88,7 @@ public class Client extends Thread{
 		try {
 			address = InetAddress.getByName(INET_ADDR);
 
-			 MulticastSocket multiSocket = new MulticastSocket(8888);
+			 multiSocket = new MulticastSocket(8888);
 			 multiSocket.joinGroup(address);
 			 
 			
@@ -97,32 +98,36 @@ public class Client extends Thread{
 					messageReceived = new String(receiveData, 0 ,receivePacket.getLength() );
 
 					System.out.println("This was received from multi: " + messageReceived);	
-					if(!(messageReceived.equals("start"))){
-					new Player(messageReceived).start();
+					if(!(messageReceived.equals("start") )){
+					new Player(messageReceived);
 					}
 					else if(messageReceived.equals("start")){
-						
-						System.out.println("entered start");
-						new Game();
+						menu.startPressed(0);
 					}
-				
-						
-						
-					
 			 }
 		}catch (IOException e) {
 			e.printStackTrace();
 		} 
 	 }
  
-	public class Player extends Thread {
-		String name;
+	public class Player {
+		private String name;
+		private static final int MAXPLAYERS = 4;
+		private int nrOfPlayers = 1;
 		
 		public Player(String player){
 			this.name = player;
+			for(String x : players){
+				nrOfPlayers++;
+			}
+		    System.out.println("# : " + nrOfPlayers);
+		    if(!(nrOfPlayers >= MAXPLAYERS)){
 		    players.add(name);
+		    }
+		    
 		    System.out.println("entered player : " + name);
 		    System.out.println("linkedlist in client : " + players);
+		    run();
 		    }
 		
 		public void run() 
@@ -131,7 +136,6 @@ public class Client extends Thread{
 
 
 		}
-		
 	}
 }
 	
