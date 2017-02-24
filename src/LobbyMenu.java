@@ -1,12 +1,12 @@
  import java.awt.*;
 import java.awt.event.*;
 import java.net.SocketException;
+import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
-import java.util.LinkedList;
-
 import javax.swing.*;
 
 public class LobbyMenu extends JPanel {
+<<<<<<< HEAD
 <<<<<<< HEAD
 	/**
 	 * 
@@ -121,6 +121,11 @@ public class LobbyMenu extends JPanel {
 		
 =======
 
+=======
+	/**
+	 * 
+	 */
+>>>>>>> Devel
 	private static final long serialVersionUID = 1L;
 	private JLabel p1;
 	private JLabel p2;
@@ -132,7 +137,7 @@ public class LobbyMenu extends JPanel {
 	private Server server;
 	private Client client;
 	private GameMenu lMenu;
-	private boolean started = false;
+	private boolean isPressed = false;
 	
 	public LobbyMenu(int from, GameMenu menu) throws UnknownHostException{
 		String IP = null;
@@ -141,7 +146,7 @@ public class LobbyMenu extends JPanel {
 		setLayout(new GridBagLayout());
 		create();
 		
-		if(from == 0){
+		if(from == 0){ 
 		try {
 			IP = lMenu.returnIP();
 			server = new Server();
@@ -181,10 +186,6 @@ public class LobbyMenu extends JPanel {
 			p4.setText(name);	
 		}
 	}
-	
-	
-	
-	
 	
 	private void create(){
 		GridBagConstraints c = new GridBagConstraints();
@@ -286,6 +287,7 @@ public class LobbyMenu extends JPanel {
 		this.repaint();
 	}
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
 <<<<<<< HEAD
@@ -330,14 +332,28 @@ public class LobbyMenu extends JPanel {
 				String value = antBox.getSelectedItem().toString();
 				returnAnts(value);
 =======
+=======
+	
+>>>>>>> Devel
 	public boolean startPressed(){
-		started = true;
-		return started;
+		
+		System.out.println("been pressed :"+isPressed);
+		return isPressed;
+		
 	}
+<<<<<<< HEAD
 >>>>>>> Devel
 
 
 
+=======
+	
+	public void startGame(){
+		System.out.println("STARTING GAME");
+		new Game();
+	}
+	
+>>>>>>> Devel
 	public class Handler implements ActionListener {
 		GameMenu menu;
 		@Override
@@ -354,7 +370,7 @@ public class LobbyMenu extends JPanel {
 			}
 			else if(e.getSource() == start)
 			{
-				startPressed();
+				isPressed = true;
 			}
 <<<<<<< HEAD
 >>>>>>> 9b7b0c82e943d14319b62ef8609f8c30d4dbd02a
