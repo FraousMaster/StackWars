@@ -131,12 +131,16 @@ public class LobbyMenu extends JPanel {
 		this.repaint();
 	}
 	
-	public void startPressed(int x){
-		isPressed = true;
-		System.out.println(isPressed);
-		if(x == 0)
-		new Game();
+	public boolean startPressed(){
 		
+		System.out.println("been pressed :"+isPressed);
+		return isPressed;
+		
+	}
+	
+	public void startGame(){
+		System.out.println("STARTING GAME");
+		new Game();
 	}
 	
 	public class Handler implements ActionListener {
@@ -155,14 +159,7 @@ public class LobbyMenu extends JPanel {
 			}
 			else if(e.getSource() == start)
 			{
-				
-				try {
-					client.sendData("start");
-				} catch (SocketTimeoutException | SocketException | UnknownHostException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				startPressed(1);	
+				isPressed = true;
 			}
 				
 		}

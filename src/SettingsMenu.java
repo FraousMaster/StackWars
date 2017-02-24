@@ -2,12 +2,15 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-@SuppressWarnings("deprecation")
+
 public class SettingsMenu extends JPanel {
 
+
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
 	private JButton backButton;
-	@SuppressWarnings("rawtypes")
 	private JComboBox volume;
 	private final String[] volSet = {"Volume","1","2","3","4","5"};
 	private String VOL;
@@ -17,7 +20,6 @@ public class SettingsMenu extends JPanel {
 		buttons();	
 	}
 	
-	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private void buttons(){
 		GridBagConstraints c = new GridBagConstraints();
 		volume = new JComboBox(volSet);

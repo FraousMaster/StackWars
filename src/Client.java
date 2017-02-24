@@ -1,7 +1,7 @@
 import java.io.*;
 import java.net.*;
+import java.util.ConcurrentModificationException;
 import java.util.LinkedList;
-
 public class Client extends Thread{
 	private static String IP_ADDRESS;
 	private static String name;
@@ -12,98 +12,105 @@ public class Client extends Thread{
 	private LobbyMenu menu;
 	private String messageReceived;
 	private LinkedList<String> players ;
-	private boolean gameGo = true;
-	private MulticastSocket multiSocket;
+	private boolean inLobby = true;
+	
 	@SuppressWarnings("static-access")
 	public Client(String IP, String name, LobbyMenu menu) throws SocketException{
 		this.IP_ADDRESS = IP;
 		this.name = name;
 		this.menu = menu;
 		players = new LinkedList<String>();
-		clientSocket = new DatagramSocket();	
-		
-		
+		clientSocket = new DatagramSocket();	    
 	}
 	
 	 public void run(){
 		 InetAddress host;
-		 
 		
 			try {
 				
-				
 				host = InetAddress.getByName(IP_ADDRESS);
-				clientSocket.setSoTimeout(500);
 				SendMessage = name;
 				sendData = SendMessage.getBytes();
 				DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, host, 1203);
 			 	clientSocket.send(sendPacket);
 				System.out.println("This was sent from clientsocket: " + SendMessage);
 		
-				try{
-				while(true){
-				
-				DatagramPacket receivethis = new DatagramPacket(receiveData, receiveData.length);
-				clientSocket.receive(receivethis);
-				byte[] data = receivethis.getData();
-				messageReceived = new String(data, 0, receivethis.getLength());
-				new Player(messageReceived);
-		
+				while(inLobby){
+					DatagramPacket receivethis = new DatagramPacket(receiveData, receiveData.length);
+					clientSocket.receive(receivethis);
+					byte[] data = receivethis.getData();
+					messageReceived = new String(data, 0, receivethis.getLength());
+					if(players.isEmpty()){
+						new Player(messageReceived);
+					}
+					else if(!( messageReceived.equals("update"))){
+						if(!(messageReceived.equals(players.getLast()) || messageReceived.equals(players.getFirst()) || messageReceived.equals("start"))){
+							new Player(messageReceived);
 						}
-				} catch (SocketTimeoutException e) {
-					System.out.println("socket timeout");
-					multicastInit();
+					}
 					
-				    }
-				} catch (SocketTimeoutException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
+					SendMessage = "update";
+					sendData = SendMessage.getBytes();
+					DatagramPacket checkPacket = new DatagramPacket(sendData, sendData.length, host, 1203);
+				 	clientSocket.send(checkPacket);
+				 	
+				 	SendMessage = "started?";
+					sendData = SendMessage.getBytes();
+					DatagramPacket startPacket = new DatagramPacket(sendData, sendData.length, host, 1203);
+				 	clientSocket.send(startPacket);
+					//System.out.println("This was sent from clientsocket: " + SendMessage);
+					
+					int nrOfPlayers = 0;
+					for(String x : players){
+						nrOfPlayers++;
+					}
+					
+					if( menu.startPressed()){
+						SendMessage = "start";
+						sendData = SendMessage.getBytes();
+						DatagramPacket GamePacket = new DatagramPacket(sendData, sendData.length, host, 1203);
+					 	clientSocket.send(GamePacket);
+						System.out.println(nrOfPlayers);
+					}
+					
+					System.out.println(messageReceived);
+					
+					if(messageReceived.equals("start")){
+						System.out.println("START PRESSED");
+						menu.startGame();
+						inLobby = false;
+					}
+					
+					sleep(1500);
+						
+					
+				}} catch (IOException | InterruptedException e) {
 		e.printStackTrace();
-	}
+		}
+			System.out.println("left loop");
 			
-}
-	 public void sendData(String x) throws SocketTimeoutException, SocketException, UnknownHostException{
-		 try{
-			 
-			clientSocket.setSoTimeout(500);
-			SendMessage = x;
-			sendData = SendMessage.getBytes();
-			DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, InetAddress.getByName(IP_ADDRESS), 1203);
-		 	clientSocket.send(sendPacket);
-			System.out.println("This was sent from clientsocket: " + SendMessage);
-		
-		 }catch (IOException e) {
-			 e.printStackTrace();
-		 }
-		 
-		 
-		 
-	 }
+			
+ }
 
 	 private void multicastInit() throws UnknownHostException{
 		 DatagramPacket receivePacket = new DatagramPacket(receiveData,receiveData.length);
-		 String INET_ADDR = "230.0.0.1";
+		 String INET_ADDR = "224.3.0.0";
 		 InetAddress address;
 	
 		try {
 			address = InetAddress.getByName(INET_ADDR);
 
-			 multiSocket = new MulticastSocket(8888);
+			 MulticastSocket multiSocket = new MulticastSocket(8888);
 			 multiSocket.joinGroup(address);
-			 
 			
-			 while(gameGo){
-				 	receiveData = receivePacket.getData();
+			 while(true){
+				 System.out.println("1");
 				 	multiSocket.receive(receivePacket);
+				 	receiveData = receivePacket.getData();
 					messageReceived = new String(receiveData, 0 ,receivePacket.getLength() );
 
 					System.out.println("This was received from multi: " + messageReceived);	
-					if(!(messageReceived.equals("start") )){
 					new Player(messageReceived);
-					}
-					else if(messageReceived.equals("start")){
-						menu.startPressed(0);
-					}
 			 }
 		}catch (IOException e) {
 			e.printStackTrace();
@@ -111,20 +118,11 @@ public class Client extends Thread{
 	 }
  
 	public class Player {
-		private String name;
-		private static final int MAXPLAYERS = 4;
-		private int nrOfPlayers = 1;
+		String name;
 		
 		public Player(String player){
 			this.name = player;
-			for(String x : players){
-				nrOfPlayers++;
-			}
-		    System.out.println("# : " + nrOfPlayers);
-		    if(!(nrOfPlayers >= MAXPLAYERS)){
 		    players.add(name);
-		    }
-		    
 		    System.out.println("entered player : " + name);
 		    System.out.println("linkedlist in client : " + players);
 		    run();
@@ -136,6 +134,6 @@ public class Client extends Thread{
 
 
 		}
+		
 	}
 }
-	
