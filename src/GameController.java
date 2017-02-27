@@ -39,7 +39,7 @@ public class GameController implements Observer{
 						else if(mouseClick.getButton() == 3)
 						{
 							System.out.println("Trying to move to this stack");
-							gameState.uppdateGameState(new Ant(stackSelected.getX() + 96, stackSelected.getY() + 54, 1));
+							gameState.uppdateGameState(new Ant(stackSelected.getX() + 96, stackSelected.getY() + 54, 1, 2));
 						}
 						
 						System.out.println("This is truly a stack!");
