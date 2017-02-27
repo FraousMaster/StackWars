@@ -1,45 +1,43 @@
 import java.io.*;
 import java.net.*;
 import java.util.LinkedList;
+import java.util.Random;
 
 public class Client extends Thread{
 	private static String IP_ADDRESS;
 	private static String name;
 	private static byte[] sendData = new byte[16];
-	private static byte[] receiveData = new byte[16];
+	private static byte[] receiveData = new byte[200];
 	private DatagramSocket clientSocket;
 	private String SendMessage;
 	private LobbyMenu menu;
 	private String messageReceived;
 	private LinkedList<String> players ;
 	private boolean gameGo = true;
-	private MulticastSocket multiSocket;
+	
 	@SuppressWarnings("static-access")
 	public Client(String IP, String name, LobbyMenu menu) throws SocketException{
 		this.IP_ADDRESS = IP;
 		this.name = name;
 		this.menu = menu;
 		players = new LinkedList<String>();
-		clientSocket = new DatagramSocket();	
-		
-		
+		clientSocket = new DatagramSocket();	    
 	}
 	
 	 public void run(){
 		 InetAddress host;
-		 
 		
 			try {
 				
-				
 				host = InetAddress.getByName(IP_ADDRESS);
+				System.out.println(host);
 				clientSocket.setSoTimeout(500);
 				SendMessage = name;
 				sendData = SendMessage.getBytes();
 				DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, host, 1203);
 			 	clientSocket.send(sendPacket);
 				System.out.println("This was sent from clientsocket: " + SendMessage);
-		
+
 				try{
 				while(true){
 				
@@ -47,95 +45,63 @@ public class Client extends Thread{
 				clientSocket.receive(receivethis);
 				byte[] data = receivethis.getData();
 				messageReceived = new String(data, 0, receivethis.getLength());
-				new Player(messageReceived);
-		
-						}
+				new Player(messageReceived).start();
+
+				}
 				} catch (SocketTimeoutException e) {
 					System.out.println("socket timeout");
 					multicastInit();
-					
 				    }
 				} catch (SocketTimeoutException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 		e.printStackTrace();
-	}
-			
-}
-	 public void sendData(String x) throws SocketTimeoutException, SocketException, UnknownHostException{
-		 try{
-			 
-			clientSocket.setSoTimeout(500);
-			SendMessage = x;
-			sendData = SendMessage.getBytes();
-			DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, InetAddress.getByName(IP_ADDRESS), 1203);
-		 	clientSocket.send(sendPacket);
-			System.out.println("This was sent from clientsocket: " + SendMessage);
-		
-		 }catch (IOException e) {
-			 e.printStackTrace();
-		 }
-		 
-		 
-		 
+		}
 	 }
 
 	 private void multicastInit() throws UnknownHostException{
 		 DatagramPacket receivePacket = new DatagramPacket(receiveData,receiveData.length);
-		 String INET_ADDR = "230.0.0.1";
+		 String INET_ADDR = "224.3.0.0";
 		 InetAddress address;
 	
 		try {
-			address = InetAddress.getByName(INET_ADDR);
+			address = InetAddress.getByName("224.3.0.0");
 
-			 multiSocket = new MulticastSocket(8888);
+
+			 MulticastSocket multiSocket = new MulticastSocket(8888);
+			 System.out.println(address);
 			 multiSocket.joinGroup(address);
-			 
-			
 			 while(gameGo){
-				 	receiveData = receivePacket.getData();
-				 	multiSocket.receive(receivePacket);
-					messageReceived = new String(receiveData, 0 ,receivePacket.getLength() );
+				 System.out.println("1");
+				 System.out.println("2");
+				 multiSocket.receive(receivePacket);
+
+				 System.out.println("3");
+				 receiveData = receivePacket.getData();
+				 messageReceived = new String(receiveData, 0 ,receivePacket.getLength() );
 
 					System.out.println("This was received from multi: " + messageReceived);	
-					if(!(messageReceived.equals("start") )){
-					new Player(messageReceived);
-					}
-					else if(messageReceived.equals("start")){
-						menu.startPressed(0);
-					}
+					new Player(messageReceived).start();
 			 }
 		}catch (IOException e) {
 			e.printStackTrace();
 		} 
 	 }
  
-	public class Player {
-		private String name;
-		private static final int MAXPLAYERS = 4;
-		private int nrOfPlayers = 1;
+	public class Player extends Thread {
+		String name;
 		
 		public Player(String player){
 			this.name = player;
-			for(String x : players){
-				nrOfPlayers++;
-			}
-		    System.out.println("# : " + nrOfPlayers);
-		    if(!(nrOfPlayers >= MAXPLAYERS)){
 		    players.add(name);
-		    }
-		    
 		    System.out.println("entered player : " + name);
 		    System.out.println("linkedlist in client : " + players);
-		    run();
 		    }
 		
 		public void run() 
 		{
 			menu.setPlayers(name);
-
-
 		}
+		
 	}
 }
-	

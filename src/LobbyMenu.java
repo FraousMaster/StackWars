@@ -156,13 +156,13 @@ public class LobbyMenu extends JPanel {
 			else if(e.getSource() == start)
 			{
 				
-				try {
-					client.sendData("start");
+				/*try {
+					//client.sendData("start");
 				} catch (SocketTimeoutException | SocketException | UnknownHostException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				startPressed(1);	
+				startPressed(1);	*/
 			}
 				
 		}

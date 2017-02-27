@@ -29,10 +29,7 @@ public class Server extends Thread{
 				serverSocket.receive(receivePacket);
 				byte[] data = receivePacket.getData();
 				 messageReceived = new String(data, 0, receivePacket.getLength());
-				 if(!(messageReceived.equals("start"))){
-					 new Player(messageReceived).start();
-				 }
-				
+				new Player(messageReceived).start();
 				
 				IPAddress = receivePacket.getAddress();
 				port = receivePacket.getPort();
@@ -61,19 +58,20 @@ public class Server extends Thread{
 		private void multicastInit() throws SocketException, UnknownHostException{
 			
 			try {
-						
 				DatagramSocket socket = new DatagramSocket();
 				InetAddress group = InetAddress.getByName("230.0.0.1");
-
-				sendData = messageReceived.getBytes();
-				DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, group, 8888);
-				socket.send(sendPacket); 	
 	
-				System.out.println("SEND MSG: " + messageReceived);
+					
+						sendData = messageReceived.getBytes();
+						DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, group, 8888);
+						socket.send(sendPacket); 	
+	
+						System.out.println("SEND MSG: " + messageReceived);
 						
 				
 				
 			} catch (IOException e) {
+				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
      	}
@@ -95,6 +93,3 @@ public class Server extends Thread{
 			
 		}
 }
-
-	
-	
