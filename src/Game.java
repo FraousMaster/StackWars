@@ -12,4 +12,10 @@ public class Game {
         gameState.addObserver(gameController);
         gameView.addObserver(gameController);     
     }
+    
+    public GameState getState(){
+    	return gameState;
+    	
+    }
+    
 }

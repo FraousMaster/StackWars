@@ -51,7 +51,7 @@ public class GameView extends Observable implements Observer{
         }
         private void updateThisFrame()
         {
-        	for(Ant a : gameState.getUppdates()) {
+        	for(Ant a : gameState.getAnts()) {
                 if (a.getPosX() >= D_W) {
                     a.setPos(0,a.getPosY());
                     drawPanel.repaint();
@@ -76,7 +76,7 @@ public class GameView extends Observable implements Observer{
                 	g.drawImage(image, s.getX(), s.getY(), 82, 70, null);
                 }*/
                 
-                for(Ant a : gameState.getUppdates()) {
+                for(Ant a : gameState.getAnts()) {
                 	image = a.getImage();
                     g.drawImage(image, a.getPosX(), a.getPosY(), 82, 70, null);
                 }

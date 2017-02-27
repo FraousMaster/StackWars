@@ -21,7 +21,7 @@ public class GameState extends Observable{
         stacks = map.getStacks();
     }
 
-    public ArrayList<Ant> getUppdates(){
+    public ArrayList<Ant> getAnts(){
         return ants;
     }
 
