@@ -26,7 +26,6 @@ public class LobbyMenu extends JPanel {
 		this.lMenu = menu;
 		this.cameFrom = from;
 		setLayout(new GridBagLayout());
-		create();
 		
 		if(from == 0){ 
 		try {
@@ -47,8 +46,10 @@ public class LobbyMenu extends JPanel {
 				e.printStackTrace();
 			}
 			client.start();
+		
 			
 		}
+		create();
 	}
 
 	
@@ -75,13 +76,19 @@ public class LobbyMenu extends JPanel {
 		p2 = new JLabel("Waiting...");
 		p3 = new JLabel("Waiting...");
 		p4 = new JLabel("Waiting...");
+		if(cameFrom == 0)
 		start = new JButton("Start");
+		
 		back = new JButton("Back");
 		
+		if(cameFrom == 0)
 		start.addActionListener(new Handler());
+		
 		back.addActionListener(new Handler());
 		
+		if(cameFrom == 0)
 		start.setPreferredSize(new Dimension(100, 50));
+		
 		back.setPreferredSize(new Dimension(100, 50));
 		p1.setPreferredSize(new Dimension(100, 50));
 		p2.setPreferredSize(new Dimension(100, 50));
@@ -108,16 +115,71 @@ public class LobbyMenu extends JPanel {
 		c.gridy = 3;
 		add(p4, c);
 		
+		if(cameFrom == 0){
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 3;
 		c.gridy = 4;
 		add(start, c);
+		}
 		
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 3;
 		c.gridy = 5;
 		add(back, c);	
 	}
+	
+	/*private void createClient(){
+		GridBagConstraints c = new GridBagConstraints();
+		p1 = new JLabel("Waiting...");
+		p2 = new JLabel("Waiting...");
+		p3 = new JLabel("Waiting...");
+		p4 = new JLabel("Waiting...");
+		//start = new JButton("Start");
+		back = new JButton("Back");
+		
+		//start.addActionListener(new Handler());
+		back.addActionListener(new Handler());
+		
+		//start.setPreferredSize(new Dimension(100, 50));
+		back.setPreferredSize(new Dimension(100, 50));
+		p1.setPreferredSize(new Dimension(100, 50));
+		p2.setPreferredSize(new Dimension(100, 50));
+		p3.setPreferredSize(new Dimension(100, 50));
+		p4.setPreferredSize(new Dimension(100, 50));
+		
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 3;
+		c.gridy = 0;
+		add(p1, c);
+		
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 3;
+		c.gridy = 1;
+		add(p2, c);
+		
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 3;
+		c.gridy = 2;
+		add(p3, c);
+		
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 3;
+		c.gridy = 3;
+		add(p4, c);
+		
+		//c.fill = GridBagConstraints.HORIZONTAL;
+		//c.gridx = 3;
+		//c.gridy = 4;
+		//add(start, c);
+		
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 3;
+		c.gridy = 5;
+		add(back, c);	
+	} */
+	
+	
+	
 	public void update(){
 		this.revalidate();
 		this.repaint();
