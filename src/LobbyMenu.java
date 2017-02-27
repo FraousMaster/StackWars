@@ -1,13 +1,11 @@
-import java.awt.*;
+ import java.awt.*;
 import java.awt.event.*;
-import java.net.SocketException;
-import java.net.SocketTimeoutException;
-import java.net.UnknownHostException;
+import java.net.*;
 import javax.swing.*;
 
 public class LobbyMenu extends JPanel {
 	/**
-	 *
+	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	private JLabel p1;
@@ -21,24 +19,25 @@ public class LobbyMenu extends JPanel {
 	private Client client;
 	private GameMenu lMenu;
 	private boolean isPressed = false;
-
+	private Game game;
+	
 	public LobbyMenu(int from, GameMenu menu) throws UnknownHostException{
 		String IP = null;
 		this.lMenu = menu;
 		this.cameFrom = from;
 		setLayout(new GridBagLayout());
 		create();
-
-		if(from == 0){
-			try {
-				IP = lMenu.returnIP();
-				server = new Server();
-				server.start();
-				client = new Client(IP , menu.getName(), this);
-				client.start();
-			} catch (Exception e1) {
-				e1.printStackTrace();
-			}
+		
+		if(from == 0){ 
+		try {
+			IP = lMenu.returnIP();
+			server = new Server();
+			server.start();
+			client = new Client(IP , menu.getName(), this);
+			client.start();
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
 		}
 		if(from == 1){
 			IP = lMenu.returnIP();
@@ -48,28 +47,28 @@ public class LobbyMenu extends JPanel {
 				e.printStackTrace();
 			}
 			client.start();
-
+			
 		}
 	}
 
-
+	
 	public void setPlayers(String name){
 		if(p1.getText().equals("Waiting...")){
-			p1.setText(name);
+			p1.setText(name);	
 		}
 
-		else if(p2.getText().equals("Waiting...")){
-			p2.setText(name);
+	    else if(p2.getText().equals("Waiting...")){
+			p2.setText(name);	
 		}
 
-		else if(p3.getText().equals("Waiting...")){
-			p3.setText(name);
+	  else if(p3.getText().equals("Waiting...")){
+			p3.setText(name);	
 		}
-		else if(p4.getText().equals("Waiting...")){
-			p4.setText(name);
+	else if(p4.getText().equals("Waiting...")){
+			p4.setText(name);	
 		}
 	}
-
+	
 	private void create(){
 		GridBagConstraints c = new GridBagConstraints();
 		p1 = new JLabel("Waiting...");
@@ -78,71 +77,73 @@ public class LobbyMenu extends JPanel {
 		p4 = new JLabel("Waiting...");
 		start = new JButton("Start");
 		back = new JButton("Back");
-
+		
 		start.addActionListener(new Handler());
 		back.addActionListener(new Handler());
-
+		
 		start.setPreferredSize(new Dimension(100, 50));
 		back.setPreferredSize(new Dimension(100, 50));
 		p1.setPreferredSize(new Dimension(100, 50));
 		p2.setPreferredSize(new Dimension(100, 50));
 		p3.setPreferredSize(new Dimension(100, 50));
 		p4.setPreferredSize(new Dimension(100, 50));
-
+		
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 3;
 		c.gridy = 0;
 		add(p1, c);
-
+		
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 3;
 		c.gridy = 1;
 		add(p2, c);
-
+		
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 3;
 		c.gridy = 2;
 		add(p3, c);
-
+		
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 3;
 		c.gridy = 3;
 		add(p4, c);
-
+		
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 3;
 		c.gridy = 4;
 		add(start, c);
-
+		
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 3;
 		c.gridy = 5;
-		add(back, c);
+		add(back, c);	
 	}
 	public void update(){
 		this.revalidate();
 		this.repaint();
 	}
-
+	
 
 	public void remove(){
 		this.removeAll();
 		this.revalidate();
 		this.repaint();
 	}
-
+	
 	public boolean startPressed(){
-
-		System.out.println("been pressed :"+isPressed);
 		return isPressed;
-
+		
 	}
-
+	
 	public void startGame(){
 		System.out.println("STARTING GAME");
-		new Game();
+		 game = new Game();
 	}
-
+	
+	public Game returnGame(){
+		return game;
+	}
+	
 	public class Handler implements ActionListener {
 		GameMenu menu;
 		@Override
@@ -150,18 +151,18 @@ public class LobbyMenu extends JPanel {
 			if(e.getSource() == back){
 				remove();
 				if(cameFrom == 0){
-					menu = new GameMenu(0);
+				 menu = new GameMenu(0);
 				}
 				else{
-					menu = new GameMenu(1);
+				 menu = new GameMenu(1);
 				}
-				add(menu);
+				add(menu);	
 			}
 			else if(e.getSource() == start)
 			{
 				isPressed = true;
 			}
-
+				
 		}
 
 	}
