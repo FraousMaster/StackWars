@@ -6,10 +6,13 @@ import javax.swing.*;
 public class SettingsMenu extends JPanel {
 
 	private static final long serialVersionUID = 1L;
+	private JButton applyButton;
 	private JButton backButton;
 	@SuppressWarnings("rawtypes")
 	private JComboBox volume;
+	private JComboBox resolution;
 	private final String[] volSet = {"Volume","1","2","3","4","5"};
+	private final String[] resSet = {"Default","1920x1080","1600x900","1360x768","1280x720"};
 	private String VOL;
 	
 	public SettingsMenu(){
@@ -21,12 +24,19 @@ public class SettingsMenu extends JPanel {
 	private void buttons(){
 		GridBagConstraints c = new GridBagConstraints();
 		volume = new JComboBox(volSet);
+		resolution = new JComboBox(resSet);
+		applyButton = new JButton("Apply");
 		backButton = new JButton("Back");
 		
 		
+		
 		volume.addActionListener(new Handler());
+		resolution.addActionListener(new Handler());
+		applyButton.addActionListener(new Handler());
 		backButton.addActionListener(new Handler());
 		volume.setPreferredSize(new Dimension(100, 50));
+		resolution.setPreferredSize(new Dimension(100, 50));
+		applyButton.setPreferredSize(new Dimension(100, 50));
 		backButton.setPreferredSize(new Dimension(100, 50));
 
 		
@@ -34,10 +44,20 @@ public class SettingsMenu extends JPanel {
 		c.gridx = 3;
 		c.gridy = 0;
 		add(volume, c);
-	
+		
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 3;
 		c.gridy = 1;
+		add(resolution, c);
+		
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 3;
+		c.gridy = 2;
+		add(applyButton, c);
+	
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 3;
+		c.gridy = 3;
 		add(backButton, c);
 	}
 	
