@@ -12,14 +12,15 @@ public class Ant {
         PlayerFour
     }
 
-    private int posX, posY;
+    private int posX, posY, speedX, speedY, currentMapObject, previousMapObject;
     private int ownedBy;
     private BufferedImage image;
     
-    public Ant(int x, int y, int owns){
+    public Ant(int x, int y, int owns, int currentMapObject){
         posX = x;
         posY = y;
         ownedBy = owns;
+        this.currentMapObject = currentMapObject;
         try
         {
         	image = ImageIO.read(new File("Graphics\\Ant\\AntV4.png"));
@@ -36,6 +37,12 @@ public class Ant {
     public int getPosY() {
         return posY;
     }
+    public int getSpeedX() {
+        return speedX;
+    }
+    public int getSpeedY() {
+        return speedY;
+    }
     public int getOwnedBy(){
         return ownedBy;
     }
@@ -43,7 +50,18 @@ public class Ant {
         posY = y;
         posX = x;
     }
-    
+    public void setSpeedX(int speedX){
+        
+        this.speedX = speedX;
+    }
+    public void setSpeedY(int speedY){
+        
+        this.speedY = speedY;
+    }
+    public void setCurrentMapObject(int newMapObject){
+        previousMapObject = currentMapObject;
+        currentMapObject = newMapObject;
+    }
     public BufferedImage getImage()
     {
     	return image;
