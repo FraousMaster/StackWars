@@ -14,7 +14,7 @@ public class Map {
     private BufferedImage image;
     JLabel label;
     private ArrayList<Stack> stacks;
-    private HashMap<Integer, Integer> mapX = new HashMap<>();
+    HashMap<Integer, Integer> mapX = new HashMap<>();
     private HashMap<Integer, HashMap<Integer, Integer>> mapY = new HashMap<>();
 
     public Map(){
@@ -27,16 +27,24 @@ public class Map {
 
     private void readFile(){
         FileReader fr;
-        int i, x = 0, y = 0;;
+        int i, x = 0, y = 0;
             try {
                 fr = new FileReader("Graphics\\Maps\\Map1.txt");
+
                 while ((i = fr.read()) != -1)
                 {
-                    mapX.put(x, i);
-                    if (x == 20) {
-                        mapY.put(y, mapX);
-                        y++;
-                        x = 0;
+                    if(i < 57 && i > 48) {
+
+                        mapX.put(x, i);
+                        x++;
+                        if (x == 20) {
+
+                            mapY.put(y, mapX);
+                            y++;
+                            x = 0;
+                            mapX = new HashMap<>();
+                        }
+                        //System.out.println(" Key Y: "+ y + " Key X:"+ x + " content :" + mapX.get(x));
                     }
                 }
             }
@@ -46,57 +54,46 @@ public class Map {
 
     }
 
-    private void drawImage(){
+    private void drawImage() {
         Graphics g = im.getGraphics();
-        int x = 0, y = 0;;
-        for(int i = 0; i < mapY.size(); i ++){
-            for(int j; j < mapY.get(i).size(); j++) {
-                if (i == 49) {
+        int count = 0;
+        for (int i = 0; i < 20; i++) {
+           // System.out.println(i + " " + mapY.get(i).size());
+            for (int j = 0; j < 20; j++) {
+                //System.out.println(" Key Y: "+ i + " Key X:"+ j + " content :" + mapY.get(i).get(j));
+                if ( mapY.get(i).get(j) == 49) {
                     try {
                         image = ImageIO.read(new File("Graphics\\Part1.png"));
-                        g.drawImage(image, 96 * x, 54 * y, 96, 54, null);
-                        x++;
+                        g.drawImage(image, 96 * j , 54 * i, 96, 54, null);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
 
-            }
 
-        }
-
-
-
-
-                } else if (i == 50) {
+                } else if (mapY.get(i).get(j) == 50) {
+                    count ++;
                     try {
                         image = ImageIO.read(new File("Graphics\\Part2.png"));
-                        g.drawImage(image, 96 * x, 54 * y, 96, 54, null);
-                        x++;
+                        g.drawImage(image, 96 * j , 54 * i, 96, 54, null);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                    if (x == 20) {
-                        y++;
-                        x = 0;
-                    }
-                } else if (i == 51) {
+                } else if ( mapY.get(i).get(j) == 51) {
+                    count ++;
                     try {
                         image = ImageIO.read(new File("Graphics\\Stack.png"));
-                        g.drawImage(image, 96 * x, 54 * y, 96, 54, null);
-                        stacks.add(new Stack( 96 * x, 54 * y));
-                        x++;
+                        g.drawImage(image, 96 * j , 54 * i, 96, 54, null);
+                        stacks.add(new Stack( 96 * j , 54 * i));
+
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                    
-                    if (x == 20) {
-                        y++;
-                        x = 0;
-                    }
-                    
                 }
+
             }
         }
+        System.out.println(count);
+    }
 
 
 
