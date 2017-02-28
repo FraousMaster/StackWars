@@ -16,10 +16,12 @@ public class Ant {
     private int ownedBy;
     private BufferedImage image;
     
-    public Ant(int x, int y, int owns, int currentMapObject){
+    public Ant(int x, int y, int owns, int currentMapObject, int speedX, int speedY){
         posX = x;
         posY = y;
         ownedBy = owns;
+        this.speedX = speedX;
+        this.speedY = speedY;
         this.currentMapObject = currentMapObject;
         try
         {

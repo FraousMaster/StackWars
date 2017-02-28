@@ -51,15 +51,17 @@ public class GameView extends Observable implements Observer{
         }
         private void updateThisFrame()
         {
+        	System.out.println("Pos: updateThisFrame");
         	for(Ant a : gameState.getAnts()) {
                 if (a.getPosX() >= D_W) {
                     a.setPos(0,a.getPosY());
-                    drawPanel.repaint();
+                    //drawPanel.repaint();
                 } else {
-                    a.setPos(a.getPosX() + 1, a.getPosY()+ 1);
-                    drawPanel.repaint();
+                    a.setPos(a.getPosX() + a.getSpeedX(), a.getPosY()+ a.getSpeedY());
+                    //drawPanel.repaint();
                 }
         	}
+        	drawPanel.repaint();
         }
                 
         private class DrawPanel extends JPanel {
@@ -98,6 +100,5 @@ public class GameView extends Observable implements Observer{
 
 		}
 	}
-
 }
 

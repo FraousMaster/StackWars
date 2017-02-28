@@ -1,6 +1,7 @@
 import java.util.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
+import java.lang.Math.*;
 
 public class GameController implements Observer{
 	private GameView gameView = null;
@@ -15,16 +16,16 @@ public class GameController implements Observer{
 	public void update(Observable o, Object arg) {
 		if(o == gameView)
 		{
-			System.out.println("Something happened in GameView" + arg);
+			//System.out.println("Something happened in GameView" + arg);
 			try
 			{
 				MouseEvent mouseClick = (MouseEvent)arg;
 				Point point = new Point(mouseClick.getX(),mouseClick.getY());
 				
-				System.out.println("Hellow");
+				//System.out.println("Hellow");
 				for(Stack s : gameState.getStacks())
 				{
-					System.out.println("This is stacks position: " + s.getX() + " " + s.getY());
+					//System.out.println("This is stacks position: " + s.getX() + " " + s.getY());
 					
 					if(point.getX() >= s.getX() && point.getX() <= (s.getX() + 96) && 
 					   point.getY() >= s.getY() && point.getY() <= (s.getY() + 54))
@@ -34,15 +35,23 @@ public class GameController implements Observer{
 						if(mouseClick.getButton() == 1)
 						{
 							this.stackSelected = s;
-							System.out.println("Shows the menu for this stack");
+							//System.out.println("Shows the menu for this stack");
 						}
 						else if(mouseClick.getButton() == 3)
 						{
-							System.out.println("Trying to move to this stack");
-							gameState.uppdateGameState(new Ant(stackSelected.getX() + 96, stackSelected.getY() + 54, 1, 2));
+							//System.out.println("Trying to move to this stack");
+							double selX = stackSelected.getX();
+							double selY = stackSelected.getY();
+							double moveX = s.getX();
+							double moveY = s.getY();
+							double angle = calculateAngle(selX, moveX, selY, moveY);
+						
+							System.out.println("Values : " + selX + " " + selY + " " + moveX + " " + moveY);
+							System.out.println(angle);
+							gameState.uppdateGameState(new Ant(stackSelected.getX() + 96, stackSelected.getY() + 54, 1, 2, 1, 1));
 						}
 						
-						System.out.println("This is truly a stack!");
+						//System.out.println("This is truly a stack!");
 					}
 				}
 			}
@@ -59,5 +68,28 @@ public class GameController implements Observer{
 			gameView.updateFrame();
 			
 		}
+	}
+	
+	public double calculateAngle(double selX, double moveX, double selY, double moveY)
+	{
+		double angle = Math.atan2((selY - moveY), (selX - moveX));
+		if(selX <= moveX && selY <= moveY)
+		{
+			angle *= 1;
+		}
+		else if(selX >= moveX && selY >= moveY)
+		{
+			angle *= 1;
+		}
+		else if(selX <= moveX && selY >= moveY)
+		{
+			angle = Math.PI - angle;
+		}
+		else if(selX >= moveX && selY <= moveY)
+		{
+			angle = Math.PI - angle;
+		}
+
+		return angle;
 	}
 }
