@@ -3,6 +3,8 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.AffineTransform;
 import javax.imageio.ImageIO;
+
+import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -31,7 +33,6 @@ public class GameView extends Observable implements Observer{
         private static final int D_H = 1080;
         int x = 0;
         int y = 0;
-        AffineTransform identity = new AffineTransform();
 
         DrawPanel drawPanel = new DrawPanel();
 
@@ -83,10 +84,13 @@ public class GameView extends Observable implements Observer{
                 
                 for(Ant a : gameState.getAnts()) {
                 	image = a.getImage();
-                	AffineTransform trans = new AffineTransform();
-                	trans.setTransform(identity);
-                	trans.rotate(a.getAngle());
-                    g.drawImage(image, a.getPosX(), a.getPosY(), 82, 70, null);
+                	double rotationRequired = a.getAngle() + Math.PI;
+                	double locationX = image.getWidth() / 2;
+                	double locationY = image.getHeight() / 2;
+                	AffineTransform tx = AffineTransform.getRotateInstance(rotationRequired, locationX, locationY);
+                	AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
+                	
+                    g.drawImage(op.filter(image, null), a.getPosX(), a.getPosY(), 82, 70, null);
                 }
             }
 

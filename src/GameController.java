@@ -44,7 +44,7 @@ public class GameController implements Observer{
 							double selY = stackSelected.getY();
 							double moveX = s.getX();
 							double moveY = s.getY();
-							double angle = calculateAngle(selX, moveX, selY, moveY);
+							double angle = Math.atan2((selY - moveY), (selX - moveX));
 						
 							System.out.println("Values : " + selX + " " + selY + " " + moveX + " " + moveY);
 							System.out.println(angle);
@@ -68,28 +68,5 @@ public class GameController implements Observer{
 			gameView.updateFrame();
 			
 		}
-	}
-	
-	public double calculateAngle(double selX, double moveX, double selY, double moveY)
-	{
-		double angle = Math.atan2((selY - moveY), (selX - moveX));
-		if(selX <= moveX && selY <= moveY)
-		{
-			angle *= 1;
-		}
-		else if(selX >= moveX && selY >= moveY)
-		{
-			angle *= 1;
-		}
-		else if(selX <= moveX && selY >= moveY)
-		{
-			angle = Math.PI - angle;
-		}
-		else if(selX >= moveX && selY <= moveY)
-		{
-			angle = Math.PI - angle;
-		}
-
-		return angle;
 	}
 }
