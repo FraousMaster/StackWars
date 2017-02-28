@@ -18,6 +18,7 @@ public class Client extends Thread{
 	private InetAddress host;
 	@SuppressWarnings("unused")
 	private ArrayList<Ant> ants;
+	private Game game ;
 	
 	@SuppressWarnings("static-access")
 	public Client(String IP, String name, LobbyMenu menu) throws SocketException{
@@ -82,6 +83,7 @@ public class Client extends Thread{
 					if(messageReceived.equals("start")){
 						System.out.println("START PRESSED");
 						menu.startGame();
+						game =	menu.returnGame();
 						inLobby = false;
 					}
 					
@@ -98,25 +100,44 @@ public class Client extends Thread{
  }
 
 	 private void gameRunning(){
-		Game game = menu.returnGame();
-		ants = game.getState().getAnts();
-		 
 		 try{
 			 while(true){
+				
+				 ants = game.getState().getAnts();
+				 System.out.println("IN CLIENT " + ants);
+				 for(Ant x : ants){
+					 int xPos = x.getPosX();
+					 int yPos = x.getPosY();
+					 SendMessage += Integer.toString(xPos);
+					 SendMessage += ", ";
+					 SendMessage += Integer.toString(yPos);
+					 System.out.println("sent message :" + SendMessage);
+					 
+				 }
+				
+				 
 		 SendMessage = "update game";
 		 sendData = SendMessage.getBytes();
 		 DatagramPacket checkPacket = new DatagramPacket(sendData, sendData.length, host, PORT);
-		 clientSocket.send(checkPacket);
+		 	clientSocket.send(checkPacket);
+		// 	System.out.println("sent data :" + SendMessage);
 		 
-		 DatagramPacket receivethis = new DatagramPacket(receiveData, receiveData.length);
-		 clientSocket.receive(receivethis);
-		 byte[] data = receivethis.getData();
-		 messageReceived = new String(data, 0, receivethis.getLength());
-		 //receive ant positions, updade ants
+		// DatagramPacket receivethis = new DatagramPacket(receiveData, receiveData.length);
+		// 	clientSocket.receive(receivethis);
+		 //	byte[] data = receivethis.getData();
+		// 	messageReceived = new String(data, 0, receivethis.getLength());
+		 //	System.out.println("received data :" + messageReceived);
+		 
+		 sleep(5000);
+		 //receive ant positions, update ants
+		 
+		 
+		 		ants.removeAll(ants);
+			 
 			 }
 		 
 		 
-		 }catch(IOException e){
+		 }catch(IOException | InterruptedException e){
 			 e.printStackTrace();
 		 }
 	

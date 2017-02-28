@@ -7,11 +7,13 @@ public class GameController implements Observer{
 	private GameView gameView = null;
 	private GameState gameState = null;
 	private Stack stackSelected;
+	
 	public GameController(GameView gameView, GameState gameState)
 	{
 		this.gameView = gameView;
 		this.gameState = gameState;
 	}
+	
 	@Override
 	public void update(Observable o, Object arg) {
 		if(o == gameView)

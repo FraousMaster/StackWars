@@ -5,9 +5,10 @@ public class Menu extends JFrame {
 	
 
 	private static final long serialVersionUID = 1L;
-	final StartMenu startMenu = new StartMenu();
+	final StartMenu startMenu;
 	
 	public Menu(){
+		startMenu = new StartMenu();
 		frame();
 		add(startMenu);
 	}
@@ -17,7 +18,6 @@ public class Menu extends JFrame {
 	     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	     setSize(600,600);
 	     setVisible(true);
-		
 	} 
 	
 	
