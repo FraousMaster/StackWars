@@ -54,13 +54,25 @@ public class Map {
 
     }
 
+    private void setRoads(){
+        for (int i = 0; i < 20; i++) {
+            //System.out.println(i + " " + mapY.get(i).size());
+            for (int j = 0; j < 20; j++) {
+
+                if(mapY.get(i).get(j) == 51){
+                    //stack found
+                    
+                }
+            }
+        }
+
+    }
+
     private void drawImage() {
         Graphics g = im.getGraphics();
-        int count = 0;
         for (int i = 0; i < 20; i++) {
            // System.out.println(i + " " + mapY.get(i).size());
             for (int j = 0; j < 20; j++) {
-                //System.out.println(" Key Y: "+ i + " Key X:"+ j + " content :" + mapY.get(i).get(j));
                 if ( mapY.get(i).get(j) == 49) {
                     try {
                         image = ImageIO.read(new File("Graphics\\Part1.png"));
@@ -71,7 +83,6 @@ public class Map {
 
 
                 } else if (mapY.get(i).get(j) == 50) {
-                    count ++;
                     try {
                         image = ImageIO.read(new File("Graphics\\Part2.png"));
                         g.drawImage(image, 96 * j , 54 * i, 96, 54, null);
@@ -79,7 +90,6 @@ public class Map {
                         e.printStackTrace();
                     }
                 } else if ( mapY.get(i).get(j) == 51) {
-                    count ++;
                     try {
                         image = ImageIO.read(new File("Graphics\\Stack.png"));
                         g.drawImage(image, 96 * j , 54 * i, 96, 54, null);
@@ -92,7 +102,6 @@ public class Map {
 
             }
         }
-        System.out.println(count);
     }
 
 
