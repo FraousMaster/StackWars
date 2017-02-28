@@ -89,32 +89,35 @@ public class Map {
 
     private ArrayList<Roads> getRoad(int x, int y, previousDirection dir)
     {
-        int a;
         ArrayList<Roads> temp = new ArrayList<Roads>();
         while(mapY.get(y).get(x) != 51){
             /*check position over the road at pos x y (- y)
             *this means direction from stack != under_stack
              */
             if((56 <= mapY.get(y - 1).get((x)) && mapY.get(y - 1).get((x)) >= 50) && dir != previousDirection.under_tile){
-
+                y -=1;
+                temp.add(new Roads(x * 96, y * 54));
             }
             /*check position under the road at pos x,y (+ y)
             *this means direction from stack != under_stack
              */
             else if((56 <= mapY.get(y + 1).get((x)) && mapY.get(y + 1).get((x)) >= 50)&& dir != previousDirection.over_tile){
-
+                y += 1;
+                temp.add(new Roads(x * 96, y * 54));
             }
             /*check position left of the road at pos x,y (- x)
             *this means direction from stack != under_stack
              */
             else if((56 <= mapY.get(y).get((x - 1)) && mapY.get(y).get((x - 1)) >= 50)&& dir != previousDirection.right_of_tile){
-
+                x -= 1;
+                temp.add(new Roads(x * 96, y * 54));
             }
             /*check position right of the road at pos x,y (+ x)
             *this means direction from stack != under_stack
              */
             else if((56 <= mapY.get(y).get((x + 1)) && mapY.get(y).get((x + 1)) >= 50) && dir != previousDirection.left_of_tile){
-
+                x += 1;
+                temp.add(new Roads(x * 96, y * 54));
             }
         }
         return temp;
