@@ -2,13 +2,17 @@ import java.awt.*;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import javax.swing.*;
-import javax.swing.text.html.HTMLDocument;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 
 public class Map {
+    private enum previousDirection{
+        over_tile,
+        under_tile,
+        left_of_tile,
+        right_of_tile
+    };
 
     private BufferedImage  im;
     private BufferedImage image;
@@ -83,20 +87,26 @@ public class Map {
         }
     }
 
-    private ArrayList<Roads> getRoad(int x, int y)
+    private ArrayList<Roads> getRoad(int x, int y, previousDirection dir)
     {
         ArrayList<Roads> temp = new ArrayList<Roads>();
         while(mapY.get(y).get(x) != 51){
-
-            if(mapY.get(x).get((y)) == 50){
-
-            }
-            //check - y
-            else if(mapY.get(x).get((y)) == 50){
+            /*check position over the road at pos x y (+ y)
+            *this means direction from stack != under_stack
+             */
+            if(mapY.get(y).get((x)) == 50 && dir != previousDirection.under_tile) {
 
             }
-            //check + x
-            else if(mapY.get(x).get((y)) == 50){
+            /*check position under the road at pos x,y (+ y)
+            *this means direction from stack != under_stack
+             */
+            else if(mapY.get(y).get((x)) == 50 && dir != previousDirection.over_tile){
+
+            }
+            /*check position under the road at pos x,y (+ y)
+            *this means direction from stack != under_stack
+             */
+            else if(mapY.get(y).get((x)) == 50){
 
             }
             //check + y
