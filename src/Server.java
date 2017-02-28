@@ -91,13 +91,15 @@ public class Server extends Thread{
 			messageReceived = new String(data, 0, receivePacket.getLength());
 			
 			if(messageReceived.equals("update game")){
+				sleep(1);
+				//System.out.println("SERVER : :"+messageReceived);
 				//send position of all ants moving on map
 				
 			}
 				
 		}
 			
-			}catch(IOException e){
+			}catch(IOException | InterruptedException e){
 				e.printStackTrace();
 			}
 			
@@ -121,4 +123,10 @@ public class Player extends Thread{
 			}
 			
 		}
+
+public class Ants{
+
+	
+	
+}
 }

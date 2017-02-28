@@ -22,6 +22,7 @@ public class GameState extends Observable{
     }
 
     public ArrayList<Ant> getAnts(){
+    	System.out.println(ants);
         return ants;
     }
 
@@ -42,6 +43,7 @@ public class GameState extends Observable{
         setChanged();
     	notifyObservers();
     }
+    
     public Map getMap(){
         return map;
     }
