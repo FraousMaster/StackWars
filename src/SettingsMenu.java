@@ -1,6 +1,15 @@
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
+
 import javax.swing.*;
+import javax.xml.parsers.*;
+import javax.xml.transform.*;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+
+import org.w3c.dom.*;
+
 
 
 public class SettingsMenu extends JPanel {
@@ -13,7 +22,8 @@ public class SettingsMenu extends JPanel {
 	private JComboBox resolution;
 	private final String[] volSet = {"Volume","1","2","3","4","5"};
 	private final String[] resSet = {"Default","1920x1080","1600x900","1360x768","1280x720"};
-	private String VOL;
+	private String VOL = "Volume";
+	private String RES = "Default";
 	
 	public SettingsMenu(){
 		setLayout(new GridBagLayout());
@@ -61,11 +71,27 @@ public class SettingsMenu extends JPanel {
 		add(backButton, c);
 	}
 	
-	private void printValue(String input){
-		this.VOL = input;
+	private void volValue(String value){
+		this.VOL = value;
 		System.out.println(VOL);
 	}
-	
+	private void resValue(String value){
+		this.RES = value;
+		System.out.println(RES);
+	}
+	private String getRes(){
+		if(RES.equals("Default")){
+			RES = "1920x1080";
+		}
+		return RES;
+	}
+	private String getVol(){
+		if(VOL.equals("Volume")){
+			VOL = "3";
+		}
+		return VOL;
+	}
+
 	private void remove(){
 		this.removeAll();
 		this.revalidate();
@@ -83,18 +109,46 @@ public class SettingsMenu extends JPanel {
 			}
 			else if(e.getSource() == volume ){
 				String value = volume.getSelectedItem().toString();
-				printValue(value);
+				volValue(value);
 			}
 			else if(e.getSource() == resolution){
 				String value  = resolution.getSelectedItem().toString();
-				printValue(value);
+				resValue(value);
 			}
 			else if(e.getSource() == applyButton){
-				remove();
-				StartMenu menu = new StartMenu();
-				add(menu);
+				try{
+					DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+					DocumentBuilder builder = factory.newDocumentBuilder();
+					Document document = builder.newDocument();
+					Element root = document.createElement("Game");
+					Element settings = document.createElement("settings");
+					Element resolution = document.createElement("Resolution");
+					Element volume = document.createElement("Volume");
+					
+					document.appendChild(root);
+					root.appendChild(settings);
+					settings.appendChild(volume);
+					settings.appendChild(resolution);
+					volume.appendChild(document.createTextNode(getVol()));
+					resolution.appendChild(document.createTextNode(getRes()));
+					
+					TransformerFactory transFactory = TransformerFactory.newInstance();
+					Transformer transformer = transFactory.newTransformer();
+					DOMSource source = new DOMSource(document);
+				StreamResult result = new StreamResult(new File("Settings/file.xml"));
+					transformer.transform(source, result);
+					System.out.println("filen ska vara sparad.");
+					
+					
+					
+					
+				}catch(ParserConfigurationException pce){
+					pce.printStackTrace();
+				}catch(TransformerException te){
+					te.printStackTrace();
+				}
 				
-			}
+			}	
 		}
 	}
 	
