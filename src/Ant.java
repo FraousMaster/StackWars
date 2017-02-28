@@ -12,16 +12,18 @@ public class Ant {
         PlayerFour
     }
 
-    private int posX, posY, speedX, speedY, currentMapObject, previousMapObject;
+    private int posX, posY, currentMapObject, previousMapObject;
+    double speedX, speedY, angle;
     private int ownedBy;
     private BufferedImage image;
     
-    public Ant(int x, int y, int owns, int currentMapObject, int speedX, int speedY){
+    public Ant(int x, int y, int owns, int currentMapObject, double speedX, double speedY, double angle){
         posX = x;
         posY = y;
         ownedBy = owns;
         this.speedX = speedX;
         this.speedY = speedY;
+        this.angle = angle;
         this.currentMapObject = currentMapObject;
         try
         {
@@ -39,14 +41,18 @@ public class Ant {
     public int getPosY() {
         return posY;
     }
-    public int getSpeedX() {
+    public double getSpeedX() {
         return speedX;
     }
-    public int getSpeedY() {
+    public double getSpeedY() {
         return speedY;
     }
     public int getOwnedBy(){
         return ownedBy;
+        
+    }
+    public double getAngle(){
+        return angle;
     }
     public void setPos(int x, int y){
         posY = y;
