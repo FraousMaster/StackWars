@@ -61,7 +61,7 @@ public class SettingsMenu extends JPanel {
 		add(backButton, c);
 	}
 	
-	private void returnVol(String input){
+	private void printValue(String input){
 		this.VOL = input;
 		System.out.println(VOL);
 	}
@@ -83,10 +83,13 @@ public class SettingsMenu extends JPanel {
 			}
 			else if(e.getSource() == volume ){
 				String value = volume.getSelectedItem().toString();
-				returnVol(value);
-			
+				printValue(value);
 			}
-				
+			else if(e.getSource() == resolution){
+				String value  = resolution.getSelectedItem().toString();
+				printValue(value);
+			}
+			elseif(e.getSource() == applyButton)	
 		}
 	}
 	
