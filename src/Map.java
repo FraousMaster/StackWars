@@ -89,41 +89,33 @@ public class Map {
 
     private ArrayList<Roads> getRoad(int x, int y, previousDirection dir)
     {
+        int a;
         ArrayList<Roads> temp = new ArrayList<Roads>();
         while(mapY.get(y).get(x) != 51){
-            /*check position over the road at pos x y (+ y)
+            /*check position over the road at pos x y (- y)
             *this means direction from stack != under_stack
              */
-            if(mapY.get(y).get((x)) == 50 && dir != previousDirection.under_tile) {
+            if((56 <= mapY.get(y - 1).get((x)) && mapY.get(y - 1).get((x)) >= 50) && dir != previousDirection.under_tile){
 
             }
             /*check position under the road at pos x,y (+ y)
             *this means direction from stack != under_stack
              */
-            else if(mapY.get(y).get((x)) == 50 && dir != previousDirection.over_tile){
+            else if((56 <= mapY.get(y + 1).get((x)) && mapY.get(y + 1).get((x)) >= 50)&& dir != previousDirection.over_tile){
 
             }
-            /*check position left of the road at pos x,y (+ y)
+            /*check position left of the road at pos x,y (- x)
             *this means direction from stack != under_stack
              */
-            else if(mapY.get(y).get((x)) == 50){
+            else if((56 <= mapY.get(y).get((x - 1)) && mapY.get(y).get((x - 1)) >= 50)&& dir != previousDirection.right_of_tile){
 
             }
-            //check + y
-            else if(mapY.get(y).get((x)) == 50){
-
-            }
-
-            else if(mapY.get(y).get((x)) == 50 && dir != previousDirection.under_tile) {
-
-            }
-            /*check position right of the road at pos x,y (+ y)
+            /*check position right of the road at pos x,y (+ x)
             *this means direction from stack != under_stack
              */
-            else if(mapY.get(y).get((x)) == 50 && dir != previousDirection.over_tile){
+            else if((56 <= mapY.get(y).get((x + 1)) && mapY.get(y).get((x + 1)) >= 50) && dir != previousDirection.left_of_tile){
 
             }
-
         }
         return temp;
     }
@@ -141,9 +133,8 @@ public class Map {
                         e.printStackTrace();
                     }
 
-
                 } 
-                else if ( mapY.get(i).get(j) == 51) {//3
+                else if ( mapY.get(i).get(j) == 50) {//2
                     try {
                         image = ImageIO.read(new File("Graphics\\StackV2.png"));
                         g.drawImage(image, 96 * j , 54 * i, 96, 54, null);
@@ -153,15 +144,13 @@ public class Map {
                         e.printStackTrace();
                     }
                 }
-                else if (mapY.get(i).get(j) == 50) {//2
+                else if (mapY.get(i).get(j) == 51) {//3
                     try {
                         image = ImageIO.read(new File("Graphics\\RoadVertical.png"));
                         g.drawImage(image, 96 * j , 54 * i, 96, 54, null);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                    
-                    
                 } 
                 else if (mapY.get(i).get(j) == 52) {//4
                     try {
