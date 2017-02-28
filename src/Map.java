@@ -141,7 +141,7 @@ public class Map {
         for (int i = 0; i < 20; i++) {
            // System.out.println(i + " " + mapY.get(i).size());
             for (int j = 0; j < 20; j++) {
-                if ( mapY.get(i).get(j) == 49) {
+                if ( mapY.get(i).get(j) == 49) {//1
                     try {
                         image = ImageIO.read(new File("Graphics\\Part1.png"));
                         g.drawImage(image, 96 * j , 54 * i, 96, 54, null);
@@ -149,16 +149,11 @@ public class Map {
                         e.printStackTrace();
                     }
 
-                } else if (mapY.get(i).get(j) == 50) {
+
+                } 
+                else if ( mapY.get(i).get(j) == 51) {//3
                     try {
-                        image = ImageIO.read(new File("Graphics\\Part2.png"));
-                        g.drawImage(image, 96 * j , 54 * i, 96, 54, null);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                } else if ( mapY.get(i).get(j) == 51) {
-                    try {
-                        image = ImageIO.read(new File("Graphics\\Stack.png"));
+                        image = ImageIO.read(new File("Graphics\\StackV2.png"));
                         g.drawImage(image, 96 * j , 54 * i, 96, 54, null);
                         stacks.add(new Stack( 96 * j , 54 * i));
 
@@ -166,7 +161,57 @@ public class Map {
                         e.printStackTrace();
                     }
                 }
-
+                else if (mapY.get(i).get(j) == 50) {//2
+                    try {
+                        image = ImageIO.read(new File("Graphics\\RoadVertical.png"));
+                        g.drawImage(image, 96 * j , 54 * i, 96, 54, null);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    
+                    
+                } 
+                else if (mapY.get(i).get(j) == 52) {//4
+                    try {
+                        image = ImageIO.read(new File("Graphics\\RoadHorizontal.png"));
+                        g.drawImage(image, 96 * j , 54 * i, 96, 54, null);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    
+                } 
+                else if (mapY.get(i).get(j) == 53) {//5
+                    try {
+                        image = ImageIO.read(new File("Graphics\\rightbottom.png"));
+                        g.drawImage(image, 96 * j , 54 * i, 96, 54, null);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                else if (mapY.get(i).get(j) == 54) {//6
+                    try {
+                        image = ImageIO.read(new File("Graphics\\lefttop.png"));
+                        g.drawImage(image, 96 * j , 54 * i, 96, 54, null);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                else if (mapY.get(i).get(j) == 55) {//7
+                    try {
+                        image = ImageIO.read(new File("Graphics\\topright.png"));
+                        g.drawImage(image, 96 * j , 54 * i, 96, 54, null);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                else if (mapY.get(i).get(j) == 56) {//8
+                    try {
+                        image = ImageIO.read(new File("Graphics\\leftbottom.png"));
+                        g.drawImage(image, 96 * j , 54 * i, 96, 54, null);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
         }
     }
