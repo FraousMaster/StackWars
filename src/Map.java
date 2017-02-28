@@ -83,9 +83,28 @@ public class Map {
         }
     }
 
-    private ArrayList<Roads> getRoad()
+    private ArrayList<Roads> getRoad(int x, int y)
     {
+        ArrayList<Roads> temp = new ArrayList<Roads>();
+        while(mapY.get(y).get(x) != 51){
 
+            if(mapY.get(x).get((y)) == 50){
+
+            }
+            //check - y
+            else if(mapY.get(x).get((y)) == 50){
+
+            }
+            //check + x
+            else if(mapY.get(x).get((y)) == 50){
+
+            }
+            //check + y
+            else if(mapY.get(y).get((x)) == 50){
+
+            }
+        }
+        return temp;
     }
 
     private void drawImage() {
