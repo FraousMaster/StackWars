@@ -89,7 +89,12 @@ public class SettingsMenu extends JPanel {
 				String value  = resolution.getSelectedItem().toString();
 				printValue(value);
 			}
-			elseif(e.getSource() == applyButton)	
+			else if(e.getSource() == applyButton){
+				remove();
+				StartMenu menu = new StartMenu();
+				add(menu);
+				
+			}
 		}
 	}
 	

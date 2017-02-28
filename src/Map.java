@@ -61,10 +61,30 @@ public class Map {
 
                 if(mapY.get(i).get(j) == 51){
                     //stack found
-                    
+
+                    //check - x
+                    if(mapY.get(i).get((j)) == 50){
+
+                    }
+                    //check - y
+                    else if(mapY.get(i - 1).get((j)) == 50){
+
+                    }
+                    //check + x
+                    else if(mapY.get(i).get((j + 1)) == 50){
+
+                    }
+                    //check + y
+                    else if(mapY.get(i + 1).get((j)) == 50){
+
+                    }
                 }
             }
         }
+    }
+
+    private ArrayList<Roads> getRoad()
+    {
 
     }
 
