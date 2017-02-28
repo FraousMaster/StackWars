@@ -1,6 +1,7 @@
 import java.awt.EventQueue;
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.geom.AffineTransform;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -30,6 +31,7 @@ public class GameView extends Observable implements Observer{
         private static final int D_H = 1080;
         int x = 0;
         int y = 0;
+        AffineTransform identity = new AffineTransform();
 
         DrawPanel drawPanel = new DrawPanel();
 
@@ -51,15 +53,18 @@ public class GameView extends Observable implements Observer{
         }
         private void updateThisFrame()
         {
+        	System.out.println("Pos: updateThisFrame");
         	for(Ant a : gameState.getAnts()) {
                 if (a.getPosX() >= D_W) {
                     a.setPos(0,a.getPosY());
-                    drawPanel.repaint();
+                    //drawPanel.repaint();
                 } else {
-                    a.setPos(a.getPosX() + 1, a.getPosY()+ 1);
-                    drawPanel.repaint();
+                    a.setPos(a.getPosX() + (int)a.getSpeedX(), a.getPosY()+ (int)a.getSpeedY());
+                    
+                    //drawPanel.repaint();
                 }
         	}
+        	drawPanel.repaint();
         }
                 
         private class DrawPanel extends JPanel {
@@ -78,6 +83,9 @@ public class GameView extends Observable implements Observer{
                 
                 for(Ant a : gameState.getAnts()) {
                 	image = a.getImage();
+                	AffineTransform trans = new AffineTransform();
+                	trans.setTransform(identity);
+                	trans.rotate(a.getAngle());
                     g.drawImage(image, a.getPosX(), a.getPosY(), 82, 70, null);
                 }
             }
@@ -98,6 +106,5 @@ public class GameView extends Observable implements Observer{
 
 		}
 	}
-
 }
 

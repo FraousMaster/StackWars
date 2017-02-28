@@ -33,12 +33,14 @@ public class GameState extends Observable{
     	for(Stack s : stacks)
     	{
     		s.setPos();
-    		setChanged();
-        	notifyObservers();
+    		//setChanged();
+        	//notifyObservers();
     	}
     }
     public void uppdateGameState(Ant a){
         ants.add(a);
+        setChanged();
+    	notifyObservers();
     }
     public Map getMap(){
         return map;
