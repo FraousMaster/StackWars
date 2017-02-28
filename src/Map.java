@@ -113,7 +113,8 @@ public class Map {
             else if(mapY.get(y).get((x)) == 50){
 
             }
-            if(mapY.get(y).get((x)) == 50 && dir != previousDirection.under_tile) {
+
+            else if(mapY.get(y).get((x)) == 50 && dir != previousDirection.under_tile) {
 
             }
             /*check position right of the road at pos x,y (+ y)
@@ -122,16 +123,7 @@ public class Map {
             else if(mapY.get(y).get((x)) == 50 && dir != previousDirection.over_tile){
 
             }
-            /*check position under the road at pos x,y (+ y)
-            *this means direction from stack != under_stack
-             */
-            else if(mapY.get(y).get((x)) == 50){
 
-            }
-            //check + y
-            else if(mapY.get(y).get((x)) == 50){
-
-            }
         }
         return temp;
     }
