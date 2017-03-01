@@ -82,13 +82,28 @@ public class Server extends Thread{
 	}
 		
 		private void gameRunning() {
+			Ant ant = null;
 			
 			try{
 				while(gameIsRunning){
-			DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
-			serverSocket.receive(receivePacket);
-			byte[] data = receivePacket.getData();
-			messageReceived = new String(data, 0, receivePacket.getLength());
+					
+					DatagramPacket incomingPacket = new DatagramPacket(receiveData, receiveData.length);
+					serverSocket.receive(incomingPacket);
+					byte[] data = incomingPacket.getData();
+					ByteArrayInputStream in = new ByteArrayInputStream(data);
+					ObjectInputStream is = new ObjectInputStream(in);
+					
+					try {
+					Ant ants = (Ant) is.readObject();
+					System.out.println("Student object received = "+  ants);
+					}catch (ClassNotFoundException e) {
+						e.printStackTrace();
+					}
+					
+
+		      System.out.println("IN SERVER :");
+		      System.out.println(ant);
+			
 			
 			if(messageReceived.equals("update game")){
 				sleep(1);
