@@ -75,12 +75,6 @@ public class GameView extends Observable implements Observer{
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
                 g.drawImage(gameState.getMap().getImage(), 0, 0, 1920, 1080, null);
-
-                /*for(Stack s : gameState.getStacks())
-                {
-                	image = s.getImage();
-                	g.drawImage(image, s.getX(), s.getY(), 82, 70, null);
-                }*/
                 
                 for(Ant a : gameState.getAnts()) {
                 	image = a.getImage();
