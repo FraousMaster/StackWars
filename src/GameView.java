@@ -75,16 +75,35 @@ public class GameView extends Observable implements Observer{
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
                 g.drawImage(gameState.getMap().getImage(), 0, 0, 1920, 1080, null);
-
-                /*for(Stack s : gameState.getStacks())
-                {
-                	image = s.getImage();
-                	g.drawImage(image, s.getX(), s.getY(), 82, 70, null);
-                }*/
                 
                 for(Ant a : gameState.getAnts()) {
                 	image = a.getImage();
-                	double rotationRequired = a.getAngle() + Math.PI;
+                	double rotationRequired = 0;
+                	if(a.getCurrentMapObject() == 3)
+                	{
+                		rotationRequired = 0;
+                	}
+                	else if(a.getCurrentMapObject() == 4)
+                	{
+                		rotationRequired = Math.PI / 2;
+                	}
+                	else if(a.getCurrentMapObject() == 5)
+                	{
+                		rotationRequired = Math.PI / 4 * -1;
+                	}
+                	else if(a.getCurrentMapObject() == 6)
+                	{
+                		rotationRequired = Math.PI / 4 * -1;
+                	}
+                	else if(a.getCurrentMapObject() == 7)
+                	{
+                		rotationRequired = Math.PI / 4;
+                	}
+                	else if(a.getCurrentMapObject() == 8)
+                	{
+                		
+                	}
+                	//rotationRequired = a.getAngle() + Math.PI;
                 	double locationX = image.getWidth() / 2;
                 	double locationY = image.getHeight() / 2;
                 	AffineTransform tx = AffineTransform.getRotateInstance(rotationRequired, locationX, locationY);

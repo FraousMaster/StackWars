@@ -115,6 +115,9 @@ public class Ant implements java.io.Serializable {
     public double getAngle(){
         return angle;
     }
+    public int getCurrentMapObject(){
+        return currentMapObject;
+    }
     public void setPos(int x, int y){
         posY = y;
         posX = x;
