@@ -60,7 +60,7 @@ public class GameView extends Observable implements Observer{
                     a.setPos(0,a.getPosY());
                     //drawPanel.repaint();
                 } else {
-                    a.setPos(a.getPosX() + (int)a.getSpeedX(), a.getPosY()+ (int)a.getSpeedY());
+                    a.setPos((int)(a.getPosX() + Math.sqrt(2)), (int)(a.getPosY()+ Math.sqrt(2)));
                     
                     //drawPanel.repaint();
                 }
