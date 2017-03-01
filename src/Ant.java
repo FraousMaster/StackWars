@@ -23,16 +23,11 @@ public class Ant implements java.io.Serializable {
         PlayerFour
     }
 
-<<<<<<< HEAD
     private int posX, posY, currentMapObject, previousMapObject, ownedBy;
     //double speedX, speedY, angle;
     //private BufferedImage image;
-=======
-    private int posX, posY, currentMapObject, previousMapObject;
     double speedX, speedY, angle;
-    private int ownedBy;
     private BufferedImage image;
->>>>>>> 9adef257ff5f0d877112c76f96c46cc1d62dbca1
     private ArrayList<BufferedImage> imageSelection;
     
     public Ant(int x, int y, int owns, int currentMapObject){
