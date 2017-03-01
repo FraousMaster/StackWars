@@ -94,16 +94,12 @@ public class Client extends Thread{
 		}
 			System.out.println("left loop");
 			System.out.println("Entering game");
-			try {
-				gameRunning();
-			} catch (StreamCorruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			gameRunning();
 			
  }
 
-	 private void gameRunning() throws StreamCorruptedException{
+	 private void gameRunning() {
+		 
 		 try{
 			 
 			
@@ -113,17 +109,14 @@ public class Client extends Thread{
 				 ants = game.getState().getAnts();
 				 System.out.println("IN CLIENT " + ants);
 				 
-				
 				 
-				 for(Ant ants : ants ){
-					 
-					 ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-					 ObjectOutputStream os = new ObjectOutputStream(outputStream);
-					 os.writeObject(ants);
-					 byte[] data = outputStream.toByteArray();
-					 DatagramPacket packet = new DatagramPacket(data, data.length, host, PORT);
-					 clientSocket.send(packet);
-				 }
+				 	for(Ant x : ants){
+				 	SendMessage = x.toString();
+				 	sendData = SendMessage.getBytes();
+					DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, host, PORT);
+				 	clientSocket.send(sendPacket);
+			       
+				 	}
 				 
 				
 				     

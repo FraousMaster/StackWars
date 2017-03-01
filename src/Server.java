@@ -17,6 +17,7 @@ public class Server extends Thread{
 	private boolean started = false;
 	protected boolean gameIsRunning = true;
 	protected boolean inLobby = true;
+	private ArrayList<Ant> ants;
 	
 	public Server() throws Exception{
 		serverSocket = new DatagramSocket(1203);
@@ -82,7 +83,6 @@ public class Server extends Thread{
 	}
 		
 		private void gameRunning() {
-			Ant ant = null;
 			
 			try{
 				while(gameIsRunning){
@@ -90,21 +90,10 @@ public class Server extends Thread{
 					DatagramPacket incomingPacket = new DatagramPacket(receiveData, receiveData.length);
 					serverSocket.receive(incomingPacket);
 					byte[] data = incomingPacket.getData();
-					ByteArrayInputStream in = new ByteArrayInputStream(data);
-					ObjectInputStream is = new ObjectInputStream(in);
+					 messageReceived = new String(data, 0, incomingPacket.getLength());
 					
-					try {
-					Ant ants = (Ant) is.readObject();
-					System.out.println("Student object received = "+  ants);
-					}catch (ClassNotFoundException e) {
-						e.printStackTrace();
-					}
-					
+					System.out.println("Student object received = "+  messageReceived);
 
-		      System.out.println("IN SERVER :");
-		      System.out.println(ant);
-			
-			
 			if(messageReceived.equals("update game")){
 				sleep(1);
 				//System.out.println("SERVER : :"+messageReceived);

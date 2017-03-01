@@ -37,37 +37,20 @@ public class Ant implements java.io.Serializable {
         this.speedY = speedY;
         this.angle = angle;
         this.currentMapObject = currentMapObject;
-    
     }
     
-    public void writeObject(java.io.ObjectOutputStream stream) throws IOException {
-      
-    	
-    	stream.defaultWriteObject();    
-    	stream.writeInt(posX);
-        stream.writeInt(posY);
-        stream.writeInt(currentMapObject);
-        stream.writeInt(ownedBy);
-        
-        stream.writeDouble(speedX);
-        stream.writeDouble(speedY);
-        stream.writeDouble(angle);
+    public Ant(String s){
+    	String b[] = s.split(":");
+    	posX = Integer.parseInt(b[0]);
+    	posY = Integer.parseInt(b[1]);
+    	ownedBy = Integer.parseInt(b[2]);
+    	currentMapObject = Integer.parseInt(b[3]);
     }
-
-    public void readObject(java.io.ObjectInputStream stream) throws IOException, ClassNotFoundException {
-    	stream.defaultReadObject();
-
-    	posX = stream.readInt(); 
-    	posY = stream.readInt();
-    	currentMapObject = stream.readInt();
-    	ownedBy = stream.readInt();
-    	
-    	speedX = stream.readDouble(); 
-    	speedY = stream.readDouble(); 
-    	angle = stream.readDouble(); 
+    
+    public String toString(){
+    	return getPosX() + ":" + getPosY() + ":" + getOwnedBy() + ":" + getCurrentMapObject();
     }
-
-
+    
     public int getPosX() {
         return posX;
     }
