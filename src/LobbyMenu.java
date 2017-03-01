@@ -123,7 +123,11 @@ public class LobbyMenu extends JPanel {
 	/**
 	 * 
 	 */
+<<<<<<< HEAD
 >>>>>>> devel
+=======
+>>>>>>> Devel
+>>>>>>> 6f9cbb3d5ef3bb50d5aa6f0f0ebfcf1778001477
 	private static final long serialVersionUID = 1L;
 	private JLabel p1;
 	private JLabel p2;
@@ -347,7 +351,11 @@ public class LobbyMenu extends JPanel {
 =======
 =======
 	
+<<<<<<< HEAD
 >>>>>>> devel
+=======
+>>>>>>> Devel
+>>>>>>> 6f9cbb3d5ef3bb50d5aa6f0f0ebfcf1778001477
 	public boolean startPressed(){
 		return isPressed;
 		
@@ -370,7 +378,11 @@ public class LobbyMenu extends JPanel {
 		return game;
 	}
 	
+<<<<<<< HEAD
 >>>>>>> devel
+=======
+>>>>>>> Devel
+>>>>>>> 6f9cbb3d5ef3bb50d5aa6f0f0ebfcf1778001477
 	public class Handler implements ActionListener {
 		GameMenu menu;
 		@Override
