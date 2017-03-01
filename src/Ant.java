@@ -14,13 +14,15 @@ public class Ant {
     }
 
     private int posX, posY, currentMapObject, previousMapObject, ownedBy;
+    private ArrayList<Roads> road;
     //double speedX, speedY, angle;
     //private BufferedImage image;
     double speedX, speedY, angle;
     
-    public Ant(int x, int y, int owns, int currentMapObject){
+    public Ant(int x, int y, int owns, int currentMapObject, ArrayList<Roads> road){
         posX = x;
         posY = y;
+        this.road = road;
         ownedBy = owns;
         this.currentMapObject = currentMapObject;
     }

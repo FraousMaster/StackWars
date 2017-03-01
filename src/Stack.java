@@ -46,11 +46,24 @@ public class Stack extends JComponent{
     public int getY(){
         return stackPosY;
     }
-    public void setPos()
+    public int getPopulation()
     {
-    	//stackPosX += 100;
-    	//stackPosY += 100;
+    	return population;
     }
+    public ArrayList<Roads> getConnectedStacks(int x, int y)
+    {
+    	Point key = new Point();
+    	key.setLocation(x, y);
+    	if(connectedStacks.get(key) != null)
+		{
+    		return connectedStacks.get(key);
+		}
+    	else
+    	{
+    		return null;
+    	}
+    }
+    
     public Dimension getPreferredSize() {
         return new Dimension(image.getWidth(), image.getHeight());
   }
