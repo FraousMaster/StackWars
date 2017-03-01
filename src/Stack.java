@@ -52,8 +52,9 @@ public class Stack extends JComponent{
     }
     public ArrayList<Roads> getConnectedStacks(int x, int y)
     {
-    	Point key = new Point();
-    	key.setLocation(x, y);
+    	
+    	Point key = new Point(x,y);
+    	System.out.println(connectedStacks);
     	if(connectedStacks.get(key) != null)
 		{
     		return connectedStacks.get(key);
@@ -66,6 +67,7 @@ public class Stack extends JComponent{
 
     public void addPath(Point p, ArrayList<Roads> list)
     {
+    	//System.out.println(p);
         connectedStacks.put(p, list);
     }
     public Dimension getPreferredSize() 

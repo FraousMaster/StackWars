@@ -71,8 +71,8 @@ public class Map {
                 }
             }
         }
-        for(Roads r : temp)
-            System.out.println(r.getPos());
+        //for(Roads r : temp)
+            //System.out.println(r.getPos());
     }
     private ArrayList<Roads> getRoadTiles(int x, int y){
 
@@ -175,13 +175,16 @@ public class Map {
 
         //  System.out.println("hello");
         // System.out.println(temp.size());
-        addRoadToStack(initialX, initialY, temp);
+        addRoadToStack(initialX, initialY, x, y, temp);
         return temp;
         }
-    private void addRoadToStack(int x,int y, ArrayList<Roads> list){
+    private void addRoadToStack(int x,int y, int x1, int y1, ArrayList<Roads> list){
+        
+    	x1 = x1 * 96;
+        y1 = y1 * 54;
         x = x * 96;
         y = y * 54;
-        Point p = new Point(x, y);
+        Point p = new Point(x1, y1);
         for(Stack s : stacks){
             if(s.getX() == x && s.getY() == y){
                 s.addPath(p, list);
