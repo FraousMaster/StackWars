@@ -64,8 +64,8 @@ public class GameView extends Observable implements Observer{
                     
                     //drawPanel.repaint();
                 }
+                drawPanel.repaint();
         	}
-        	drawPanel.repaint();
         }
                 
         private class DrawPanel extends JPanel {
