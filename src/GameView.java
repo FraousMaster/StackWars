@@ -77,7 +77,11 @@ public class GameView extends Observable implements Observer{
                 g.drawImage(gameState.getMap().getImage(), 0, 0, 1920, 1080, null);
                 
                 for(Ant a : gameState.getAnts()) {
-                	image = a.getImage();
+                	try {
+						image = ImageIO.read(new File("Graphics\\Ant\\AntV4.png"));
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
                 	double rotationRequired = 0;
                 	if(a.getCurrentMapObject() == 3)
                 	{
