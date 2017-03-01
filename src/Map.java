@@ -37,7 +37,7 @@ public class Map {
         FileReader fr;
         int i, x = 0, y = 0;
             try {
-                fr = new FileReader("Graphics\\Maps\\Map1.txt");
+                fr = new FileReader("Graphics\\Maps\\Map2.txt");
 
                 while ((i = fr.read()) != -1)
                 {
@@ -63,21 +63,20 @@ public class Map {
     }
 
     private void setRoads(){
-    	int count = 0;
+        ArrayList<Roads> temp = new ArrayList<>();
         for (int i = 0; i < 20; i++) {
-            //System.out.println(i + " " + mapY.get(i).size());
             for (int j = 0; j < 20; j++) {
-
-                if(mapY.get(i).get(j) == 51){
-                	count ++;
-                	//stack found
-                	getRoad(j,i);
-                	if(count == 4)
-                		break;
+                if(mapY.get(i).get(j) == 50) {
+                    temp = getRoad(j, i);
                 }
-                
             }
         }
+        for(Roads r : temp)
+            System.out.println(r.getPos());
+    }
+    private ArrayList<Roads> getRoadTiles(int x, int y){
+
+        return null;
     }
 
     private ArrayList<Roads> getRoad(int x, int y)
@@ -93,39 +92,43 @@ public class Map {
         	//System.out.println(mapY.get(y).get(x) +" " + dir);
         	if(y != 19 && dir != previousDirection.under_tile){
 	            if (56 >= mapY.get(y + 1).get((x)) && mapY.get(y + 1).get((x)) >= 51){
-	               // System.out.println("under: y :"+ y + " x: "+ x);
-	            	y -= 1;
+	            	y += 1;
 	                temp.add(new Roads(x * 96, y * 54));
 	                dir = previousDirection.over_tile;
 	            }
 	            else if (y != 19 && mapY.get(y + 1).get(x) == 50){
-	            	//temp.add(new Roads(x * 96, y * 54));
 	            	//System.out.println("STack found");
-	            	 y -= 1;
+	            	 y += 1;
 	            }
-        }
+                /*if(y > 19)
+                    y = 19;*/
+            }
             /*check position over the road at pos x,y (+ y)
             *this means direction from stack != under_stack
              */
-        	if(y != 0 && dir != previousDirection.over_tile){
+        	else if(y != 0 && dir != previousDirection.over_tile){
 	            if((56 >= mapY.get(y - 1).get(x) && mapY.get(y - 1).get((x)) >= 51)){
 	            	 //System.out.println("over: y :"+ y + " x: "+ x);
-	            	y += 1;
+	            	y -= 1;
 	                temp.add(new Roads(x * 96, y * 54));
 	                dir = previousDirection.under_tile;
 	            }
 	            else if (y != 0 && mapY.get(y - 1).get(x) == 50){
 	            	//temp.add(new Roads(x * 96, y * 54));
 	            	//System.out.println("STack found");
-	            	y += 1;
+	            	y -= 1;
 	            }
+                /*if(y < 0)
+                    y = 0;*/
         	}
             /*check position right of the road at pos x,y (+ x)
             *this means direction from stack != under_stack
              */
-        	if(x != 19 && dir != previousDirection.right_of_tile){
-	           if(56 >= mapY.get(y).get((x + 1)) &&  mapY.get(y).get((x + 1)) >= 51){
-	        	   // System.out.println("Right: y :"+ y + " x: "+ x);
+
+        	else if(x != 19 && dir != previousDirection.right_of_tile){
+               //;
+                if(56 >= mapY.get(y).get((x + 1)) &&  mapY.get(y).get((x + 1)) >= 51){
+	            	 //System.out.println("Right: y :"+ y + " x: "+ x);
 	            	x += 1;
 	                temp.add(new Roads(x * 96, y * 54));
 	                dir = previousDirection.left_of_tile;
@@ -135,13 +138,15 @@ public class Map {
 	            	//temp.add(new Roads(x * 96, y * 54));
 	            	//System.out.println("STack found");
 	            	x += 1;
+                    //System.out.println(mapY.get(y).get(x));
 	            }
-	            	
+                /*if(x > 19)
+                    x = 19;*/
         	}
             /*check position left of the road at pos x,y (- x)
             *this means direction from stack != under_stack
              */
-        	if(x != 0  && dir != previousDirection.left_of_tile){
+        	else if(x != 0  && dir != previousDirection.left_of_tile){
 	            if(x != 19 && (56 >= mapY.get(y).get((x - 1)) && mapY.get(y).get((x - 1)) >= 51)){
 	            	//System.out.println("left: y :"+ y + " x: "+ x);
 	            	x -= 1;
@@ -153,18 +158,26 @@ public class Map {
 	            	//temp.add(new Roads(x * 96, y * 54));
 	            	//System.out.println("STack found");
 	            	x -= 1;
+                    //System.out.println(mapY.get(y).get(x));
 	            }
+                /*if(x < 0)
+                    x = 0;*/
         	}
-            //break;
-            if(mapY.get(y).get(x) == 50 || count == 50){
-            	//System.out.println("end: y :"+ y + " x: "+ x + " " + mapY.get(y).get((x)));
+            if(mapY.get(y).get(x) == 50){
+            	System.out.println("end: y :"+ y + " x: "+ x + " " + mapY.get(y).get((x)));
             	break;
             }
         }
+        //System.out.println("hello");
+        //System.out.println(temp.size());
+            //break;
+
         //  System.out.println("hello");
         // System.out.println(temp.size());
         return temp;
-    }
+        }
+
+
 
     private void drawImage() {
         Graphics g = im.getGraphics();

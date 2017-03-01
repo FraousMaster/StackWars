@@ -37,15 +37,19 @@ public class GameController implements Observer{
 						}
 						else if(mouseClick.getButton() == 3)
 						{
-							double selX = stackSelected.getX();
-							double selY = stackSelected.getY();
-							double moveX = s.getX();
-							double moveY = s.getY();
-							double angle = Math.atan2((selY - moveY), (selX - moveX));
-						
+							if(stackSelected.getConnectedStacks(s.getX(), s.getY()) != null)
+							{
+								gameState.addAnt(new Ant(stackSelected.getX(), stackSelected.getY(), 1, 4, 
+										stackSelected.getConnectedStacks(s.getX(), s.getY())));
+							}
+							//double selX = stackSelected.getX();
+							//double selY = stackSelected.getY();
+							//double moveX = s.getX();
+							//double moveY = s.getY();
+							//double angle = Math.atan2((selY - moveY), (selX - moveX));
+							//stackSelected.getConnectedStacks(s.getX(), s.getY())
 							//System.out.println("Values : " + selX + " " + selY + " " + moveX + " " + moveY);
 							//System.out.println(angle);
-							gameState.addAnt(new Ant(stackSelected.getX(), stackSelected.getY(), 1, 4));
 							//System.out.println("adding ant");
 						}
 					}
@@ -55,9 +59,6 @@ public class GameController implements Observer{
 			{
 				e.printStackTrace();
 			}
-			
-			
-			gameState.moveStack();
 		}
 		if(o == gameState)
 		{
