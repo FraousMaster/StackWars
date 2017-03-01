@@ -63,7 +63,11 @@ public class Stack extends JComponent{
     		return null;
     	}
     }
-    
+
+    public void addPath(Point p, ArrayList<Roads> list)
+    {
+        connectedStacks.put(p, list);
+    }
     public Dimension getPreferredSize() 
     {
         return new Dimension(image.getWidth(), image.getHeight());
