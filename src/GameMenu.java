@@ -7,16 +7,12 @@ import javax.swing.*;
 
 public class GameMenu extends JPanel {
 
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private JTextField ipField;
 	private JTextField nameField;
 	@SuppressWarnings("rawtypes")
 	private JComboBox antBox;
-	private JButton mapButton;
+	private JComboBox mapButton;
 	private JButton gameButton;
 	private JButton backButton;
 	private JButton joinButton;
@@ -24,92 +20,72 @@ public class GameMenu extends JPanel {
 	private String NAME;
 	private String antNr;
 	private final String[] ants = {"Ants","5","6","7","8","9","10"};
+	private final String[] maps = {"Maps","1","2","3","4","5"};
+	private int goTo;
 
 
 	
 	public GameMenu(int to){
-		setLayout(new GridBagLayout());
-		if(to == 0){
-		hostSettings();
-		}
-		else{
-		joinSettings();
+		this.goTo = to;
 		
-		}
+		setLayout(new GridBagLayout());
+		settings();
 	}
 
-	public String getName(){
-		return NAME;
-	}
-	
-	private void joinSettings(){
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	private void settings(){
+		
 		GridBagConstraints c = new GridBagConstraints();
+		
+		if(goTo == 1)
 		ipField = new JTextField("Ip Address");
+		
 		nameField = new JTextField("Name");
-		joinButton = new JButton("Join");
+		
+		if(goTo == 0){
+		antBox = new JComboBox(ants);
+		mapButton = new JComboBox(maps);
+		gameButton = new JButton("Create Game");
+		}
+		
 		backButton = new JButton("Back");
 		
-		ipField.addActionListener(new Handler());
-		nameField.addActionListener(new Handler());
-		joinButton.addActionListener(new Handler());
+		if(goTo == 1)
+		joinButton = new JButton("Join");
+		
+		if(goTo == 0){
+		antBox.addActionListener(new Handler());
+		mapButton.addActionListener(new Handler());
+		}
+		
+		if(goTo == 0)
+		gameButton.addActionListener(new Handler());
 		backButton.addActionListener(new Handler());
 		
+		if(goTo == 1){
+		joinButton.addActionListener(new Handler());
 		ipField.setPreferredSize(new Dimension(100, 50));
+		}
+		
 		nameField.setPreferredSize(new Dimension(100, 50));
-		joinButton.setPreferredSize(new Dimension(100, 50));
+		
+		if(goTo == 0){
+		antBox.setPreferredSize(new Dimension(100, 50));
+		mapButton.setPreferredSize(new Dimension(100, 50));
+		gameButton.setPreferredSize(new Dimension(150, 50));
+		}
+		
 		backButton.setPreferredSize(new Dimension(100, 50));
+		
+		if(goTo == 1)
+		joinButton.setPreferredSize(new Dimension(100, 50));
+
 		
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 3;
 		c.gridy = 0;
+		if(goTo == 1)
 		add(ipField, c);
-		
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.gridx = 3;
-		c.gridy = 1;
-		add(nameField, c);
-		
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.gridx = 3;
-		c.gridy = 2;
-		add(joinButton, c);
-		
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.gridx = 3;
-		c.gridy = 3;
-		add(backButton, c);
-	}
-	
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	private void hostSettings(){
-		
-		
-		GridBagConstraints c = new GridBagConstraints();
-		
-		//ipField = new JTextField("Ip Address");
-		nameField = new JTextField("Name");
-		antBox = new JComboBox(ants);
-		mapButton = new JButton("Map");
-		gameButton = new JButton("Create Game");
-		backButton = new JButton("Back");
-		
-		antBox.addActionListener(new Handler());
-		mapButton.addActionListener(new Handler());
-		gameButton.addActionListener(new Handler());
-		backButton.addActionListener(new Handler());
-		
-		//ipField.setPreferredSize(new Dimension(100, 50));
-		nameField.setPreferredSize(new Dimension(100, 50));
-		antBox.setPreferredSize(new Dimension(100, 50));
-		mapButton.setPreferredSize(new Dimension(100, 50));
-		gameButton.setPreferredSize(new Dimension(150, 50));
-		backButton.setPreferredSize(new Dimension(100, 50));
-
-		
-		//c.fill = GridBagConstraints.HORIZONTAL;
-		//c.gridx = 3;
-		//c.gridy = 0;
-		//add(ipField, c);
 	
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 3;
@@ -119,22 +95,35 @@ public class GameMenu extends JPanel {
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 3;
 		c.gridy = 2;
+		if(goTo == 0)
 		add(antBox, c);
 		
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 3;
 		c.gridy = 3;
+		if(goTo == 0)
 		add(mapButton, c);
 		
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 3;
 		c.gridy = 4;
+		if(goTo == 0)
 		add(gameButton, c);
 	
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 3;
 		c.gridy = 5;
 		add(backButton, c);
+		
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 3;
+		c.gridy = 2;
+		if(goTo == 1)
+		add(joinButton, c);
+	}
+	
+	public String getName(){
+		return NAME;
 	}
 	
 	private void setIP(String input){
@@ -209,11 +198,6 @@ public class GameMenu extends JPanel {
 					e1.printStackTrace();
 				}
 			}
-				
-				
-		
-			
-			
 		}
 	}
 }

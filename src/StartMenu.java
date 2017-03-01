@@ -83,7 +83,7 @@ public class StartMenu extends JPanel {
 				add(menu);
 			}
 			else if(e.getSource() == creditsButton){
-				
+				new Game();
 			}
 			else if(e.getSource() == exitButton){
 					System.exit(0);

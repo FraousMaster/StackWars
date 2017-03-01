@@ -8,11 +8,15 @@ public class Server extends Thread{
 	protected byte[] receiveData  = new byte[16];
 	protected byte[] sendData  = new byte[16];
 	private int port;
+	@SuppressWarnings("unused")
 	private InetAddress IPAddress;
 	private LinkedList<String> players ;
 	private String messageReceived;
-	
-	protected boolean gameRunning = true;
+	@SuppressWarnings("unused")
+	private final int MAX_PLAYERS = 4;
+	private boolean started = false;
+	protected boolean gameIsRunning = true;
+	protected boolean inLobby = true;
 	
 	public Server() throws Exception{
 		serverSocket = new DatagramSocket(1203);
@@ -24,58 +28,85 @@ public class Server extends Thread{
 			System.out.println("Hello world");
 			
 			try{
-				while(true){
+				while(inLobby){
 				DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
 				serverSocket.receive(receivePacket);
 				byte[] data = receivePacket.getData();
 				 messageReceived = new String(data, 0, receivePacket.getLength());
-				new Player(messageReceived).start();
+				 
+				
 				
 				IPAddress = receivePacket.getAddress();
 				port = receivePacket.getPort();
-				System.out.println("RECEIVED MSG: " + messageReceived);
-				
+				//System.out.println("RECEIVED MSG: " + messageReceived);
 				InetAddress IPAddress = receivePacket.getAddress();
-				for(String x : players){
-				sendData = x.getBytes();
-				DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, IPAddress, port);
-				serverSocket.send(sendPacket);
-				System.out.println("THIS WAS SENT FROM serverSocket: " + x);
+				
+				if(messageReceived.equals("start")){
+					started = true;
+					sendData = messageReceived.getBytes();
+					DatagramPacket startPacket = new DatagramPacket(sendData, sendData.length, IPAddress, port);
+					serverSocket.send(startPacket);
+					}
+					else if(started &&  messageReceived.equals("started?") ){
+						sendData = "start".getBytes();
+						DatagramPacket startPacket = new DatagramPacket(sendData, sendData.length, IPAddress, port);
+						serverSocket.send(startPacket);
+						inLobby = false;
+						}
+						else if(!(messageReceived.equals("update") || messageReceived.equals("start") || messageReceived.equals("started?") )){
+							new Player(messageReceived).start();
+							for(String x : players){
+								sendData = x.getBytes();
+								DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, IPAddress, port);
+								serverSocket.send(sendPacket);
+								//System.out.println("THIS WAS SENT FROM serverSocket: " + x);
+									}
+							}
+							else if(messageReceived.equals("update")){
+							sendData = players.getLast().getBytes();
+							DatagramPacket sendUpdate = new DatagramPacket(sendData, sendData.length, IPAddress, port);
+							serverSocket.send(sendUpdate);
+							//System.out.println("THIS WAS SENT FROM serverSocket: " +  players.getLast()); 	
 				}
 				
 				
-				multicastInit();
-				
-				Thread.sleep(1000);
-				}
 			}
-			catch(IOException | InterruptedException e){
+				
+			}catch(IOException | InterruptedException e){
 					System.out.print(e);
 			
 		}
+			System.out.println("ended loop");
+			System.out.println("entering game-loop");
+			gameRunning();
 	}
 		
-		private void multicastInit() throws SocketException, UnknownHostException{
+		private void gameRunning() {
 			
-			try {
-				DatagramSocket socket = new DatagramSocket();
-				InetAddress group = InetAddress.getByName("230.0.0.1");
-	
-					
-						sendData = messageReceived.getBytes();
-						DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, group, 8888);
-						socket.send(sendPacket); 	
-	
-						System.out.println("SEND MSG: " + messageReceived);
-						
+			try{
+				while(gameIsRunning){
+			DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
+			serverSocket.receive(receivePacket);
+			byte[] data = receivePacket.getData();
+			messageReceived = new String(data, 0, receivePacket.getLength());
+			
+			if(messageReceived.equals("update game")){
+				sleep(1);
+				//System.out.println("SERVER : :"+messageReceived);
+				//send position of all ants moving on map
 				
+			}
 				
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
+		}
+			
+			}catch(IOException | InterruptedException e){
 				e.printStackTrace();
 			}
+			
+			
      	}
-		public class Player extends Thread{
+		
+public class Player extends Thread{
 			String name;
 			
 			public Player(String player) throws InterruptedException{
@@ -92,7 +123,10 @@ public class Server extends Thread{
 			}
 			
 		}
-}
+
+public class Ants{
 
 	
 	
+}
+}
