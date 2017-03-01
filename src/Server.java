@@ -17,11 +17,13 @@ public class Server extends Thread{
 	private boolean started = false;
 	protected boolean gameIsRunning = true;
 	protected boolean inLobby = true;
+	private ArrayList<Ant> ants;
 	
 	public Server() throws Exception{
 		serverSocket = new DatagramSocket(1203);
 		players = new LinkedList<String>();
-
+		ants = new ArrayList<Ant>();
+		
 	}
 
 		public void run(){
@@ -82,44 +84,60 @@ public class Server extends Thread{
 	}
 		
 		private void gameRunning() {
-			Ant ant = null;
 			
 			try{
+				
 				while(gameIsRunning){
-					
+				
+				
 					DatagramPacket incomingPacket = new DatagramPacket(receiveData, receiveData.length);
+				
 					serverSocket.receive(incomingPacket);
+				
 					byte[] data = incomingPacket.getData();
-					ByteArrayInputStream in = new ByteArrayInputStream(data);
-					ObjectInputStream is = new ObjectInputStream(in);
+					 messageReceived = new String(data, 0, incomingPacket.getLength());
+					 if(!(messageReceived.equals("update") || messageReceived.equals("start") || messageReceived.equals("started?") || messageReceived.equals(null) 
+							 || messageReceived == null || messageReceived.equals("update ants"))){	
+						if(ants.isEmpty()){
+							 ants.add(new Ant(messageReceived));
+						}
+						else if (!(check(messageReceived))){
+							 ants.add(new Ant(messageReceived));
+						}
+						 
 					
-					try {
-					Ant ants = (Ant) is.readObject();
-					System.out.println("Student object received = "+  ants);
-					}catch (ClassNotFoundException e) {
-						e.printStackTrace();
+					 }
+					 
+					
+					if(messageReceived.equals("update ants")){
+						for(Ant x : ants){
+							sendData = x.toString().getBytes();
+							DatagramPacket sendUpdate = new DatagramPacket(sendData, sendData.length, IPAddress, port);
+							serverSocket.send(sendUpdate);
+						}
 					}
-					
-
-		      System.out.println("IN SERVER :");
-		      System.out.println(ant);
-			
-			
-			if(messageReceived.equals("update game")){
-				sleep(1);
-				//System.out.println("SERVER : :"+messageReceived);
-				//send position of all ants moving on map
-				
-			}
-				
+					 System.out.println("SERVER ANT : " + ants); 
 		}
 			
-			}catch(IOException | InterruptedException e){
+			}catch(IOException e){
 				e.printStackTrace();
 			}
 			
 			
      	}
+		
+		private boolean check(String s){
+			 boolean exists = false;
+			 for(Ant x : ants){
+				 if( x.toString().equals(s)){
+					 exists = true;
+				 }	
+			 }
+			 return exists;
+			 
+		 }
+		
+		
 		
 public class Player extends Thread{
 			String name;
@@ -137,11 +155,5 @@ public class Player extends Thread{
 				
 			}
 			
-		}
-
-public class Ants{
-
-	
-	
-}
+	}
 }

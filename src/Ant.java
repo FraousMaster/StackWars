@@ -35,9 +35,21 @@ public class Ant implements java.io.Serializable {
         posY = y;
         ownedBy = owns;
         this.currentMapObject = currentMapObject;
-    
     }
     
+
+    public Ant(String s){
+    	String b[] = s.split(":");
+    	posX = Integer.parseInt(b[0]);
+    	posY = Integer.parseInt(b[1]);
+    	ownedBy = Integer.parseInt(b[2]);
+    	currentMapObject = Integer.parseInt(b[3]);
+    }
+    
+    public String toString(){
+    	return getPosX() + ":" + getPosY() + ":" + getOwnedBy() + ":" + getCurrentMapObject();
+    }
+
     public void writeObject(java.io.ObjectOutputStream stream) throws IOException {
       
     	
@@ -55,9 +67,9 @@ public class Ant implements java.io.Serializable {
     	posY = stream.readInt();
     	currentMapObject = stream.readInt();
     	ownedBy = stream.readInt();
+
     }
-
-
+    
     public int getPosX() {
         return posX;
     }
