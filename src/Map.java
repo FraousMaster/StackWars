@@ -18,7 +18,10 @@ public class Map {
     private BufferedImage image;
     JLabel label;
     private ArrayList<Stack> stacks;
+<<<<<<< HEAD
     HashMap<Integer, Integer> mapX = new HashMap<>();
+=======
+>>>>>>> 37c28d3ac06c277f7babe5e00aada1fd6e2c1b56
     private HashMap<Integer, HashMap<Integer, Integer>> mapY = new HashMap<>();
 
     public Map(){
