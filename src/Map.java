@@ -81,6 +81,7 @@ public class Map {
 
     private ArrayList<Roads> getRoad(int x, int y)
     {
+        int initialX = x, initialY = y;
     	previousDirection dir = null;
     	int count = 0;
         ArrayList<Roads> temp = new ArrayList<>();
@@ -174,8 +175,19 @@ public class Map {
 
         //  System.out.println("hello");
         // System.out.println(temp.size());
+        addRoadToStack(initialX, initialY, temp);
         return temp;
         }
+    private void addRoadToStack(int x,int y, ArrayList<Roads> list){
+        x = x * 96;
+        y = y * 54;
+        Point p = new Point(x, y);
+        for(Stack s : stacks){
+            if(s.getX() == x && s.getY() == y){
+                s.addPath(p, list);
+            }
+        }
+    }
 
 
 
