@@ -60,7 +60,7 @@ public class GameView extends Observable implements Observer{
                     a.setPos(0,a.getPosY());
                     //drawPanel.repaint();
                 } else {
-                    a.setPos(a.getPosX() + (int)a.getSpeedX(), a.getPosY()+ (int)a.getSpeedY());
+                    a.setPos((int)(a.getPosX() + Math.sqrt(2)), (int)(a.getPosY()+ Math.sqrt(2)));
                     
                     //drawPanel.repaint();
                 }
@@ -82,31 +82,8 @@ public class GameView extends Observable implements Observer{
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
-                	double rotationRequired = 0;
-                	if(a.getCurrentMapObject() == 3)
-                	{
-                		rotationRequired = 0;
-                	}
-                	else if(a.getCurrentMapObject() == 4)
-                	{
-                		rotationRequired = Math.PI / 2;
-                	}
-                	else if(a.getCurrentMapObject() == 5)
-                	{
-                		rotationRequired = Math.PI / 4 * -1;
-                	}
-                	else if(a.getCurrentMapObject() == 6)
-                	{
-                		rotationRequired = Math.PI / 4 * -1;
-                	}
-                	else if(a.getCurrentMapObject() == 7)
-                	{
-                		rotationRequired = Math.PI / 4;
-                	}
-                	else if(a.getCurrentMapObject() == 8)
-                	{
-                		
-                	}
+                	double rotationRequired = getRotationRequired(a);
+                	
                 	//rotationRequired = a.getAngle() + Math.PI;
                 	double locationX = image.getWidth() / 2;
                 	double locationY = image.getHeight() / 2;
@@ -116,7 +93,38 @@ public class GameView extends Observable implements Observer{
                     g.drawImage(op.filter(image, null), a.getPosX(), a.getPosY(), 82, 70, null);
                 }
             }
-
+            
+            public double getRotationRequired(Ant a)
+            {
+            	if(a.getCurrentMapObject() == 3)
+            	{
+            		return 0;
+            	}
+            	else if(a.getCurrentMapObject() == 4)
+            	{
+            		return Math.PI / 2;
+            	}
+            	else if(a.getCurrentMapObject() == 5)
+            	{
+            		return Math.PI / 4 * -1;
+            	}
+            	else if(a.getCurrentMapObject() == 6)
+            	{
+            		return Math.PI / 4 * -1;
+            	}
+            	else if(a.getCurrentMapObject() == 7)
+            	{
+            		return Math.PI / 4;
+            	}
+            	else if(a.getCurrentMapObject() == 8)
+            	{
+            		return 0;
+            	}
+            	else
+        		{
+        			return 0;
+        		}
+            }
             public Dimension getPreferredSize() {
                 return new Dimension(D_W, D_H);
             }

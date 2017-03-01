@@ -23,22 +23,21 @@ public class Ant implements java.io.Serializable {
         PlayerFour
     }
 
-    private int posX, posY, currentMapObject, previousMapObject;
+    private int posX, posY, currentMapObject, previousMapObject, ownedBy;
+    //double speedX, speedY, angle;
+    //private BufferedImage image;
     double speedX, speedY, angle;
-    private int ownedBy;
     private BufferedImage image;
     private ArrayList<BufferedImage> imageSelection;
     
-    public Ant(int x, int y, int owns, int currentMapObject, double speedX, double speedY, double angle){
+    public Ant(int x, int y, int owns, int currentMapObject){
         posX = x;
         posY = y;
         ownedBy = owns;
-        this.speedX = speedX;
-        this.speedY = speedY;
-        this.angle = angle;
         this.currentMapObject = currentMapObject;
     }
     
+
     public Ant(String s){
     	String b[] = s.split(":");
     	posX = Integer.parseInt(b[0]);
@@ -50,6 +49,26 @@ public class Ant implements java.io.Serializable {
     public String toString(){
     	return getPosX() + ":" + getPosY() + ":" + getOwnedBy() + ":" + getCurrentMapObject();
     }
+
+    public void writeObject(java.io.ObjectOutputStream stream) throws IOException {
+      
+    	
+    	stream.defaultWriteObject();    
+    	stream.writeInt(posX);
+        stream.writeInt(posY);
+        stream.writeInt(currentMapObject);
+        stream.writeInt(ownedBy);
+    }
+
+    public void readObject(java.io.ObjectInputStream stream) throws IOException, ClassNotFoundException {
+    	stream.defaultReadObject();
+
+    	posX = stream.readInt(); 
+    	posY = stream.readInt();
+    	currentMapObject = stream.readInt();
+    	ownedBy = stream.readInt();
+
+    }
     
     public int getPosX() {
         return posX;
@@ -57,18 +76,9 @@ public class Ant implements java.io.Serializable {
     public int getPosY() {
         return posY;
     }
-    public double getSpeedX() {
-        return speedX;
-    }
-    public double getSpeedY() {
-        return speedY;
-    }
     public int getOwnedBy(){
         return ownedBy;
         
-    }
-    public double getAngle(){
-        return angle;
     }
     public int getCurrentMapObject(){
         return currentMapObject;
@@ -76,14 +86,6 @@ public class Ant implements java.io.Serializable {
     public void setPos(int x, int y){
         posY = y;
         posX = x;
-    }
-    public void setSpeedX(int speedX){
-        
-        this.speedX = speedX;
-    }
-    public void setSpeedY(int speedY){
-        
-        this.speedY = speedY;
     }
     public void setCurrentMapObject(int newMapObject){
         previousMapObject = currentMapObject;
