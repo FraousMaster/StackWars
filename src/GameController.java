@@ -59,9 +59,6 @@ public class GameController implements Observer{
 			{
 				e.printStackTrace();
 			}
-			
-			
-			gameState.moveStack();
 		}
 		if(o == gameState)
 		{

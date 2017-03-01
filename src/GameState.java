@@ -28,15 +28,7 @@ public class GameState extends Observable{
     public ArrayList<Stack> getStacks(){
     	return stacks;
     }
-    public void moveStack()
-    {
-    	for(Stack s : stacks)
-    	{
-    		s.setPos();
-    		//setChanged();
-        	//notifyObservers();
-    	}
-    }
+    
     public void uppdateGameState(ArrayList<Ant> a){
         ants = a;
         setChanged();
