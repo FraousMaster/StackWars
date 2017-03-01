@@ -137,6 +137,7 @@ public class Client extends Thread{
 					}
 
 			 }
+				 System.out.println("updating ants");
 				 game.getState().uppdateGameState(ants);
 		 }
 		 

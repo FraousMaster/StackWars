@@ -104,11 +104,8 @@ public class Server extends Thread{
 						else if (!(check(messageReceived))){
 							 ants.add(new Ant(messageReceived));
 						}
-						 
-					
 					 }
-					 
-					
+
 					if(messageReceived.equals("update ants")){
 						for(Ant x : ants){
 							sendData = x.toString().getBytes();

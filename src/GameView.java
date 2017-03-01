@@ -54,7 +54,7 @@ public class GameView extends Observable implements Observer{
         }
         private void updateThisFrame()
         {
-        	System.out.println("Pos: updateThisFrame");
+        	//System.out.println("Pos: updateThisFrame");
         	for(Ant a : gameState.getAnts()) {
                 if (a.getPosX() >= D_W) {
                     a.setPos(0,a.getPosY());
@@ -77,8 +77,9 @@ public class GameView extends Observable implements Observer{
                 g.drawImage(gameState.getMap().getImage(), 0, 0, 1920, 1080, null);
                 
                 for(Ant a : gameState.getAnts()) {
-                	try {
+                	try {   
 						image = ImageIO.read(new File("Graphics\\Ant\\AntV4.png"));
+	
 					} catch (IOException e) {
 						e.printStackTrace();
 					}

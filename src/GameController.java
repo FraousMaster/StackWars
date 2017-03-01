@@ -45,7 +45,8 @@ public class GameController implements Observer{
 						
 							System.out.println("Values : " + selX + " " + selY + " " + moveX + " " + moveY);
 							System.out.println(angle);
-							gameState.uppdateGameState(new Ant(stackSelected.getX(), stackSelected.getY(), 1, 4));
+							gameState.addAnt(new Ant(stackSelected.getX(), stackSelected.getY(), 1, 4));
+							System.out.println("adding ant");
 						}
 					}
 				}
