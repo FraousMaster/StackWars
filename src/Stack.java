@@ -64,7 +64,8 @@ public class Stack extends JComponent{
     	}
     }
     
-    public Dimension getPreferredSize() {
+    public Dimension getPreferredSize() 
+    {
         return new Dimension(image.getWidth(), image.getHeight());
-  }
+    }
 }
