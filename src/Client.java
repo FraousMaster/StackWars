@@ -25,7 +25,8 @@ public class Client extends Thread{
 		this.name = name;
 		this.menu = menu;
 		players = new LinkedList<String>();
-		clientSocket = new DatagramSocket();	    
+		clientSocket = new DatagramSocket();	 
+		ants = new ArrayList<Ant>();
 	}
 	
 	 public void run(){
@@ -102,61 +103,62 @@ public class Client extends Thread{
 		 
 		 try{
 			 
-			
-		    
-			 
 			 while(true){
+				 sleep(2500);
+				 
 				 ants = game.getState().getAnts();
+				 if(!(ants.isEmpty())){
 				 System.out.println("IN CLIENT " + ants);
 				 
 				 
-				 	for(Ant x : ants){
+					for(Ant x : ants){
 				 	SendMessage = x.toString();
-				 	sendData = SendMessage.getBytes();
-					DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, host, PORT);
+					sendData = SendMessage.getBytes();
+				 	DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, host, PORT);
 				 	clientSocket.send(sendPacket);
-			       
+				 	
 				 	}
-				 
-				
-				     
-					/* SendMessage = "";
-					 int xPos = x.getPosX();
-					 int yPos = x.getPosY();
-					 SendMessage += Integer.toString(xPos);
-					 SendMessage += ", ";
-					 SendMessage += Integer.toString(yPos);
-					 System.out.println("sent message :" + SendMessage); */
-					
-				
-				 
-		 //SendMessage = "update game";
-		 //sendData = SendMessage.getBytes();
-		 //DatagramPacket checkPacket = new DatagramPacket(sendData, sendData.length, host, PORT);
-		 //	clientSocket.send(checkPacket);
-		// 	System.out.println("sent data :" + SendMessage);
-		 
-		// DatagramPacket receivethis = new DatagramPacket(receiveData, receiveData.length);
-		// 	clientSocket.receive(receivethis);
-		 //	byte[] data = receivethis.getData();
-		// 	messageReceived = new String(data, 0, receivethis.getLength());
-		 //	System.out.println("received data :" + messageReceived);
-		 
-		 sleep(5000);
-		 //receive ant positions, update ants
-		 
-		 
-		 		//ants.removeAll(ants);
-			 
+					SendMessage = "update ants";
+					sendData = SendMessage.getBytes();
+				 	DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, host, PORT);
+				 	clientSocket.send(sendPacket);
+
+				 	DatagramPacket receivethis = new DatagramPacket(receiveData, receiveData.length);
+					clientSocket.receive(receivethis);
+					byte[] data = receivethis.getData();
+					messageReceived = new String(data, 0, receivethis.getLength());
+					if(!(messageReceived.equals(players.getLast()) || messageReceived.equals("start"))) {
+						if(ants.isEmpty()){
+							 ants.add(new Ant(messageReceived));
+						}
+						else if (!(check(messageReceived))){
+							 ants.add(new Ant(messageReceived));
+						}
+					}
+
 			 }
+				 game.getState().uppdateGameState(ants);
+		 }
 		 
 		 
-		 }catch(InterruptedException | IOException e){
+		 }catch(IOException | InterruptedException e){
 			 e.printStackTrace();
 		 }
 	
 	 }
  
+	 private boolean check(String s){
+		 boolean exists = false;
+		 for(Ant x : ants){
+			 if( x.toString().equals(s)){
+				 exists = true;
+			 }	
+		 }
+		 return exists;
+		 
+	 }
+	 
+	 
 	public class Player {
 		String name;
 		

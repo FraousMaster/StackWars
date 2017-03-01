@@ -22,7 +22,6 @@ public class GameState extends Observable{
     }
 
     public ArrayList<Ant> getAnts(){
-    	System.out.println(ants);
         return ants;
     }
 
@@ -38,8 +37,8 @@ public class GameState extends Observable{
         	//notifyObservers();
     	}
     }
-    public void uppdateGameState(Ant a){
-        ants.add(a);
+    public void uppdateGameState(ArrayList<Ant> a){
+        ants = a;
         setChanged();
     	notifyObservers();
     }
