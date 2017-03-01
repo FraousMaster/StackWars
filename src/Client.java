@@ -106,36 +106,37 @@ public class Client extends Thread{
 		 try{
 			 
 			 while(true){
-				 sleep(1500);
-				
-				 	SendMessage = "update ants";
-				 	sendData = SendMessage.getBytes();
-				 	DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, host, PORT);
-				 	clientSocket.send(sendPacket);
+				 sleep(33);
 
 					DatagramPacket receivethis = new DatagramPacket(receiveData, receiveData.length);
 					clientSocket.receive(receivethis);
-
-					 byte[] data = receivethis.getData();
-					 messageReceived = new String(data, 0, receivethis.getLength());
-					 
-					 ants = freshList(messageReceived);
-					 state.updateAllAnts(ants);
-					 
-					 System.out.println("client got : " + messageReceived);
+					byte[] data = receivethis.getData();
+				    messageReceived = new String(data, 0, receivethis.getLength());
 					
-					 if(messageReceived.equals("No ants") || messageReceived.equals("Give ants")){
-						
-						for(Ant x : state.getAnts()){
-						 	SendMessage = x.toString();
-							sendData = SendMessage.getBytes();
-						 	DatagramPacket sendMe = new DatagramPacket(sendData, sendData.length, host, PORT);
-						 	clientSocket.send(sendMe);
-						 	System.out.println("sent from client : " + SendMessage );
-						 	}	
-					}
+					 if(messageReceived.equals("Give ants")){
+							for(Ant x : state.getAnts()){
+							 	SendMessage = x.toString();
+								sendData = SendMessage.getBytes();
+							 	DatagramPacket sendMe = new DatagramPacket(sendData, sendData.length, host, PORT);
+							 	clientSocket.send(sendMe);
+							 	System.out.println("sent from client : " + SendMessage );
+							 	}	
+						}
+					 	
+					    SendMessage = "update ants";
+					 	sendData = SendMessage.getBytes();
+					 	DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, host, PORT);
+					 	clientSocket.send(sendPacket);
 
-				 System.out.println("IN CLIENT " + ants);
+					     ants = freshList(messageReceived);
+					    // System.out.println("client got : " + messageReceived);
+					     state.updateAllAnts(ants);
+					 
+					      
+					
+			
+
+				 //System.out.println("IN CLIENT " + ants);
 		 }
 		 
 		 
@@ -148,14 +149,15 @@ public class Client extends Thread{
 	 private ArrayList<Ant> freshList(String x) throws IOException{
 		 ArrayList<Ant> temp = new ArrayList<Ant>();
 
-		     if(!(x.equals(players.getLast()) || x.equals("start"))) {
-				if(ants.isEmpty()){
+		     if(!(x.equals(players.getLast()) || x.equals("start") || messageReceived.equals("Give ants"))) {
+				if(temp.isEmpty()){
 					 temp.add(new Ant(messageReceived));
 				}
 				else if (!(check(messageReceived))){
 					 temp.add(new Ant(messageReceived));
 				}
           }
+		     
 		     
 			return temp;
 	 }

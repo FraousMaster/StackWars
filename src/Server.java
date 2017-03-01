@@ -92,7 +92,7 @@ public class Server extends Thread{
 					sendData = "Give ants".getBytes();
 					DatagramPacket givePacket = new DatagramPacket(sendData, sendData.length, IPAddress, port);
 					serverSocket.send(givePacket);
-					System.out.println("SERVER : GIVE ANTS");
+					//System.out.println("SERVER : GIVE ANTS");
 				
 					DatagramPacket incomingPacket = new DatagramPacket(receiveData, receiveData.length);
 					serverSocket.receive(incomingPacket);
@@ -111,7 +111,7 @@ public class Server extends Thread{
 
 				if(messageReceived.equals("update ants")){
 					 if(!(ants.isEmpty())){
-						  System.out.println("SERVER : SENDING ANTS");
+						//  System.out.println("SERVER : SENDING ANTS");
 						 for(Ant x : ants){
 							sendData = x.toString().getBytes();
 							DatagramPacket sendUpdate = new DatagramPacket(sendData, sendData.length, IPAddress, port);
@@ -119,7 +119,7 @@ public class Server extends Thread{
 							}
 						}
 					}
-					System.out.println("SERVER ANT : " + ants); 
+					//System.out.println("SERVER ANT : " + ants); 
 		}
 			
 			}catch(IOException e){
@@ -128,6 +128,9 @@ public class Server extends Thread{
 			
 			
      	}
+		
+		
+		
 		
 		private boolean check(String s){
 			 boolean exists = false;
