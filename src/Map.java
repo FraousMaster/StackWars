@@ -93,14 +93,14 @@ public class Map {
         	//System.out.println(mapY.get(y).get(x) +" " + dir);
         	if(y != 19 && dir != previousDirection.under_tile){
 	            if (56 >= mapY.get(y + 1).get((x)) && mapY.get(y + 1).get((x)) >= 51){
-	                System.out.println("under: y :"+ y + " x: "+ x);
+	               // System.out.println("under: y :"+ y + " x: "+ x);
 	            	y -= 1;
 	                temp.add(new Roads(x * 96, y * 54));
 	                dir = previousDirection.over_tile;
 	            }
 	            else if (y != 19 && mapY.get(y + 1).get(x) == 50){
 	            	//temp.add(new Roads(x * 96, y * 54));
-	            	System.out.println("STack found");
+	            	//System.out.println("STack found");
 	            	 y -= 1;
 	            }
         }
@@ -109,14 +109,14 @@ public class Map {
              */
         	if(y != 0 && dir != previousDirection.over_tile){
 	            if((56 >= mapY.get(y - 1).get(x) && mapY.get(y - 1).get((x)) >= 51)){
-	            	 System.out.println("over: y :"+ y + " x: "+ x);
+	            	 //System.out.println("over: y :"+ y + " x: "+ x);
 	            	y += 1;
 	                temp.add(new Roads(x * 96, y * 54));
 	                dir = previousDirection.under_tile;
 	            }
 	            else if (y != 0 && mapY.get(y - 1).get(x) == 50){
 	            	//temp.add(new Roads(x * 96, y * 54));
-	            	System.out.println("STack found");
+	            	//System.out.println("STack found");
 	            	y += 1;
 	            }
         	}
@@ -125,7 +125,7 @@ public class Map {
              */
         	if(x != 19 && dir != previousDirection.right_of_tile){
 	           if(56 >= mapY.get(y).get((x + 1)) &&  mapY.get(y).get((x + 1)) >= 51){
-	            	 System.out.println("Right: y :"+ y + " x: "+ x);
+	        	   // System.out.println("Right: y :"+ y + " x: "+ x);
 	            	x += 1;
 	                temp.add(new Roads(x * 96, y * 54));
 	                dir = previousDirection.left_of_tile;
@@ -133,7 +133,7 @@ public class Map {
 	           
 	            else if (x != 19 &&  mapY.get(y).get(x + 1) == 50){
 	            	//temp.add(new Roads(x * 96, y * 54));
-	            	System.out.println("STack found");
+	            	//System.out.println("STack found");
 	            	x += 1;
 	            }
 	            	
@@ -143,7 +143,7 @@ public class Map {
              */
         	if(x != 0  && dir != previousDirection.left_of_tile){
 	            if(x != 19 && (56 >= mapY.get(y).get((x - 1)) && mapY.get(y).get((x - 1)) >= 51)){
-	            	 System.out.println("left: y :"+ y + " x: "+ x);
+	            	//System.out.println("left: y :"+ y + " x: "+ x);
 	            	x -= 1;
 	                temp.add(new Roads(x * 96, y * 54));
 	                dir = previousDirection.right_of_tile;
@@ -151,18 +151,18 @@ public class Map {
 	            }
 	            else if (x != 0 && mapY.get(y).get(x - 1) == 50){
 	            	//temp.add(new Roads(x * 96, y * 54));
-	            	System.out.println("STack found");
+	            	//System.out.println("STack found");
 	            	x -= 1;
 	            }
         	}
             //break;
             if(mapY.get(y).get(x) == 50 || count == 50){
-            	System.out.println("end: y :"+ y + " x: "+ x + " " + mapY.get(y).get((x)));
+            	//System.out.println("end: y :"+ y + " x: "+ x + " " + mapY.get(y).get((x)));
             	break;
             }
         }
-        System.out.println("hello");
-        System.out.println(temp.size());
+        //  System.out.println("hello");
+        // System.out.println(temp.size());
         return temp;
     }
 

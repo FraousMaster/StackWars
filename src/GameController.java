@@ -43,10 +43,10 @@ public class GameController implements Observer{
 							double moveY = s.getY();
 							double angle = Math.atan2((selY - moveY), (selX - moveX));
 						
-							System.out.println("Values : " + selX + " " + selY + " " + moveX + " " + moveY);
-							System.out.println(angle);
+							//System.out.println("Values : " + selX + " " + selY + " " + moveX + " " + moveY);
+							//System.out.println(angle);
 							gameState.addAnt(new Ant(stackSelected.getX(), stackSelected.getY(), 1, 4));
-							System.out.println("adding ant");
+							//System.out.println("adding ant");
 						}
 					}
 				}

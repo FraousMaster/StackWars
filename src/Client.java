@@ -105,40 +105,43 @@ public class Client extends Thread{
 			 
 			 while(true){
 				 sleep(2500);
-				 
-				 ants = game.getState().getAnts();
-				 if(!(ants.isEmpty())){
-				 System.out.println("IN CLIENT " + ants);
-				 
-				 
-					for(Ant x : ants){
-				 	SendMessage = x.toString();
+				 System.out.println("updating ants");
+				 	SendMessage = "update ants";
 					sendData = SendMessage.getBytes();
 				 	DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, host, PORT);
 				 	clientSocket.send(sendPacket);
 				 	
-				 	}
-					SendMessage = "update ants";
-					sendData = SendMessage.getBytes();
-				 	DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, host, PORT);
-				 	clientSocket.send(sendPacket);
-
-				 	DatagramPacket receivethis = new DatagramPacket(receiveData, receiveData.length);
+					DatagramPacket receivethis = new DatagramPacket(receiveData, receiveData.length);
 					clientSocket.receive(receivethis);
 					byte[] data = receivethis.getData();
 					messageReceived = new String(data, 0, receivethis.getLength());
-					if(!(messageReceived.equals(players.getLast()) || messageReceived.equals("start"))) {
+					
+					if(messageReceived.equals("No ants") || messageReceived.equals("Give ants")){
+					
+						ants = game.getState().getAnts();
+						
+						for(Ant x : ants){
+						 	SendMessage = x.toString();
+							sendData = SendMessage.getBytes();
+						 	DatagramPacket sendMe = new DatagramPacket(sendData, sendData.length, host, PORT);
+						 	clientSocket.send(sendMe);
+						 	System.out.println("SEND client" + SendMessage );
+						 	}
+						
+					}
+					else if(!(messageReceived.equals(players.getLast()) || messageReceived.equals("start"))) {
 						if(ants.isEmpty()){
 							 ants.add(new Ant(messageReceived));
+							 game.getState().uppdateGameState(ants);
 						}
 						else if (!(check(messageReceived))){
 							 ants.add(new Ant(messageReceived));
+							 game.getState().uppdateGameState(ants);
 						}
 					}
-
-			 }
-				 System.out.println("updating ants");
-				 game.getState().uppdateGameState(ants);
+				
+				 System.out.println("IN CLIENT " + ants);
+			
 		 }
 		 
 		 
