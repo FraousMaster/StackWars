@@ -28,7 +28,6 @@ public class GameState extends Observable{
     public ArrayList<Stack> getStacks(){
     	return stacks;
     }
-<<<<<<< HEAD
     public void moveStack()
     {
     	for(Stack s : stacks)
@@ -39,10 +38,6 @@ public class GameState extends Observable{
     	}
     }
     public void updateAllAnts(ArrayList<Ant> a){
-=======
-    
-    public void uppdateGameState(ArrayList<Ant> a){
->>>>>>> ee9e87878fabfdb8d6a5433d9de0c7ec1eb50ea2
         ants = a;
         setChanged();
     	notifyObservers();
