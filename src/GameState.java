@@ -37,7 +37,7 @@ public class GameState extends Observable{
         	//notifyObservers();
     	}
     }
-    public void uppdateGameState(ArrayList<Ant> a){
+    public void updateAllAnts(ArrayList<Ant> a){
         ants = a;
         setChanged();
     	notifyObservers();
@@ -45,9 +45,7 @@ public class GameState extends Observable{
     
     public void addAnt(Ant a){
        ants.add(a);
-       setChanged();
-   		notifyObservers();
-   		System.out.println("ant added");
+   	   System.out.println("ant added");
     }
     
     public Map getMap(){

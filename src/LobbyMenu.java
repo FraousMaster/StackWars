@@ -157,6 +157,11 @@ public class LobbyMenu extends JPanel {
 		return game;
 	}
 	
+	public GameState returnState(){
+		return game.getState();
+		
+	}
+	
 	public class Handler implements ActionListener {
 		GameMenu menu;
 		@Override

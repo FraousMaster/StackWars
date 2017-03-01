@@ -92,13 +92,13 @@ public class Server extends Thread{
 					sendData = "Give ants".getBytes();
 					DatagramPacket givePacket = new DatagramPacket(sendData, sendData.length, IPAddress, port);
 					serverSocket.send(givePacket);
-				
+					//System.out.println("SERVER : GIVE ANTS");
 				
 					DatagramPacket incomingPacket = new DatagramPacket(receiveData, receiveData.length);
 					serverSocket.receive(incomingPacket);
-				
 					byte[] data = incomingPacket.getData();
 					 messageReceived = new String(data, 0, incomingPacket.getLength());
+					 
 					 if(!(messageReceived.equals("update") || messageReceived.equals("start") || messageReceived.equals("started?") || messageReceived.equals(null) 
 							 || messageReceived == null || messageReceived.equals("update ants"))){	
 							if(ants.isEmpty()){
@@ -109,22 +109,17 @@ public class Server extends Thread{
 							}
 					 }
 
-					if(messageReceived.equals("update ants")){
-						if(ants.isEmpty()){
-							sendData = "No ants".getBytes();
-							DatagramPacket sendUpdate = new DatagramPacket(sendData, sendData.length, IPAddress, port);
-							serverSocket.send(sendUpdate);	
-							
-						}
-						else if(!(ants.isEmpty())){
-						for(Ant x : ants){
+				if(messageReceived.equals("update ants")){
+					 if(!(ants.isEmpty())){
+						 // System.out.println("SERVER : SENDING ANTS");
+						 for(Ant x : ants){
 							sendData = x.toString().getBytes();
 							DatagramPacket sendUpdate = new DatagramPacket(sendData, sendData.length, IPAddress, port);
 							serverSocket.send(sendUpdate);
 							}
 						}
 					}
-					 System.out.println("SERVER ANT : " + ants); 
+					// System.out.println("SERVER ANT : " + ants); 
 		}
 			
 			}catch(IOException e){
