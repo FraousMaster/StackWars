@@ -18,7 +18,7 @@ public class Map {
     private BufferedImage image;
     JLabel label;
     private ArrayList<Stack> stacks;
-    private Map<Integer, Map<Integer, Integer>> mapY = new Map<>();
+    private HashMap<Integer, HashMap<Integer, Integer>> mapY = new HashMap<>();
 
     public Map(){
         stacks = new ArrayList<Stack>();
