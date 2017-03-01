@@ -6,8 +6,8 @@ import java.util.*;
 public class Client extends Thread{
 	private static String IP_ADDRESS;
 	private static String name;
-	private static byte[] sendData = new byte[16];
-	private static byte[] receiveData = new byte[16];
+	private static byte[] sendData = new byte[1000];
+	private static byte[] receiveData = new byte[1000];
 	private DatagramSocket clientSocket;
 	private String SendMessage;
 	private LobbyMenu menu;
@@ -16,7 +16,6 @@ public class Client extends Thread{
 	private boolean inLobby = true;
 	private final int PORT = 1203;
 	private InetAddress host;
-	@SuppressWarnings("unused")
 	private ArrayList<Ant> ants;
 	private Game game ;
 	

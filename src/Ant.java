@@ -37,30 +37,13 @@ public class Ant implements java.io.Serializable {
         this.speedY = speedY;
         this.angle = angle;
         this.currentMapObject = currentMapObject;
-        try
-        {
-        	image = ImageIO.read(new File("Graphics\\Ant\\AntV4.png"));
-        }
-        catch(IOException e)
-        {
-        	e.printStackTrace();
-        }
+    
     }
     
     public void writeObject(java.io.ObjectOutputStream stream) throws IOException {
       
     	
-    	stream.defaultWriteObject();
-    	stream.writeInt(imageSelection.size()); // how many images are serialized?
-
-    	    for (BufferedImage eachImage : imageSelection) {
-    	        ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-    	        ImageIO.write(eachImage, "jpg", buffer);
-
-    	        stream.writeInt(buffer.size()); // Prepend image with byte count
-    	        buffer.writeTo(stream);         // Write image
-    	    }
-    	    
+    	stream.defaultWriteObject();    
     	stream.writeInt(posX);
         stream.writeInt(posY);
         stream.writeInt(currentMapObject);
@@ -73,18 +56,7 @@ public class Ant implements java.io.Serializable {
 
     public void readObject(java.io.ObjectInputStream stream) throws IOException, ClassNotFoundException {
     	stream.defaultReadObject();
-    	 int imageCount = stream.readInt();
-    	    imageSelection = new ArrayList<BufferedImage>(imageCount);
-    	    for (int i = 0; i < imageCount; i++) {
-    	        int size = stream.readInt(); // Read byte count
 
-    	        byte[] buffer = new byte[size];
-    	        stream.readFully(buffer); // Make sure you read all bytes of the image
-
-    	        imageSelection.add(ImageIO.read(new ByteArrayInputStream(buffer)));
-    	    }
-    	
-    	
     	posX = stream.readInt(); 
     	posY = stream.readInt();
     	currentMapObject = stream.readInt();
@@ -133,9 +105,5 @@ public class Ant implements java.io.Serializable {
     public void setCurrentMapObject(int newMapObject){
         previousMapObject = currentMapObject;
         currentMapObject = newMapObject;
-    }
-    public BufferedImage getImage()
-    {
-    	return image;
     }
 }

@@ -5,8 +5,8 @@ import java.util.*;
 public class Server extends Thread{
 	
 	protected DatagramSocket serverSocket = null; 
-	protected byte[] receiveData  = new byte[16];
-	protected byte[] sendData  = new byte[16];
+	protected byte[] receiveData  = new byte[1000];
+	protected byte[] sendData  = new byte[1000];
 	private int port;
 	@SuppressWarnings("unused")
 	private InetAddress IPAddress;
