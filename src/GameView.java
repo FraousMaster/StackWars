@@ -57,7 +57,7 @@ public class GameView extends Observable implements Observer{
         	//System.out.println("Pos: updateThisFrame");
         	for(Ant a : gameState.getAnts()) {
                 if (a.getPosX() >= D_W) {
-                    a.setPos(0,a.getPosY());
+                    //a.setPos(0,a.getPosY());
                     //drawPanel.repaint();
                 } else {
                     //a.setPos((int)(a.getPosX() + Math.sqrt(2)), (int)(a.getPosY()+ Math.sqrt(2)));
@@ -80,15 +80,14 @@ public class GameView extends Observable implements Observer{
                 	g.setColor(Color.WHITE);
                 	g.drawString("Pop: " + s.getPopulation(), s.getX() + 27, s.getY() + 27);
                 }
+				try {
+					image = ImageIO.read(new File("Graphics\\Ant\\AntV4.png"));
+
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
                 for(Ant a : gameState.getAnts()) {
-                	try {   
-						image = ImageIO.read(new File("Graphics\\Ant\\AntV4.png"));
-	
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
                 	double rotationRequired = getRotationRequired(a);
-                	
                 	//rotationRequired = a.getAngle() + Math.PI;
                 	double locationX = image.getWidth() / 2;
                 	double locationY = image.getHeight() / 2;
