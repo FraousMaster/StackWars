@@ -46,15 +46,12 @@ public class GameState extends Observable{
     }
 
     public void addAnt(Ant a){
-<<<<<<< HEAD
         ants.add(a);
         setChanged();
         notifyObservers();
         System.out.println("ant added");
-=======
        antsToUpload.add(a);
    	   //System.out.println("ant added");
->>>>>>> 1e875f4b6d96409161271854fc4bb0f9a19dfff8
     }
     
     public Map getMap(){
