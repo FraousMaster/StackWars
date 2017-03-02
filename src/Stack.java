@@ -80,7 +80,7 @@ public class Stack extends JComponent{
     }
     public String testPrint(){
     	String s = new String();
-    	s += "Size: " + connectedStacks.size();
+    	s += "Size: " + connectedStacks.size();    	
     	return s;
     }
 }
