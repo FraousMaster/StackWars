@@ -67,11 +67,20 @@ public class Stack extends JComponent{
 
     public void addPath(Point p, ArrayList<Roads> list)
     {
-    	//System.out.println(p);
-        connectedStacks.put(p, list);
+    	if(connectedStacks.containsKey(p))
+      	   	connectedStacks.put(p, list);
+    		
+    	   	if(!connectedStacks.containsKey(p))
+    	   		connectedStacks.put(p, list);
+    	
     }
     public Dimension getPreferredSize() 
     {
         return new Dimension(image.getWidth(), image.getHeight());
+    }
+    public String testPrint(){
+    	String s = new String();
+    	s += "Size: " + connectedStacks.size();
+    	return s;
     }
 }

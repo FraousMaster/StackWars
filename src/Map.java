@@ -19,6 +19,7 @@ public class Map {
     private BufferedImage image;
     JLabel label;
     private ArrayList<Stack> stacks;
+    private int lastX, lastY;
 
     HashMap<Integer, Integer> mapX = new HashMap<>();
 
@@ -31,13 +32,16 @@ public class Map {
         drawImage();
         setLabel();
         setRoads();
+        for(Stack s: stacks){
+        	System.out.println(s.testPrint());
+        }
     }
 
     private void readFile(){
         FileReader fr;
         int i, x = 0, y = 0;
             try {
-                fr = new FileReader("Graphics\\Maps\\Map2.txt");
+                fr = new FileReader("Graphics\\Maps\\Map1.txt");
 
                 while ((i = fr.read()) != -1)
                 {
@@ -63,71 +67,104 @@ public class Map {
     }
 
     private void setRoads(){
-        ArrayList<Roads> temp = new ArrayList<>();
+    	ArrayList<Roads> temp = new ArrayList<>();
         for (int i = 0; i < 20; i++) {
             for (int j = 0; j < 20; j++) {
                 if(mapY.get(i).get(j) == 50) {
-                    temp = getRoad(j, i);
+                	for(int k = 0; k <= 4; k++){
+                		//check y + 1 under stack
+                		if(i != 19 && (56 >= mapY.get(i + 1).get(j) && mapY.get(i + 1).get(j) >= 51)){
+                			temp.add(new Roads(j * 52, (i + 1) * 96));
+                			for(Roads r : getRoad(j, (i + 1), previousDirection.over_tile)){
+                				temp.add(r);
+                			}
+                			addRoadToStack(j, i, lastX, lastY, temp);
+                			temp.clear();
+                		}
+                		//check over stack - y
+                		if (i != 0 && (56 >= mapY.get(i - 1).get(j) && mapY.get(i - 1).get(j) >= 51)){
+                			temp.add(new Roads(j * 52, (i + 1) * 96));
+                			for(Roads r : getRoad(j, (i - 1), previousDirection.under_tile)){
+                				temp.add(r);
+                			}
+                			addRoadToStack(j, i, lastX, lastY, temp);
+                			temp.clear();
+                			
+                		}
+                		//check left of stack -x
+                		if (j != 0 && (56 >= mapY.get(i).get(j - 1) && mapY.get(i).get(j - 1) >= 51)){
+                			temp.add(new Roads(j * 52, (i + 1) * 96));
+                			for(Roads r : getRoad((j - 1), i, previousDirection.right_of_tile)){
+                				temp.add(r);
+                			}
+                			addRoadToStack(j, i, lastX, lastY, temp);
+                			temp.clear();
+                		}
+                		//check right of stack + x
+                		if (j != 19 && (56 >= mapY.get(i).get(j + 1) && mapY.get(i).get(j + 1) >= 51)){
+                			temp.add(new Roads(j * 52, (i + 1) * 96));
+                			for(Roads r : getRoad((j + 1), i, previousDirection.left_of_tile)){
+                				temp.add(r);
+                			}
+                			addRoadToStack(j, i, lastX, lastY, temp);
+                			temp.clear();
+                		}
+                	}
                 }
             }
         }
-        //for(Roads r : temp)
-            //System.out.println(r.getPos());
-    }
-    private ArrayList<Roads> getRoadTiles(int x, int y){
-
-        return null;
+        
     }
 
-    private ArrayList<Roads> getRoad(int x, int y)
+    private ArrayList<Roads> getRoad(int x, int y, previousDirection dir)
     {
-        int initialX = x, initialY = y;
-    	previousDirection dir = null;
-    	int count = 0;
         ArrayList<Roads> temp = new ArrayList<>();
+        int count = 0;
         while(true){
         	count ++;
-            /*check position under the road at pos x y (- y)
+            /*check position under the road at pos x y (+ y)
             *this means direction from stack != under_stack
              */
-        	//System.out.println(mapY.get(y).get(x) +" " + dir);
+        	if(count == 1)
+        		System.out.println("start: y :"+ y + " x: "+ x + " " + mapY.get(y).get((x)) + "  Dir: " + dir);
         	if(y != 19 && dir != previousDirection.under_tile){
-	            if (56 >= mapY.get(y + 1).get((x)) && mapY.get(y + 1).get((x)) >= 51){
+	            if (56 >= mapY.get((y + 1)).get((x)) && mapY.get(y + 1).get((x)) >= 51){
+	            	System.out.println("In under: y :"+ y + " x: "+ x + " " + mapY.get(y).get((x)) + "  Dir: " + dir);
 	            	y += 1;
 	                temp.add(new Roads(x * 96, y * 54));
 	                dir = previousDirection.over_tile;
 	            }
-	            else if (y != 19 && mapY.get(y + 1).get(x) == 50){
+	            if (y != 19 && mapY.get((y + 1)).get(x) == 50){
 	            	//System.out.println("STack found");
-	            	 y += 1;
+	            	System.out.println("IN break in under: " + mapY.get((y + 1)).get(x)+ " y: " + y + " x: " + x);
+	            	y += 1;
+	            	 break;
 	            }
-                /*if(y > 19)
-                    y = 19;*/
             }
             /*check position over the road at pos x,y (+ y)
             *this means direction from stack != under_stack
              */
-        	else if(y != 0 && dir != previousDirection.over_tile){
+        	if(y != 0 && dir != previousDirection.over_tile){
 	            if((56 >= mapY.get(y - 1).get(x) && mapY.get(y - 1).get((x)) >= 51)){
+	            	System.out.println("In Over: y :"+ y + " x: "+ x + " " + mapY.get(y).get((x)) + "  Dir: " + dir);
 	            	 //System.out.println("over: y :"+ y + " x: "+ x);
+	            	
 	            	y -= 1;
 	                temp.add(new Roads(x * 96, y * 54));
 	                dir = previousDirection.under_tile;
 	            }
-	            else if (y != 0 && mapY.get(y - 1).get(x) == 50){
-	            	//temp.add(new Roads(x * 96, y * 54));
-	            	//System.out.println("STack found");
+	            if(y != 0 && mapY.get((y - 1)).get(x) == 50){
+	            	System.out.println("IN break in over: " + mapY.get((y - 1)).get(x)+ " y: " + y + " x: " + x);
 	            	y -= 1;
+	            	break;
 	            }
-                /*if(y < 0)
-                    y = 0;*/
         	}
             /*check position right of the road at pos x,y (+ x)
             *this means direction from stack != under_stack
              */
 
-        	else if(x != 19 && dir != previousDirection.right_of_tile){
-               //;
+        	if(x != 19 && dir != previousDirection.right_of_tile){
+        		System.out.println("in Right: y :"+ y + " x: "+ x + " " + mapY.get(y).get((x)) + "  Dir: " + dir);
                 if(56 >= mapY.get(y).get((x + 1)) &&  mapY.get(y).get((x + 1)) >= 51){
 	            	 //System.out.println("Right: y :"+ y + " x: "+ x);
 	            	x += 1;
@@ -135,51 +172,47 @@ public class Map {
 	                dir = previousDirection.left_of_tile;
 	            }
 	           
-	            else if (x != 19 &&  mapY.get(y).get(x + 1) == 50){
-	            	//temp.add(new Roads(x * 96, y * 54));
-	            	//System.out.println("STack found");
+	            if (x != 19 && mapY.get(y).get((x + 1)) == 50){
+	            	System.out.println("IN break in reigh: " + mapY.get((y)).get(x + 1)+ " y: " + y + " x: " + x);
 	            	x += 1;
-                    //System.out.println(mapY.get(y).get(x));
+	            	break;
 	            }
-                /*if(x > 19)
-                    x = 19;*/
         	}
             /*check position left of the road at pos x,y (- x)
             *this means direction from stack != under_stack
              */
-        	else if(x != 0  && dir != previousDirection.left_of_tile){
+        	if(x != 0  && dir != previousDirection.left_of_tile){
 	            if(x != 19 && (56 >= mapY.get(y).get((x - 1)) && mapY.get(y).get((x - 1)) >= 51)){
+	            	System.out.println("In left:"+ " y :"+ y + " x: "+ x + " " + mapY.get(y).get((x)) + "  Dir: " + dir);
 	            	//System.out.println("left: y :"+ y + " x: "+ x);
 	            	x -= 1;
 	                temp.add(new Roads(x * 96, y * 54));
 	                dir = previousDirection.right_of_tile;
 
 	            }
-	            else if (x != 0 && mapY.get(y).get(x - 1) == 50){
-	            	//temp.add(new Roads(x * 96, y * 54));
-	            	//System.out.println("STack found");
+	            if(x != 0 && mapY.get(y).get((x - 1)) == 50){
+	            	System.out.println("IN break in left: " + mapY.get((y)).get(x - 1)+ " y: " + y + " x: " + x);
 	            	x -= 1;
-                    //System.out.println(mapY.get(y).get(x));
+	            	break;
 	            }
-                /*if(x < 0)
-                    x = 0;*/
         	}
-            if(mapY.get(y).get(x) == 50){
-            	System.out.println("end: y :"+ y + " x: "+ x + " " + mapY.get(y).get((x)));
+        	
+            if(mapY.get(y).get(x) == 50 || count == 50){
+            	System.out.println("end: y :"+ y + " x: "+ x + " " + mapY.get(y).get((x)) + "  Dir: " + dir);
+            	if(count == 50)
+            		System.out.println("^^ count ^^");
             	break;
             }
-        }
-        //System.out.println("hello");
-        //System.out.println(temp.size());
-            //break;
-
-        //  System.out.println("hello");
-        // System.out.println(temp.size());
-        addRoadToStack(initialX, initialY, x, y, temp);
+        }    
+        System.out.println();
+        System.out.println("DONE");
+        System.out.println();
+        lastX = x;
+        lastY = y;
         return temp;
-        }
+    }
     private void addRoadToStack(int x,int y, int x1, int y1, ArrayList<Roads> list){
-        
+        //System.out.println("in addR");
     	x1 = x1 * 96;
         y1 = y1 * 54;
         x = x * 96;
