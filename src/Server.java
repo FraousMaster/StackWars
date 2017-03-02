@@ -129,7 +129,7 @@ public class Server extends Thread{
 						 for (int i = 0; i < ants.size(); i ++) 
 						 {
 							 Ant a = ants.get(i);
-							 System.out.println("This is the ant at index " + i + " and its value " + a);
+							 //System.out.println("This is the ant at index " + i + " and its value " + a);
 							 String[] antValues = a.toString().split(":");
 							 int x = Integer.parseInt(antValues[0]);
 							 x += 1;
@@ -154,23 +154,23 @@ public class Server extends Thread{
 							 	//System.out.println("This is my new position " + dummy);
 							 }
 							 a = new Ant(dummy);
-							 System.out.println("Size of ants before: " + ants.size());
+							 //System.out.println("Size of ants before: " + ants.size());
 							 ants.set(i, a);
-							 System.out.println("Size of ants after : " + ants.size());
+							 //System.out.println("Size of ants after : " + ants.size());
 							 //System.out.println("This is an ant: " + x);
 							 
 							 temp += "&"+ a.toString() + "&";
 							 
 						 }
-						 	System.out.println("TEMP : " + temp); 
+						 	//System.out.println("TEMP : " + temp); 
 						 	sendData = temp.getBytes();
 							DatagramPacket sendUpdate = new DatagramPacket(sendData, sendData.length, IPAddress, port);
 							serverSocket.send(sendUpdate);
-							System.out.println("SEND : " + temp); 
+							//System.out.println("SEND : " + temp); 
 						 
 						}
 					}
-					System.out.println("SERVER ANT : " + ants); 
+					//System.out.println("SERVER ANT : " + ants); 
 					}
 			}
 		

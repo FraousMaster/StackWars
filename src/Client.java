@@ -124,7 +124,7 @@ public class Client extends Thread{
 				 	
 				 while(true){
 					 
-			     System.out.println("in while");
+			     //System.out.println("in while");
 				 DatagramPacket receiveAntReq = new DatagramPacket(receiveData, receiveData.length);
 				 
 				 gameSocket.receive(receiveAntReq);
@@ -133,17 +133,19 @@ public class Client extends Thread{
 				 messageReceived = new String(receiveData, 0, receiveAntReq.getLength());	
 
 				    if(messageReceived.equals("Give ants")){
-				    	System.out.println("client received give ants");
+				    	//System.out.println("client received give ants");
 							while(true){
 								System.out.print("in while loop");
 				    	
-								for(Ant x : state.getAnts()){
+								for(Ant x : state.getAntsToUpload()){
 							 	SendMessage = x.toString();
 								sendData = SendMessage.getBytes();
 							 	DatagramPacket sendMe = new DatagramPacket(sendData, sendData.length, host, PORT);
 							 	gameSocket.send(sendMe);
 							 	System.out.println("sent from client : " + SendMessage );
-							 	}	
+							 	
+							 	}
+								state.getAntsToUpload().clear();
 						
 				    
 					     SendMessage = "update ants";

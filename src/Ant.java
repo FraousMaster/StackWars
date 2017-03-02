@@ -34,7 +34,7 @@ public class Ant {
     	posY = Integer.parseInt(b[1]);
     	ownedBy = Integer.parseInt(b[2]);
     	currentMapObject = Integer.parseInt(b[3]);
-    	System.out.println("building ANT");
+    	//System.out.println("building ANT");
     }
     
     public String toString(){
