@@ -41,7 +41,11 @@ public class Map {
         FileReader fr;
         int i, x = 0, y = 0;
             try {
+<<<<<<< HEAD
                 fr = new FileReader("Graphics\\Maps\\Map1.txt");
+=======
+                fr = new FileReader("Graphics/Maps/Map2.txt");
+>>>>>>> fe6eb89427446e3a1394ee438fa590a0e34f6237
 
                 while ((i = fr.read()) != -1)
                 {
@@ -234,7 +238,7 @@ public class Map {
             for (int j = 0; j < 20; j++) {
                 if ( mapY.get(i).get(j) == 49) {//1
                     try {
-                        image = ImageIO.read(new File("Graphics\\Part1.png"));
+                        image = ImageIO.read(new File("Graphics/Part1.png"));
                         g.drawImage(image, 96 * j , 54 * i, 96, 54, null);
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -243,7 +247,7 @@ public class Map {
                 } 
                 else if ( mapY.get(i).get(j) == 50) {//2
                     try {
-                        image = ImageIO.read(new File("Graphics\\StackV2.png"));
+                        image = ImageIO.read(new File("Graphics/StackV2.png"));
                         g.drawImage(image, 96 * j , 54 * i, 96, 54, null);
                         stacks.add(new Stack( 96 * j , 54 * i));
 
@@ -253,7 +257,7 @@ public class Map {
                 }
                 else if (mapY.get(i).get(j) == 51) {//3
                     try {
-                        image = ImageIO.read(new File("Graphics\\RoadVertical.png"));
+                        image = ImageIO.read(new File("Graphics/RoadVertical.png"));
                         g.drawImage(image, 96 * j , 54 * i, 96, 54, null);
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -261,7 +265,7 @@ public class Map {
                 } 
                 else if (mapY.get(i).get(j) == 52) {//4
                     try {
-                        image = ImageIO.read(new File("Graphics\\RoadHorizontal.png"));
+                        image = ImageIO.read(new File("Graphics/RoadHorizontal.png"));
                         g.drawImage(image, 96 * j , 54 * i, 96, 54, null);
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -270,7 +274,7 @@ public class Map {
                 } 
                 else if (mapY.get(i).get(j) == 53) {//5
                     try {
-                        image = ImageIO.read(new File("Graphics\\rightbottom.png"));
+                        image = ImageIO.read(new File("Graphics/rightbottom.png"));
                         g.drawImage(image, 96 * j , 54 * i, 96, 54, null);
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -278,7 +282,7 @@ public class Map {
                 }
                 else if (mapY.get(i).get(j) == 54) {//6
                     try {
-                        image = ImageIO.read(new File("Graphics\\lefttop.png"));
+                        image = ImageIO.read(new File("Graphics/lefttop.png"));
                         g.drawImage(image, 96 * j , 54 * i, 96, 54, null);
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -286,7 +290,7 @@ public class Map {
                 }
                 else if (mapY.get(i).get(j) == 55) {//7
                     try {
-                        image = ImageIO.read(new File("Graphics\\topright.png"));
+                        image = ImageIO.read(new File("Graphics/topright.png"));
                         g.drawImage(image, 96 * j , 54 * i, 96, 54, null);
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -294,7 +298,7 @@ public class Map {
                 }
                 else if (mapY.get(i).get(j) == 56) {//8
                     try {
-                        image = ImageIO.read(new File("Graphics\\leftbottom.png"));
+                        image = ImageIO.read(new File("Graphics/leftbottom.png"));
                         g.drawImage(image, 96 * j , 54 * i, 96, 54, null);
                     } catch (IOException e) {
                         e.printStackTrace();

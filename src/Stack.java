@@ -25,7 +25,7 @@ public class Stack extends JComponent{
         stackPosY = posY;
         try
         {
-            image = ImageIO.read(new File("Graphics\\Stack.png"));
+            image = ImageIO.read(new File("Graphics/Stack.png"));
         }
         catch (IOException e)
         {
@@ -54,7 +54,7 @@ public class Stack extends JComponent{
     {
     	
     	Point key = new Point(x,y);
-    	System.out.println(connectedStacks);
+    	//System.out.println(connectedStacks);
     	if(connectedStacks.get(key) != null)
 		{
     		return connectedStacks.get(key);

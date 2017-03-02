@@ -106,14 +106,14 @@ public class Client extends Thread{
 		 try{
 			 
 			 while(true){
-				 sleep(33);
-
+				 sleep(1500);
+				   
 					DatagramPacket receivethis = new DatagramPacket(receiveData, receiveData.length);
 					clientSocket.receive(receivethis);
 					byte[] data = receivethis.getData();
 				    messageReceived = new String(data, 0, receivethis.getLength());
-					
-					 if(messageReceived.equals("Give ants")){
+				    
+				    if(messageReceived.equals("Give ants")){
 							for(Ant x : state.getAnts()){
 							 	SendMessage = x.toString();
 								sendData = SendMessage.getBytes();
@@ -122,21 +122,19 @@ public class Client extends Thread{
 							 	System.out.println("sent from client : " + SendMessage );
 							 	}	
 						}
-					 	
-					    SendMessage = "update ants";
-					 	sendData = SendMessage.getBytes();
-					 	DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, host, PORT);
-					 	clientSocket.send(sendPacket);
-
-					     ants = freshList(messageReceived);
+				    
+				    
+				    
+					     SendMessage = "update ants";
+						 	sendData = SendMessage.getBytes();
+						 	DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, host, PORT);
+						 	clientSocket.send(sendPacket);
 					    // System.out.println("client got : " + messageReceived);
-					     state.updateAllAnts(ants);
-					 
-					      
-					
-			
-
-				 //System.out.println("IN CLIENT " + ants);
+							
+						 	ants = freshList(messageReceived);
+						 	
+						 	state.updateAllAnts(ants);
+					     System.out.println("IN CLIENT " + ants);
 		 }
 		 
 		 
@@ -148,17 +146,26 @@ public class Client extends Thread{
  
 	 private ArrayList<Ant> freshList(String x) throws IOException{
 		 ArrayList<Ant> temp = new ArrayList<Ant>();
-
-		     if(!(x.equals(players.getLast()) || x.equals("start") || messageReceived.equals("Give ants"))) {
-				if(temp.isEmpty()){
-					 temp.add(new Ant(messageReceived));
-				}
-				else if (!(check(messageReceived))){
-					 temp.add(new Ant(messageReceived));
-				}
-          }
-		     
-		     
+		
+		  if(!(x.equals(players.getLast()) || x.equals("start") || x.equals("Give ants")) || x.equals(null) || x == null ) {
+			  if(temp.isEmpty()){
+				  
+				  String[] newString = x.split("&");
+				  
+				  	for(String z : newString){
+				  		if( !(z.equals("") || z == "") ){
+				  		temp.add(new Ant(z));
+				  		}
+				  		
+				  	}
+			  }
+			  else if (!(check(x))){
+				  String[] newString = x.split("&");
+				  	for(String z : newString){
+				  		temp.add(new Ant(z));
+				  			}
+			  			}
+		  		}
 			return temp;
 	 }
 	 
