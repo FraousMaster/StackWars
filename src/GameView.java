@@ -54,16 +54,6 @@ public class GameView extends Observable implements Observer{
         }
         private void updateThisFrame()
         {
-        	//System.out.println("Pos: updateThisFrame");
-        	/*for(Ant a : gameState.getAnts()){
-                if (a.getPosX() >= D_W) {
-                    //a.setPos(0,a.getPosY());
-                    //drawPanel.repaint();
-                } else {
-                    //a.setPos((int)(a.getPosX() + Math.sqrt(2)), (int)(a.getPosY()+ Math.sqrt(2)));
-                    
-                    //drawPanel.repaint();
-                }*/
 			drawPanel.repaint();
         }
                 
