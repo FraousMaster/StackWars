@@ -16,9 +16,10 @@ public class Menu extends JFrame {
 		 setTitle("Stack Wars!");
 	     setLocation(10, 200);
 	     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	     setSize(600,600);
+	     setSize(599,599);
 	     setVisible(true);
-	} 
+         setSize(600,600);
+	}
 	
 	
 }

@@ -134,8 +134,8 @@ public class SettingsMenu extends JPanel {
 					TransformerFactory transFactory = TransformerFactory.newInstance();
 					Transformer transformer = transFactory.newTransformer();
 					DOMSource source = new DOMSource(document);
-                    StreamResult result = new StreamResult(new File("/Settings/file.xml"));
-					transformer.transform(source, result);
+                    StreamResult result = new StreamResult(new File("../Settings/file.xml"));
+                    transformer.transform(source, result);
 					
 					
 					
