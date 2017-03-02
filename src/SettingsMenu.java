@@ -131,13 +131,11 @@ public class SettingsMenu extends JPanel {
 					settings.appendChild(resolution);
 					volume.appendChild(document.createTextNode(getVol()));
 					resolution.appendChild(document.createTextNode(getRes()));
-					
 					TransformerFactory transFactory = TransformerFactory.newInstance();
 					Transformer transformer = transFactory.newTransformer();
 					DOMSource source = new DOMSource(document);
-				StreamResult result = new StreamResult(new File("Settings/file.xml"));
+                    StreamResult result = new StreamResult(new File("/Settings/file.xml"));
 					transformer.transform(source, result);
-					System.out.println("filen ska vara sparad.");
 					
 					
 					
@@ -146,7 +144,7 @@ public class SettingsMenu extends JPanel {
 					pce.printStackTrace();
 				}catch(TransformerException te){
 					te.printStackTrace();
-				}
+                }catch(Exception all){}
 				
 			}	
 		}

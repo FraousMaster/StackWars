@@ -7,12 +7,14 @@ import java.util.*;
 public class GameState extends Observable{
 
     private ArrayList<Ant> ants;
+    private ArrayList<Ant> antsToUpload;
     private ArrayList<Stack> stacks;
     private Map map;
 
     public GameState(){
         map = new Map();
         ants = new ArrayList<Ant>();
+        antsToUpload = new ArrayList<Ant>();
         stacks = new ArrayList<Stack>();
         initGame();
     }
@@ -24,6 +26,13 @@ public class GameState extends Observable{
     public ArrayList<Ant> getAnts(){
         return ants;
     }
+    public ArrayList<Ant> getAntsToUpload(){
+    	//System.out.println("This is the ant we want to send to server: " + antsToUpload.size());
+    	
+    	//ArrayList<Ant> dummy = antsToUpload;
+    	System.out.println("This is the ant we want to send to server: " + antsToUpload.toString());
+        return antsToUpload;
+    }
 
     public ArrayList<Stack> getStacks(){
     	return stacks;
@@ -33,13 +42,19 @@ public class GameState extends Observable{
         ants = a;
         setChanged();
     	notifyObservers();
+    	//System.out.println("ants upd");
     }
 
     public void addAnt(Ant a){
+<<<<<<< HEAD
         ants.add(a);
         setChanged();
         notifyObservers();
         System.out.println("ant added");
+=======
+       antsToUpload.add(a);
+   	   //System.out.println("ant added");
+>>>>>>> 1e875f4b6d96409161271854fc4bb0f9a19dfff8
     }
     
     public Map getMap(){

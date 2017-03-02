@@ -25,7 +25,7 @@ public class Stack extends JComponent{
         stackPosY = posY;
         try
         {
-            image = ImageIO.read(new File("Graphics\\Stack.png"));
+            image = ImageIO.read(new File("Graphics\\StackV2.png"));
         }
         catch (IOException e)
         {
@@ -54,7 +54,7 @@ public class Stack extends JComponent{
     {
     	
     	Point key = new Point(x,y);
-    	System.out.println(connectedStacks);
+    	//System.out.println(connectedStacks);
     	if(connectedStacks.get(key) != null)
 		{
     		return connectedStacks.get(key);
@@ -67,11 +67,20 @@ public class Stack extends JComponent{
 
     public void addPath(Point p, ArrayList<Roads> list)
     {
-    	//System.out.println(p);
-        connectedStacks.put(p, list);
+    	if(connectedStacks.containsKey(p))
+      	   	connectedStacks.put(p, list);
+    		
+    	   	if(!connectedStacks.containsKey(p))
+    	   		connectedStacks.put(p, list);
+    	
     }
     public Dimension getPreferredSize() 
     {
         return new Dimension(image.getWidth(), image.getHeight());
+    }
+    public String testPrint(){
+    	String s = new String();
+    	s += "Size: " + connectedStacks.size();    	
+    	return s;
     }
 }
