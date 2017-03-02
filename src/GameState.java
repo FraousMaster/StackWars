@@ -7,6 +7,7 @@ import java.util.*;
 public class GameState extends Observable{
 
     private ArrayList<Ant> ants;
+    private ArrayList<Ant> antsToUpload;
     private ArrayList<Stack> stacks;
     private Map map;
 
@@ -33,7 +34,7 @@ public class GameState extends Observable{
         ants = a;
         setChanged();
     	notifyObservers();
-    	 System.out.println("ants upd");
+    	System.out.println("ants upd");
     }
     
     public void addAnt(Ant a){

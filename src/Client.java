@@ -162,7 +162,7 @@ public class Client extends Thread{
 						 state.updateAllAnts(ants);
 					     System.out.println("IN CLIENT " + ants);
 					     
-					     sleep(750);
+					     sleep(33);
 				    }
 		   }
 	 }
