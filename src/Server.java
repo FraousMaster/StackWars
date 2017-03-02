@@ -88,29 +88,42 @@ public class Server extends Thread{
 			
 			try{
 				
-				while(gameIsRunning){
+				while(true){
+				
+					DatagramPacket oKPacket = new DatagramPacket(receiveData, receiveData.length);
+					serverSocket.receive(oKPacket);
+					receiveData = oKPacket.getData();
+					messageReceived = new String(receiveData, 0, oKPacket.getLength());
 					
-					sendData = "Give ants".getBytes();
-					DatagramPacket givePacket = new DatagramPacket(sendData, sendData.length, IPAddress, port);
-					serverSocket.send(givePacket);
-					//System.out.println("SERVER : GIVE ANTS");
-				    sleep(33);
-					DatagramPacket incomingPacket = new DatagramPacket(receiveData, receiveData.length);
-					serverSocket.receive(incomingPacket);
-					byte[] data = incomingPacket.getData();
-					 messageReceived = new String(data, 0, incomingPacket.getLength());
+					if(messageReceived.equals("OK")){
+						
+						System.out.println(messageReceived);
+						System.out.println("SENDING DATA");
+						while(gameIsRunning){
+							
+					
+							sendData = "Give ants".getBytes();
+							DatagramPacket givePacket = new DatagramPacket(sendData, sendData.length, IPAddress, port);
+							serverSocket.send(givePacket);
+							//System.out.println("SERVER : GIVE ANTS");
+						
+							DatagramPacket incomingPacket = new DatagramPacket(receiveData, receiveData.length);
+							serverSocket.receive(incomingPacket);
+							byte[] data = incomingPacket.getData();
+							messageReceived = new String(data, 0, incomingPacket.getLength());
 					 
-					 if(!(messageReceived.equals("update") || messageReceived.equals("start") || messageReceived.equals("started?") || messageReceived.equals(null) 
-							 || messageReceived == null || messageReceived.equals("update ants"))){	
-							if(ants.isEmpty()){
+								if(!(messageReceived.equals("update") || messageReceived.equals("start") || messageReceived.equals("started?") || messageReceived.equals(null) 
+										|| messageReceived == null || messageReceived.equals("update ants") || messageReceived.equals("OK") )){	
+									if(ants.isEmpty()){
 								 ants.add(new Ant(messageReceived));
-							}
-							else if (!(check(messageReceived))){
-								 ants.add(new Ant(messageReceived));
-							}
-					 }
-					 else if(messageReceived.equals("update ants")){
-					 if(!(ants.isEmpty())){
+									}
+									else if (!(check(messageReceived))){
+										ants.add(new Ant(messageReceived));
+										}
+									}
+									else if(messageReceived.equals("update ants")){
+							    
+								if(!(ants.isEmpty())){
 						//  System.out.println("SERVER : SENDING ANTS");
 						 temp = "";
 						 for(Ant x : ants){
@@ -127,9 +140,11 @@ public class Server extends Thread{
 						}
 					}
 					System.out.println("SERVER ANT : " + ants); 
-		}
-			
-			}catch(IOException | InterruptedException e){
+					}
+			}
+		
+			}
+			}catch(IOException e){
 				e.printStackTrace();
 			}
 			

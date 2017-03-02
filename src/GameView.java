@@ -82,7 +82,7 @@ public class GameView extends Observable implements Observer{
                 }
                 for(Ant a : gameState.getAnts()) {
                 	try {   
-						image = ImageIO.read(new File("Graphics/Ant/AntV4.png"));
+						image = ImageIO.read(new File("/Users/Johannes/Documents/Devel/StackWars/Graphics/Ant/AntV4.png"));
 	
 					} catch (IOException e) {
 						e.printStackTrace();

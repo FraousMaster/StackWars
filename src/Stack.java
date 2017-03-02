@@ -25,7 +25,7 @@ public class Stack extends JComponent{
         stackPosY = posY;
         try
         {
-            image = ImageIO.read(new File("Graphics/Stack.png"));
+            image = ImageIO.read(new File("/Users/Johannes/Documents/Devel/StackWars/Graphics/Ant/AntV4.png"));
         }
         catch (IOException e)
         {
