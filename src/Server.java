@@ -2,89 +2,111 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 
-public class Server extends Thread{
-	
-	protected DatagramSocket serverSocket = null; 
-	protected byte[] receiveData  = new byte[1000];
-	protected byte[] sendData  = new byte[1000];
-	private int port;
-	@SuppressWarnings("unused")
-	private InetAddress IPAddress;
-	private LinkedList<String> players ;
-	private String messageReceived;
-	@SuppressWarnings("unused")
-	private final int MAX_PLAYERS = 4;
-	private boolean started = false;
-	protected boolean gameIsRunning = true;
-	protected boolean inLobby = true;
-	private ArrayList<Ant> ants = new ArrayList<>();
-	private String temp = "";
-	
-	public Server() throws Exception{
-		serverSocket = new DatagramSocket(1203);
-		players = new LinkedList<>();
-		ants = new ArrayList<>();
-		
-	}
+public class Server extends Thread {
 
-		public void run(){
-			System.out.println("Hello world");
-			
-			try{
-				while(inLobby){
-					DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
-					serverSocket.receive(receivePacket);
-					byte[] data = receivePacket.getData();
-					messageReceived = new String(data, 0, receivePacket.getLength());
-					System.out.println("Hello alltid i lobby");
-					IPAddress = receivePacket.getAddress();
-					port = receivePacket.getPort();
-					//System.out.println("RECEIVED MSG: " + messageReceived);
-					InetAddress IPAddress = receivePacket.getAddress();
-				
-					if(messageReceived.equals("start")){
-						System.out.println("Hello if start");
-						started = true;
-						sendData = messageReceived.getBytes();
-						DatagramPacket startPacket = new DatagramPacket(sendData, sendData.length, IPAddress, port);
-						serverSocket.send(startPacket);
-					}
-					else if(started &&  messageReceived.equals("started?")){
-						System.out.println("Hello started?");
-						sendData = "start".getBytes();
-						DatagramPacket startPacket = new DatagramPacket(sendData, sendData.length, IPAddress, port);
-						serverSocket.send(startPacket);
-						inLobby = false;
-						}
-					else if(!(messageReceived.equals("update") || messageReceived.equals("start") || messageReceived.equals("started?"))){
-						System.out.println("Hello something that is nothing??");
-						new Player(messageReceived).start();
-						for(String x : players){
-							sendData = x.getBytes();
-							DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, IPAddress, port);
-							serverSocket.send(sendPacket);
-							//System.out.println("THIS WAS SENT FROM serverSocket: " + x);
-						}
-					}
-					else if(messageReceived.equals("update")){
-						System.out.println("Hello update");
-						sendData = players.getLast().getBytes();
-						DatagramPacket sendUpdate = new DatagramPacket(sendData, sendData.length, IPAddress, port);
-						serverSocket.send(sendUpdate);
-						//System.out.println("THIS WAS SENT FROM serverSocket: " +  players.getLast());
-					}
-					sleep(250);
-				}
+    protected DatagramSocket serverSocket = null;
+    protected byte[] receiveData = new byte[1000];
+    protected byte[] sendData = new byte[1000];
+    private int port;
+    @SuppressWarnings("unused")
+    private InetAddress IPAddress;
+    private LinkedList<String> players;
+    private String messageReceived;
+    @SuppressWarnings("unused")
+    private final int MAX_PLAYERS = 4;
+    private boolean started = false;
+    protected boolean gameIsRunning = true;
+    protected boolean inLobby = true;
+    private ArrayList<Ant> ants = new ArrayList<>();
+    private String temp = "";
 
-			}
-			catch(IOException | InterruptedException e){
-				System.out.print(e);
-			}
-            gameRunning();
+    public Server() throws Exception {
+        serverSocket = new DatagramSocket(1203);
+        players = new LinkedList<>();
+        ants = new ArrayList<>();
 
-	}
-		
-	private void gameRunning() {
+    }
+
+    public void run() {
+        System.out.println("Hello world");
+
+        try {
+            while (inLobby) {
+                DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
+                serverSocket.receive(receivePacket);
+                byte[] data = receivePacket.getData();
+                messageReceived = new String(data, 0, receivePacket.getLength());
+                IPAddress = receivePacket.getAddress();
+                port = receivePacket.getPort();
+                InetAddress IPAddress = receivePacket.getAddress();
+
+                if(messageReceived.equals("OK")) {
+                    started = true;
+                    sendData = "OK".getBytes();
+                    DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, IPAddress, port);
+                    serverSocket.send(sendPacket);
+
+                }
+                else if(started){
+                    sendData = "Start".getBytes();
+                    DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, IPAddress, port);
+                    serverSocket.send(sendPacket);
+                }
+                else{
+                    if(players.contains(messageReceived)){
+                        String y = new String();
+                        for(String x : players) {
+                           y += x + "&";
+
+                        }
+                        sendData = y.getBytes();
+                    }
+                    else {
+                        players.add(messageReceived);
+                        sendData = "bajs".getBytes();
+                    }
+                    DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, IPAddress, port);
+                    serverSocket.send(sendPacket);
+                }
+
+
+                /*if (messageReceived.equals("start")) {
+                    started = true;
+                    sendData = messageReceived.getBytes();
+                    DatagramPacket startPacket = new DatagramPacket(sendData, sendData.length, IPAddress, port);
+                    serverSocket.send(startPacket);
+                } else if (started && messageReceived.equals("started?")) {
+                    sendData = "start".getBytes();
+                    DatagramPacket startPacket = new DatagramPacket(sendData, sendData.length, IPAddress, port);
+                    serverSocket.send(startPacket);
+                    inLobby = false;
+                } else if (!(messageReceived.equals("update") || messageReceived.equals("start") || messageReceived.equals("started?"))) {
+                    System.out.println("HEJ" + messageReceived);
+                    players.add(messageReceived);
+                    for (String x : players) {
+                        sendData = x.getBytes();
+                        DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, IPAddress, port);
+                        serverSocket.send(sendPacket);
+                        //System.out.println("THIS WAS SENT FROM serverSocket: " + x);
+                    }
+                } else if (messageReceived.equals("update")) {
+                    sendData = players.getLast().getBytes();
+                    DatagramPacket sendUpdate = new DatagramPacket(sendData, sendData.length, IPAddress, port);
+                    serverSocket.send(sendUpdate);
+                    //System.out.println("THIS WAS SENT FROM serverSocket: " +  players.getLast());
+                }
+                System.out.println("HEJ" + messageReceived);*/
+                sleep(250);
+            }
+
+        } catch (IOException | InterruptedException e) {
+            System.out.print(e);
+        }
+        gameRunning();
+
+    }
+
+    private void gameRunning() {
 
         try {
             while (true) {
@@ -93,14 +115,12 @@ public class Server extends Thread{
                 receiveData = oKPacket.getData();
                 messageReceived = new String(receiveData, 0, oKPacket.getLength());
 
-                if (messageReceived.equals("OK")) {
+                if(messageReceived.equals("OK")) {
                     sendData = temp.getBytes();
                     DatagramPacket sendUpdate = new DatagramPacket(sendData, sendData.length, IPAddress, port);
                     serverSocket.send(sendUpdate);
-                }
-                else if(!(messageReceived.equals("update") || messageReceived.equals("start") || messageReceived.equals("started?") || messageReceived.equals(null)
-                        || messageReceived == null|| messageReceived.equals("OK"))){
-                    //System.out.println("SERVER ANT : " + messageReceived.toString());
+                } else if (!(messageReceived.equals("update") || messageReceived.equals("start") || messageReceived.equals("started?") || messageReceived.equals(null)
+                        || messageReceived == null || messageReceived.equals("OK"))){
                     ants.add(new Ant(messageReceived));
                     sendData = temp.getBytes();
                     DatagramPacket sendUpdate = new DatagramPacket(sendData, sendData.length, IPAddress, port);
@@ -150,33 +170,15 @@ public class Server extends Thread{
         }
     }
 
-		private boolean check(String s){
-			 boolean exists = false;
-			 for(Ant x : ants){
-				 if( x.toString().equals(s)){
-					 exists = true;
-				 }	
-			 }
-			 return exists;
-			 
-		 }
-		
-			
-public class Player extends Thread{
-			String name;
-			
-			public Player(String player) throws InterruptedException{
-				this.name = player;
-			    players.add(name);
-			    System.out.println("LINKEDLIST : " + players);
-			    sleep(250);
-			    }
-			
-			public void run(){
-			
-				
-				
-			}
-			
-	}
+    private boolean check(String s) {
+        boolean exists = false;
+        for (Ant x : ants) {
+            if (x.toString().equals(s)) {
+                exists = true;
+            }
+        }
+        return exists;
+
+    }
 }
+
