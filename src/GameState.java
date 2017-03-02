@@ -33,6 +33,7 @@ public class GameState extends Observable{
         ants = a;
         setChanged();
     	notifyObservers();
+    	 System.out.println("ants upd");
     }
     
     public void addAnt(Ant a){

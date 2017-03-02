@@ -18,6 +18,7 @@ public class Server extends Thread{
 	protected boolean gameIsRunning = true;
 	protected boolean inLobby = true;
 	private ArrayList<Ant> ants;
+	private String temp;
 	
 	public Server() throws Exception{
 		serverSocket = new DatagramSocket(1203);
@@ -93,7 +94,7 @@ public class Server extends Thread{
 					DatagramPacket givePacket = new DatagramPacket(sendData, sendData.length, IPAddress, port);
 					serverSocket.send(givePacket);
 					//System.out.println("SERVER : GIVE ANTS");
-				
+				    sleep(33);
 					DatagramPacket incomingPacket = new DatagramPacket(receiveData, receiveData.length);
 					serverSocket.receive(incomingPacket);
 					byte[] data = incomingPacket.getData();
@@ -108,21 +109,27 @@ public class Server extends Thread{
 								 ants.add(new Ant(messageReceived));
 							}
 					 }
-
-				if(messageReceived.equals("update ants")){
+					 else if(messageReceived.equals("update ants")){
 					 if(!(ants.isEmpty())){
 						//  System.out.println("SERVER : SENDING ANTS");
+						 temp = "";
 						 for(Ant x : ants){
-							sendData = x.toString().getBytes();
+							
+							temp += "&"+ x.toString() + "&";
+							
+							}
+						 	System.out.println("TEMP : " + temp); 
+						 	sendData = temp.getBytes();
 							DatagramPacket sendUpdate = new DatagramPacket(sendData, sendData.length, IPAddress, port);
 							serverSocket.send(sendUpdate);
-							}
+							System.out.println("SEND : " + temp); 
+						 
 						}
 					}
-					//System.out.println("SERVER ANT : " + ants); 
+					System.out.println("SERVER ANT : " + ants); 
 		}
 			
-			}catch(IOException e){
+			}catch(IOException | InterruptedException e){
 				e.printStackTrace();
 			}
 			
@@ -143,8 +150,7 @@ public class Server extends Thread{
 			 
 		 }
 		
-		
-		
+			
 public class Player extends Thread{
 			String name;
 			
