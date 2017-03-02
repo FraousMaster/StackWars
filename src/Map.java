@@ -41,12 +41,8 @@ public class Map {
         FileReader fr;
         int i, x = 0, y = 0;
             try {
-<<<<<<< HEAD
-                fr = new FileReader("/Users/Johannes/Documents/Devel/StackWars/Graphics/Maps/Map2.txt");
-=======
                 fr = new FileReader("Graphics\\Maps\\Map2.txt");
 
->>>>>>> 23ca318e435fad29764b914feed23bb1f4f2f361
 
                 while ((i = fr.read()) != -1)
                 {
