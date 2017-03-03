@@ -1,10 +1,7 @@
 package Global;
-import java.io.File;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import org.w3c.dom.NodeList;
-import com.sun.xml.internal.bind.v2.model.core.Element;
-import com.sun.xml.internal.txw2.Document;
+import org.w3c.dom.*;
+import javax.xml.parsers.*;
+import java.io.*;
 
 public class Resources {
 	private static int width = 1000;
@@ -42,7 +39,7 @@ public class Resources {
 		width = y;
 	}
 	
-	/*private void readingSettings(){
+	private void readingSettings(){
         try{
             File settFile = new File("../Settings/file.xml");
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -60,5 +57,5 @@ public class Resources {
         }catch(Exception filee){
             filee.printStackTrace();
         }
-    }*/
+    }
 }
