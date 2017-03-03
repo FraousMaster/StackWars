@@ -31,136 +31,104 @@ public class Server extends Thread {
         System.out.println("Hello world");
 
         try {
-            while (inLobby) {
-                
+            while (true) {
             	DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
                 serverSocket.receive(receivePacket);
                 byte[] data = receivePacket.getData();
                 messageReceived = new String(data, 0, receivePacket.getLength());
-                
                 IPAddress = receivePacket.getAddress();
                 port = receivePacket.getPort();
-                if(started){
-                   
-                    System.out.println("trying to go into game bitch");
-                    gameRunning();
-                    
-                 
-             
+                if(inLobby)
+                {
+                	currentModeInLobby();
                 }
-               
-
-                if(messageReceived.equals("OK")) {
-                    started = true;
-                    sendData = "OK".getBytes();
-                 
-
+                else
+                {
+                	//System.out.println("in game running SERVER");
+                	gameRunning();
                 }
-                else{
-                    if(players.contains(messageReceived)){
-                        String y = new String();
-                        
-                        for(String x : players) {
-                           y += x + "&";
-
-                        }
-                        sendData = y.getBytes();
-                    }
-                    else {
-                        players.add(messageReceived);
-                        //System.out.println("SERVERE :"+players);
-                        sendData = messageReceived.getBytes();
-                    }
-                 
-                }
-                
                 DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, IPAddress, port);
                 serverSocket.send(sendPacket);
-               // System.out.println("SERVERE :"+players);
             }
-            System.out.println("TRYING TO ENTER,");
-          
-
         } catch (IOException e) {
             System.out.print(e);
         }
       
 
     }
+    private void currentModeInLobby()
+    {
+        if(started){
+           
+            System.out.println("trying to go into game bitch");
+            inLobby = false;
+        }
+        else if(messageReceived.equals("OK")) {
+            started = true;
+            sendData = "OK".getBytes();
+        }
+        else{
+            if(players.contains(messageReceived)){
+                String y = new String();
+                
+                for(String x : players) {
+                   y += x + "&";
+
+                }
+                sendData = y.getBytes();
+            }
+            else {
+                players.add(messageReceived);
+                sendData = messageReceived.getBytes();
+            }
+        }
+    	
+    }
 
     private void gameRunning() {
-    	
-    	System.out.println("IN GAME RUNNING BITCH");
-    	
-
-        try {
-    
-        	 sendData = "Start".getBytes();
-             DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, IPAddress, port);
-             serverSocket.send(sendPacket);
-     
-        	
-            while (true) {
-            	
-            	//System.out.println("in server gamerunning while loop");
-                DatagramPacket oKPacket = new DatagramPacket(receiveData, receiveData.length);
-                serverSocket.receive(oKPacket);
-                receiveData = oKPacket.getData();
-                messageReceived = new String(receiveData, 0, oKPacket.getLength());
-
-                if(messageReceived.equals("OK")) {
-                    sendData = temp.getBytes();
-                   
-                } else if (!(messageReceived.equals(players.getLast()) || messageReceived.equals("success") || messageReceived.equals("start") || messageReceived.equals("started?") || messageReceived.equals(null)
-                        || messageReceived == null || messageReceived.equals("OK"))){
-                    ants.add(new Ant(messageReceived));
-                    sendData = temp.getBytes();
-                   
-                }
-                if (!(ants.isEmpty())) {
-                    try {
-                        temp = "";
-                        for (int i = 0; i < ants.size(); i++) {
-                            Ant a = ants.get(i);
-                            System.out.println("This is the ant at index " + i + " and its value " + a);
-                            String[] antValues = a.toString().split(":");
-                            int x = Integer.parseInt(antValues[0]);
-                            x += 1;
-                            antValues[0] = x + "";
-                            int b = Integer.parseInt(antValues[1]);
-                            b += 1;
-                            antValues[1] = b + "";
-                            String dummy = "";
-                            boolean first = true;
-                            for (String s : antValues) {
-                                if (first) {
-                                    dummy += s;
-                                    first = false;
-                                } else {
-                                    dummy += ":" + s;
-                                }
-
-                                //System.out.println("This is my new position " + dummy);
-                            }
-                            a = new Ant(dummy);
-                            ants.set(i, a);
-                            temp += "&" + a.toString() + "&";
-                            sendData =temp.getBytes();
+        if(messageReceived.equals("OK")) {
+            sendData = temp.getBytes();
+           
+        } else if (!(messageReceived.equals(players.getLast()) || messageReceived.equals("success") || messageReceived.equals("start") || messageReceived.equals("started?") || messageReceived.equals(null)
+                || messageReceived == null || messageReceived.equals("OK"))){
+            ants.add(new Ant(messageReceived));
+            sendData = temp.getBytes();
+           
+        }
+        if (!(ants.isEmpty())) {
+            try {
+                temp = "";
+                for (int i = 0; i < ants.size(); i++) {
+                    Ant a = ants.get(i);
+                    System.out.println("This is the ant at index " + i + " and its value " + a);
+                    String[] antValues = a.toString().split(":");
+                    int x = Integer.parseInt(antValues[0]);
+                    x += 1;
+                    antValues[0] = x + "";
+                    int b = Integer.parseInt(antValues[1]);
+                    b += 1;
+                    antValues[1] = b + "";
+                    String dummy = "";
+                    boolean first = true;
+                    for (String s : antValues) {
+                        if (first) {
+                            dummy += s;
+                            first = false;
+                        } else {
+                            dummy += ":" + s;
                         }
-                        sleep(33);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
+
+                        //System.out.println("This is my new position " + dummy);
                     }
+                    a = new Ant(dummy);
+                    ants.set(i, a);
+                    temp += "&" + a.toString() + "&";
+                    sendData =temp.getBytes();
                 }
-                DatagramPacket sendUpdate = new DatagramPacket(sendData, sendData.length, IPAddress, port);
-                serverSocket.send(sendUpdate);
-               // System.out.println("sent from server : "+sendData);
-                sleep(1500);
+                sleep(33);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
-
-
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 
