@@ -70,7 +70,7 @@ public class GameView extends Observable implements Observer{
                 	g.drawString("Pop: " + s.getPopulation(), s.getX() + 27, s.getY() + 27);
                 }
 				try {
-					image = ImageIO.read(new File("Graphics\\Ant\\AntV4.png"));
+					image = ImageIO.read(new File("Graphics/Ant/AntV4.png"));
 
 				} catch (IOException e) {
 					e.printStackTrace();

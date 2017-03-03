@@ -22,16 +22,7 @@ public class Stack extends JComponent{
     public Stack(int posX, int posY){
         population = 10;
         stackPosX = posX;
-        stackPosY = posY;
-        try
-        {
-            image = ImageIO.read(new File("Graphics\\StackV2.png"));
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        } 
-     
+        stackPosY = posY;   
     }
 
     public BufferedImage getImage()

@@ -41,7 +41,7 @@ public class Map {
         FileReader fr;
         int i, x = 0, y = 0;
             try {
-                fr = new FileReader("Graphics\\Maps\\Map2.txt");
+                fr = new FileReader("Graphics/Maps/Map2.txt");
 
 
                 while ((i = fr.read()) != -1)
@@ -209,7 +209,7 @@ public class Map {
     private void addRoadToStack(int x,int y, int x1, int y1, ArrayList<Roads> list){
         //System.out.println("FROM: " + x + " , " + y + " TO " + x1 + " , " + y1 + " ROAD :");
         for(Roads r : list){
-        	 System.out.println(r.getPos());
+        	 //System.out.println(r.getPos());
         }
     	x1 = x1 * 96;
         y1 = y1 * 54;

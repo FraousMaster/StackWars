@@ -1,6 +1,8 @@
  import java.awt.*;
 import java.awt.event.*;
 import java.net.*;
+import java.util.ArrayList;
+
 import javax.swing.*;
 
 public class LobbyMenu extends JPanel {
@@ -53,21 +55,30 @@ public class LobbyMenu extends JPanel {
 	}
 
 	
-	public void setPlayers(String name){
-		if(p1.getText().equals("Waiting...")){
-			p1.setText(name);	
+	public void setPlayers(ArrayList<String> players){
+		int i = 0;
+		for(String x : players){
+			setLabels(x, i);
+			i++;
 		}
-
-	    else if(p2.getText().equals("Waiting...")){
-			p2.setText(name);	
-		}
-
-	  else if(p3.getText().equals("Waiting...")){
-			p3.setText(name);	
-		}
-	else if(p4.getText().equals("Waiting...")){
-			p4.setText(name);	
-		}
+		
+	}
+	private void setLabels(String x, int y){
+		System.out.println("x = " + x + "    y = " +y);
+	    if(y == 0){
+	    	p1.setText(x);
+	    }
+	    if(y == 1){
+	    	p2.setText(x);
+	    }
+	    if(y == 2){
+	    	p3.setText(x);
+	    }
+	    if(y == 3){
+	    	p4.setText(x);
+	    }
+		
+		
 	}
 	
 	private void create(){

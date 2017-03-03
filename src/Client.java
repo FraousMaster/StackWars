@@ -13,7 +13,7 @@ public class Client extends Thread{
 	private String SendMessage;
 	private LobbyMenu menu;
 	private String messageReceived;
-	private LinkedList<String> players ;
+	private ArrayList<String> players ;
 	private boolean inLobby = true;
 	private final int PORT = 1203;
 	private InetAddress host;
@@ -26,7 +26,7 @@ public class Client extends Thread{
 		this.IP_ADDRESS = IP;
 		this.name = name;
 		this.menu = menu;
-		players = new LinkedList<String>();
+		players = new ArrayList<String>();
 		gameSocket = new DatagramSocket();	 
 		ants = new ArrayList<Ant>();
 		try {
@@ -48,53 +48,48 @@ public class Client extends Thread{
 				//System.out.println("This was sent from clientsocket: " + SendMessage);
 		
 				while(inLobby){
+					
+					
 					DatagramPacket receivethis = new DatagramPacket(receiveData, receiveData.length);
 					gameSocket.receive(receivethis);
 					byte[] data = receivethis.getData();
 					messageReceived = new String(data, 0, receivethis.getLength());
-					if(players.isEmpty()){
-						new Player(messageReceived);
+					echo("client received "+messageReceived);
+					
+					if(messageReceived.equals("Start")){
+						System.out.println("START PRESSED");
+						SendMessage = "success";
+						sendData = SendMessage.getBytes();
+						
+						
+						
+						
 					}
-					else if(!(messageReceived.equals("update"))){
-						if(!(messageReceived.equals(players.getLast()) || messageReceived.equals(players.getFirst()) || messageReceived.equals("start"))){
-							new Player(messageReceived);
+					else if(messageReceived.equals("OK")){
+						menu.startGame();
+						game =	menu.returnGame();
+						state = menu.returnState();
+						inLobby = false;
+						
+					}
+					else{
+						
+						SendMessage = name;
+						if(!(players.contains(messageReceived))){
+						 players = playerList(messageReceived);
+						 menu.setPlayers(players);
 						}
 					}
-					
-					SendMessage = "update";
-					sendData = SendMessage.getBytes();
-					DatagramPacket checkPacket = new DatagramPacket(sendData, sendData.length, host, PORT);
-					gameSocket.send(checkPacket);
-				 	
-				 	SendMessage = "started?";
-					sendData = SendMessage.getBytes();
-					DatagramPacket startPacket = new DatagramPacket(sendData, sendData.length, host, PORT);
-					gameSocket.send(startPacket);
-					//System.out.println("This was sent from clientsocket: " + SendMessage);
-					
-					int nrOfPlayers = 0;
-					for(@SuppressWarnings("unused") String x : players){
-						nrOfPlayers++;
-					}
-					
 					if(menu.startPressed()){
-						SendMessage = "start";
-						sendData = SendMessage.getBytes();
-						DatagramPacket GamePacket = new DatagramPacket(sendData, sendData.length, host, PORT);
-						gameSocket.send(GamePacket);
-						//System.out.println(nrOfPlayers);
+						SendMessage = "OK";	
 					}
 					
 					//System.out.println(messageReceived);
 					
-					if(messageReceived.equals("start")){
-						System.out.println("START PRESSED");
-						menu.startGame();
-						game =	menu.returnGame();
-						state = menu.returnState();
-				
-						inLobby = false;
-					}
+					sendData = SendMessage.getBytes();
+					DatagramPacket GamePacket = new DatagramPacket(sendData, sendData.length, host, PORT);
+					gameSocket.send(GamePacket);
+					echo("client sent : "+SendMessage);
 					
 					sleep(250);
 						
@@ -109,23 +104,44 @@ public class Client extends Thread{
 			
 			
  }
+	 
+	 private void echo(String s){
+		 System.out.println(s);
+		 
+	 }
+	 
+	 private ArrayList<String> playerList(String x) throws IOException{
+		 ArrayList<String> temp = new ArrayList<String>();
 
+		String[] newString = x.split("&");
+				  
+		for(String z : newString){
+	  		temp.add(z);
+  		}
+		echo("TEMP :"+ temp);
+		return temp;
+	 }
+			
+	 
+	 
+	 
+	 
 	private void gameRunning(){
 
 		try {
-			SendMessage = "OK";
-			sendData = SendMessage.getBytes();
-			DatagramPacket sendOK = new DatagramPacket(sendData, sendData.length, host, PORT);
-			gameSocket.send(sendOK);
+			
 
 			while (true) {
-
+				echo("in client gamerunning while loop");
 				DatagramPacket receivethis = new DatagramPacket(receiveData, receiveData.length);
 				gameSocket.receive(receivethis);
 				receiveData = receivethis.getData();
 				messageReceived = new String(receiveData, 0, receivethis.getLength());
+				
+				if(!(messageReceived.equals("Start"))){
 				ants = freshList(messageReceived);
 				state.updateAllAnts(ants);
+				}
 
 				if(!state.getAntsToUpload().isEmpty()) {
 					for (Ant x : state.getAntsToUpload()) {
@@ -151,11 +167,15 @@ public class Client extends Thread{
 			e.printStackTrace();
 		}
 	}
+	
+	
+	
+	
  
 	 private ArrayList<Ant> freshList(String x) throws IOException{
 		 ArrayList<Ant> temp = new ArrayList<Ant>();
 		
-		  if(!(x.equals(players.getLast()) || x.equals("start") || x.equals("Give ants")) || x.equals(null) || x == null || x.equals("OK") ) {
+		  
 			  if(temp.isEmpty()){
 				  
 				  String[] newString = x.split("&");
@@ -173,9 +193,10 @@ public class Client extends Thread{
 				  		temp.add(new Ant(z));
 				  			}
 			  			}
+			  return temp;
 		  		}
-			return temp;
-	 }
+			
+	 
 	 
 	 private boolean check(String s){
 		 boolean exists = false;
@@ -187,25 +208,4 @@ public class Client extends Thread{
 		 return exists;
 		 
 	 }
-	 
-	 
-	public class Player {
-		String name;
-		
-		public Player(String player){
-			this.name = player;
-		    players.add(name);
-		    System.out.println("entered player : " + name);
-		    System.out.println("linkedlist in client : " + players);
-		    run();
-		    }
-		
-		public void run() 
-		{
-			menu.setPlayers(name);
-
-
-		}
-		
-	}
 }
