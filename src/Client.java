@@ -18,7 +18,6 @@ public class Client extends Thread{
 	private final int PORT = 1203;
 	private InetAddress host;
 	private ArrayList<Ant> ants;
-	private Game game ;
 	private GameState state;
 	
 	@SuppressWarnings("static-access")
@@ -38,30 +37,22 @@ public class Client extends Thread{
 	}
 	
 	 public void run(){
-		
 		try {
 			SendMessage = name;
-			sendData = SendMessage.getBytes();
-			DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, host, PORT);
-			gameSocket.send(sendPacket);
+			sendData();
 			while(true)
 			{
-				DatagramPacket receivethis = new DatagramPacket(receiveData, receiveData.length);
-				gameSocket.receive(receivethis);
-				byte[] data = receivethis.getData();
-				messageReceived = new String(data, 0, receivethis.getLength());
+				recData();
 				//echo("client received "+messageReceived);
 				if(inLobby)
 				{
-					currentModeInLobby();
+					inLobby();
 				}
 				else
 				{
 					gameRunning();
 				}
-				sendData = SendMessage.getBytes();
-				DatagramPacket GamePacket = new DatagramPacket(sendData, sendData.length, host, PORT);
-				gameSocket.send(GamePacket);
+				sendData();
 				//echo("client sent : "+SendMessage);
 				sleep(33);
 			}	
@@ -71,13 +62,15 @@ public class Client extends Thread{
 			e.printStackTrace();
 		}
 	 }
-	 private void currentModeInLobby() throws IOException
+	 
+	 
+	 private void inLobby() throws IOException
 	 {
 		 if(messageReceived.equals("Start"))
 		 {
 			 System.out.println("TRYING TO START GAME!");
 			 menu.startGame();
-			 game =	menu.returnGame();
+			 menu.returnGame();
 			 state = menu.returnState();
 			 inLobby = false;
 			 SendMessage = "success";
@@ -99,6 +92,30 @@ public class Client extends Thread{
 			 SendMessage = "OK";	
 		 }
 	 }
+	 
+	 private void recData(){
+		 try {
+		 	DatagramPacket receivethis = new DatagramPacket(receiveData, receiveData.length);
+		 	gameSocket.receive(receivethis);
+			byte[] data = receivethis.getData();
+			messageReceived = new String(data, 0, receivethis.getLength());
+		 } catch (IOException e) {
+				e.printStackTrace();
+			}
+	 }
+	 
+	 
+	 private void sendData(){
+		 try {
+		 	sendData = SendMessage.getBytes();
+			DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, host, PORT);
+			gameSocket.send(sendPacket);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		 
+	 }
+	 
 	 
 	 private void echo(String s){
 		 System.out.println(s);
@@ -140,6 +157,8 @@ public class Client extends Thread{
 			SendMessage = "OK".toString();
 		}
 	}
+	
+	
 	private ArrayList<Ant> freshList(String x) throws IOException{
 		ArrayList<Ant> temp = new ArrayList<Ant>();
 		if(temp.isEmpty()){

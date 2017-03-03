@@ -33,30 +33,40 @@ public class Server extends Thread {
 
         try {
             while (true) {
-            	DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
-                serverSocket.receive(receivePacket);
-                byte[] data = receivePacket.getData();
-                messageReceived = new String(data, 0, receivePacket.getLength());
-                IPAddress = receivePacket.getAddress();
-                port = receivePacket.getPort();
+            	recData();
                 if(inLobby)
                 {
                 	currentModeInLobby();
                 }
                 else
                 {
-                	//System.out.println("in game running SERVER");
                 	gameRunning();
                 }
-                DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, IPAddress, port);
-                serverSocket.send(sendPacket);
+                sendData();
             }
         } catch (IOException e) {
             System.out.print(e);
         }
-      
-
     }
+
+    private void sendData() throws IOException{
+    	 DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, IPAddress, port);
+         serverSocket.send(sendPacket);
+    }
+    
+    private void recData() throws IOException{
+    	
+    	DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
+        serverSocket.receive(receivePacket);
+        byte[] data = receivePacket.getData(); 
+        messageReceived = new String(data, 0, receivePacket.getLength());
+       
+        IPAddress = receivePacket.getAddress();
+        port = receivePacket.getPort();
+	
+    }
+    
+    
     private void currentModeInLobby()
     {
         if(started){
