@@ -57,6 +57,8 @@ public class Client extends Thread{
 					echo("client received "+messageReceived);
 					
 					if(messageReceived.equals("Start")){
+						inLobby = false;
+						gameRunning();
 						System.out.println("START PRESSED");
 						SendMessage = "success";
 						sendData = SendMessage.getBytes();
@@ -129,6 +131,10 @@ public class Client extends Thread{
 	private void gameRunning(){
 
 		try {
+			SendMessage = "OK";
+			sendData = SendMessage.getBytes();
+			DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, host, PORT);
+			gameSocket.send(sendPacket);
 			
 
 			while (true) {
@@ -139,11 +145,14 @@ public class Client extends Thread{
 				messageReceived = new String(receiveData, 0, receivethis.getLength());
 				
 				if(!(messageReceived.equals("Start"))){
-				ants = freshList(messageReceived);
-				state.updateAllAnts(ants);
+					if(messageReceived.equals(null)){
+						System.out.println(messageReceived+"Rasdasd");
+						ants = freshList(messageReceived);
+						state.updateAllAnts(ants);
+					}
 				}
-
-				if(!state.getAntsToUpload().isEmpty()) {
+				
+				else if(state.getAntsToUpload() != null & !state.getAntsToUpload().isEmpty()) {
 					for (Ant x : state.getAntsToUpload()) {
 						SendMessage = x.toString();
 						sendData = SendMessage.getBytes();
