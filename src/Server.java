@@ -65,7 +65,7 @@ public class Server extends Thread {
         }
         else if(messageReceived.equals("OK")) {
             started = true;
-            sendData = "OK".getBytes();
+            sendData = "Start".getBytes();
         }
         else{
             if(players.contains(messageReceived)){
