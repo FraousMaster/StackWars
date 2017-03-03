@@ -149,7 +149,7 @@ public class Map {
 	            	 //System.out.println("over: y :"+ y + " x: "+ x);
 	            	
 	            	y -= 1;
-	                temp.add(new Roads(x * sX, y * sY, mapY.get(y).get(x) + 5));
+	                temp.add(new Roads(x * sX, y * sY, (mapY.get(y).get(x) + 5)));
 	                dir = previousDirection.under_tile;
 	            }
 	            if(y != 0 && mapY.get((y - 1)).get(x) == 50){
@@ -167,7 +167,7 @@ public class Map {
                 if(56 >= mapY.get(y).get((x + 1)) &&  mapY.get(y).get((x + 1)) >= 51){
 	            	 //System.out.println("Right: y :"+ y + " x: "+ x);
 	            	x += 1;
-	                temp.add(new Roads(x * sX, y * sY, mapY.get(y).get(x) + 5));
+	                temp.add(new Roads(x * sX, y * sY,(mapY.get(y).get(x) + 5));
 	                dir = previousDirection.left_of_tile;
 	            }
 	           
