@@ -92,7 +92,7 @@ public class Server extends Thread {
                 for(int i = 0; i <= players.size(); i++)
                 {
                 	int playerID = i + 1;
-                	sendData = (playerID + "").getBytes();
+                	sendData = ("setplayer" + playerID).getBytes();
                 }	
                 
             }

@@ -7,7 +7,7 @@ public class Roads {
     private int type;
     public Roads(int x, int y, int type){
         pos = new Point(x, y);
-        this.type = type;
+        this.type = type - 48;
     }
 
     public int getType(){

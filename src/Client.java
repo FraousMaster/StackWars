@@ -53,6 +53,7 @@ public class Client extends Thread{
 					gameRunning();
 				}
 				sendData();
+				//echo("client sent : "+SendMessage);
 				sleep(33);
 			}	
 		} 
@@ -74,6 +75,13 @@ public class Client extends Thread{
 			 inLobby = false;
 			 SendMessage = "success";
 			 sendData = SendMessage.getBytes();
+		 }
+		 else if(messageReceived.contains("setplayer"))
+		 {
+			 String playerID = messageReceived.replace("setplayer", "");
+			 System.out.println(playerID);
+			 Resources.setMyPlayerID(playerID);
+			 System.out.println(Resources.getMyPlayerID());
 		 }
 		 else if(messageReceived.equals("OK")){
 			 SendMessage = "OK";
