@@ -27,9 +27,9 @@ public class GameView extends Observable implements Observer{
     }
     
     public class GameFrame extends JFrame {
-
-        private static final int D_W = 1920;
-        private static final int D_H = 1080;
+    	
+        private int D_W = Resources.getWidth();
+        private int D_H = Resources.getHeight();
         int x = 0;
         int y = 0;
 
@@ -62,11 +62,17 @@ public class GameView extends Observable implements Observer{
 			private BufferedImage image;
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
-                g.drawImage(gameState.getMap().getImage(), 0, 0, 1920, 1080, null);
+                g.drawImage(gameState.getMap().getImage(), 0, 0, D_W, D_H, null);
                 for(Stack s : gameState.getStacks())
                 {
                 	g.setColor(Color.WHITE);
-                	g.drawString("Pop: " + s.getPopulation(), s.getX() + 27, s.getY() + 27);
+                	System.out.println("SCALING FACTOR X: " + Resources.getScalingFactorX());
+                	System.out.println("SCALING FACTOR Y: " + Resources.getScalingFactorY());
+                	int oX = Resources.getScalingFactorX()/2;
+                	int oY = Resources.getScalingFactorY()/2;
+                	System.out.println("SCALING FACTOR OX: " + oX);
+                	System.out.println("SCALING FACTOR OY: " + oY);
+                	g.drawString("Pop: " + s.getPopulation(), s.getX() + oX, s.getY() + oY);
                 }
 				try {
 					image = ImageIO.read(new File("Graphics/Ant/AntV4.png"));
@@ -117,6 +123,7 @@ public class GameView extends Observable implements Observer{
         			return 0;
         		}
             }
+            
             public Dimension getPreferredSize() {
                 return new Dimension(D_W, D_H);
             }

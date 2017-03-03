@@ -4,7 +4,6 @@ public class Game {
     private GameView gameView = null;
     private GameController gameController = null;
     private GameState gameState = null;
-    
     public Game() {
         gameState = new GameState();
         gameView = new GameView(gameState);
@@ -18,5 +17,4 @@ public class Game {
     	return gameState;
     	
     }
-    
 }

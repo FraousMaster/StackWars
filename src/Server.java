@@ -105,10 +105,10 @@ public class Server extends Thread {
             sendData = temp.getBytes();
            
         } else if (!(messageReceived.equals(players.getLast()) || messageReceived.equals("success") || messageReceived.equals("start") || messageReceived.equals("started?") || messageReceived.equals(null)
-                || messageReceived == null || messageReceived.equals("OK"))){
+                || messageReceived == null || messageReceived.equals("OK")))
+        {
             ants.add(new Ant(messageReceived));
             sendData = temp.getBytes();
-           
         }
         if (!(ants.isEmpty())) {
             try {

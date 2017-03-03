@@ -21,6 +21,7 @@ public class Map {
     JLabel label;
     private ArrayList<Stack> stacks;
     private int lastX, lastY;
+    private int scalingFactorX = Resources.getWidth()/20, scalingFactorY = Resources.getHeight()/20;
 
     HashMap<Integer, Integer> mapX = new HashMap<>();
 

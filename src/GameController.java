@@ -39,12 +39,9 @@ public class GameController implements Observer{
 						}
 						else if(mouseClick.getButton() == 3)
 						{
-							//gameState.addAnt(new Ant(stackSelected.getX(), stackSelected.getY(), 1, 4, 
-									//stackSelected.getConnectedStacks(s.getX(), s.getY())));
-							//System.out.println(s.getX() + " : " + s.getY());
 							if(stackSelected.getConnectedStacks(s.getX(), s.getY()) != null)
 							{
-								//System.out.println("Right click");
+								System.out.println("Right click");
 								gameState.addAnt(new Ant(stackSelected.getX(), stackSelected.getY(), 1, 4, 
 										stackSelected.getConnectedStacks(s.getX(), s.getY())));
 							}
