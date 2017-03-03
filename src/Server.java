@@ -124,6 +124,10 @@ public class Server extends Thread {
                     {
                     	x += 1;
                     }
+                    if(type == 9)
+                    {
+                    	x -= 1;
+                    }
                     
                     antValues[0] = x + "";
                     int b = Integer.parseInt(antValues[1]);
@@ -131,6 +135,11 @@ public class Server extends Thread {
                     {
                     	b += 1;
                     }
+                    if(type == 8)
+                    {
+                    	b -= 1;
+                    }
+                    
                     antValues[1] = b + "";
                     String dummy = "";
                     boolean first = true;
