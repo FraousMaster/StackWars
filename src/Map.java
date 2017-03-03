@@ -82,7 +82,7 @@ public class Map {
                 				temp.add(r);
                 			}
                 			addRoadToStack(j, i, lastX, lastY, temp);
-                			temp.clear();
+                			temp = new ArrayList<>();
                 		}
                 		//check over stack - y
                 		if (i != 0 && (56 >= mapY.get(i - 1).get(j) && mapY.get(i - 1).get(j) >= 51)){
@@ -91,7 +91,7 @@ public class Map {
                 				temp.add(r);
                 			}
                 			addRoadToStack(j, i, lastX, lastY, temp);
-                			temp.clear();
+                			temp = new ArrayList<>();
                 			
                 		}
                 		//check left of stack -x
@@ -101,7 +101,7 @@ public class Map {
                 				temp.add(r);
                 			}
                 			addRoadToStack(j, i, lastX, lastY, temp);
-                			temp.clear();
+                			temp = new ArrayList<>();
                 		}
                 		//check right of stack + x
                 		if (j != 19 && (56 >= mapY.get(i).get(j + 1) && mapY.get(i).get(j + 1) >= 51)){
@@ -110,7 +110,7 @@ public class Map {
                 				temp.add(r);
                 			}
                 			addRoadToStack(j, i, lastX, lastY, temp);
-                			temp.clear();
+                			temp = new ArrayList<>();
                 		}
                 	}
                 }
