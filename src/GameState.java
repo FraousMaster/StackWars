@@ -28,10 +28,6 @@ public class GameState extends Observable{
         return ants;
     }
     public ArrayList<Ant> getAntsToUpload(){
-    	//System.out.println("This is the ant we want to send to server: " + antsToUpload.size());
-    	
-    	//ArrayList<Ant> dummy = antsToUpload;
-    	//System.out.println("This is the ant we want to send to server: " + antsToUpload.toString());
         return antsToUpload;
     }
 
@@ -43,7 +39,6 @@ public class GameState extends Observable{
         ants = a;
         setChanged();
     	notifyObservers();
-    	//System.out.println("ants upd");
     }
 
     public void addAnt(Ant a){

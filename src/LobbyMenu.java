@@ -64,7 +64,7 @@ public class LobbyMenu extends JPanel {
 		
 	}
 	private void setLabels(String x, int y){
-		System.out.println("x = " + x + "    y = " +y);
+		
 	    if(y == 0){
 	    	p1.setText(x);
 	    }

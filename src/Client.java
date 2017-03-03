@@ -53,7 +53,6 @@ public class Client extends Thread{
 					gameRunning();
 				}
 				sendData();
-				echo("client sent : "+SendMessage);
 				sleep(33);
 			}	
 		} 
