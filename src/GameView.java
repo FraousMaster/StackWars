@@ -68,7 +68,7 @@ public class GameView extends Observable implements Observer{
                 	g.setColor(Color.WHITE);
                 	int oX = Resources.getScalingFactorY()/2;
                 	int oY = Resources.getScalingFactorY()/2;
-                	g.drawString("Pop: " + s.getPopulation(), s.getX() + oX, s.getY() + oY);
+                	g.drawString("Pop: " + s.getPopulation(), s.getX() + oX-20, s.getY() + oY + 5);
                 }
 				try {
 					image = ImageIO.read(new File("Graphics/Ant/AntV4.png"));
@@ -92,11 +92,11 @@ public class GameView extends Observable implements Observer{
             {
             	if(a.getCurrentMapObject() == 3)
             	{
-            		return 0;
+            		return Math.PI / 2;
             	}
             	else if(a.getCurrentMapObject() == 4)
             	{
-            		return Math.PI / 2;
+            		return 0;
             	}
             	else if(a.getCurrentMapObject() == 5)
             	{

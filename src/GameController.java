@@ -41,12 +41,17 @@ public class GameController implements Observer{
 						{
 							if(stackSelected.getConnectedStacks(s.getX(), s.getY()) != null)
 							{
-								System.out.println("Right click");
-								gameState.addAnt(new Ant(stackSelected.getX(), stackSelected.getY(), 1, 4, 
-										stackSelected.getConnectedStacks(s.getX(), s.getY())));
+									if(!(stackSelected.getPopulation() == 0))
+									{
+										System.out.println("THIS IS THE ROAD: " + stackSelected.getConnectedStacks(s.getX(), s.getY()).get(0).getType());
+										stackSelected.decreasePopulation();
+										gameState.addAnt(new Ant(stackSelected.getX(), stackSelected.getY(), 1, 
+												stackSelected.getConnectedStacks(s.getX(), s.getY()).get(0).getType(), 
+												stackSelected.getConnectedStacks(s.getX(), s.getY())));
+									}
 							}
 							
-							System.out.println("adding ant");
+							
 						}
 					}
 				}

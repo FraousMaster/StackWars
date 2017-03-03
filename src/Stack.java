@@ -33,6 +33,10 @@ public class Stack extends JComponent{
     {
     	return population;
     }
+    public void decreasePopulation()
+    {
+    	population -= 1;
+    }
     public ArrayList<Roads> getConnectedStacks(int x, int y)
     {
     	
