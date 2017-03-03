@@ -1,14 +1,19 @@
 package Global;
 import org.w3c.dom.*;
 import javax.xml.parsers.*;
+
+import java.awt.image.BufferedImage;
 import java.io.*;
+import javax.imageio.ImageIO;
 
 public class Resources {
-	private static int width = 1000;
-	private static int height = 1000;
+	private static int width = 1920;
+	private static int height = 1080;
 	private static int scalingFactorX = width/20;
 	private static int scalingFactorY = height/20;
-	File settFile = new File("../Settings/file.xml");
+	
+	private static File setFile = new File("Settings\\file.xml");
+	
 	public Resources()
 	{
 		
@@ -30,6 +35,12 @@ public class Resources {
 	{
 		return scalingFactorY;
 	}
+	public static File getXMLFile()
+	{
+		return setFile;
+	}
+	
+	
 	public static void setWidth(int x)
 	{
 		width = x;

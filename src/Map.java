@@ -21,8 +21,8 @@ public class Map {
     JLabel label;
     private ArrayList<Stack> stacks;
     private int lastX, lastY;
-    private int scalingFactorX = Resources.getWidth()/20, scalingFactorY = Resources.getHeight()/20;
-
+    private int sX = Resources.getScalingFactorX(), sY = Resources.getScalingFactorY();
+    
     HashMap<Integer, Integer> mapX = new HashMap<>();
 
     private HashMap<Integer, HashMap<Integer, Integer>> mapY = new HashMap<>();
@@ -77,7 +77,7 @@ public class Map {
                 	for(int k = 0; k <= 4; k++){
                 		//check y + 1 under stack
                 		if(i != 19 && (56 >= mapY.get(i + 1).get(j) && mapY.get(i + 1).get(j) >= 51)){
-                			temp.add(new Roads(j * 96, (i + 1) * 52, mapY.get(i + 1).get(j)));
+                			temp.add(new Roads(j * sX, (i + 1) * sY, mapY.get(i + 1).get(j)));
                 			for(Roads r : getRoad(j, (i + 1), previousDirection.over_tile)){
                 				temp.add(r);
                 			}
@@ -86,7 +86,7 @@ public class Map {
                 		}
                 		//check over stack - y
                 		if (i != 0 && (56 >= mapY.get(i - 1).get(j) && mapY.get(i - 1).get(j) >= 51)){
-                			temp.add(new Roads(j * 96, (i - 1) * 52, mapY.get(i - 1).get(j)));
+                			temp.add(new Roads(j * sX, (i - 1) * sY, mapY.get(i - 1).get(j)));
                 			for(Roads r : getRoad(j, (i - 1), previousDirection.under_tile)){
                 				temp.add(r);
                 			}
@@ -96,7 +96,7 @@ public class Map {
                 		}
                 		//check left of stack -x
                 		if (j != 0 && (56 >= mapY.get(i).get(j - 1) && mapY.get(i).get(j - 1) >= 51)){
-                			temp.add(new Roads((j - 1) * 96, i * 52, mapY.get(i).get(j - 1)));
+                			temp.add(new Roads((j - 1) * sX, i * sY, mapY.get(i).get(j - 1)));
                 			for(Roads r : getRoad((j - 1), i, previousDirection.right_of_tile)){
                 				temp.add(r);
                 			}
@@ -105,7 +105,7 @@ public class Map {
                 		}
                 		//check right of stack + x
                 		if (j != 19 && (56 >= mapY.get(i).get(j + 1) && mapY.get(i).get(j + 1) >= 51)){
-                			temp.add(new Roads((j + 1) * 96, i * 52, mapY.get(i).get(j + 1)));
+                			temp.add(new Roads((j + 1) * sX, i * sY, mapY.get(i).get(j + 1)));
                 			for(Roads r : getRoad((j + 1), i, previousDirection.left_of_tile)){
                 				temp.add(r);
                 			}
@@ -130,7 +130,7 @@ public class Map {
 	            if (56 >= mapY.get((y + 1)).get((x)) && mapY.get(y + 1).get((x)) >= 51){
 	            	//System.out.println("In under: y :"+ y + " x: "+ x + " " + mapY.get(y).get((x)) + "  Dir: " + dir);
 	            	y += 1;
-	                temp.add(new Roads(x * 96, y * 54, mapY.get(y).get(x)));
+	                temp.add(new Roads(x * sX, y * sY, mapY.get(y).get(x)));
 	                dir = previousDirection.over_tile;
 	            }
 	            if (y != 19 && mapY.get((y + 1)).get(x) == 50){
@@ -149,7 +149,7 @@ public class Map {
 	            	 //System.out.println("over: y :"+ y + " x: "+ x);
 	            	
 	            	y -= 1;
-	                temp.add(new Roads(x * 96, y * 54, mapY.get(y).get(x)));
+	                temp.add(new Roads(x * sX, y * sY, mapY.get(y).get(x)));
 	                dir = previousDirection.under_tile;
 	            }
 	            if(y != 0 && mapY.get((y - 1)).get(x) == 50){
@@ -167,7 +167,7 @@ public class Map {
                 if(56 >= mapY.get(y).get((x + 1)) &&  mapY.get(y).get((x + 1)) >= 51){
 	            	 //System.out.println("Right: y :"+ y + " x: "+ x);
 	            	x += 1;
-	                temp.add(new Roads(x * 96, y * 54, mapY.get(y).get(x)));
+	                temp.add(new Roads(x * sX, y * sY, mapY.get(y).get(x)));
 	                dir = previousDirection.left_of_tile;
 	            }
 	           
@@ -185,7 +185,7 @@ public class Map {
 	            	//System.out.println("In left:"+ " y :"+ y + " x: "+ x + " " + mapY.get(y).get((x)) + "  Dir: " + dir);
 	            	//System.out.println("left: y :"+ y + " x: "+ x);
 	            	x -= 1;
-	                temp.add(new Roads(x * 96, y * 54, mapY.get(y).get(x)));
+	                temp.add(new Roads(x * sX, y * sY, mapY.get(y).get(x)));
 	                dir = previousDirection.right_of_tile;
 
 	            }
@@ -209,14 +209,14 @@ public class Map {
         return temp;
     }
     private void addRoadToStack(int x,int y, int x1, int y1, ArrayList<Roads> list){
-        System.out.println("FROM: " + x + " , " + y + " TO " + x1 + " , " + y1 + " ROAD :");
+        //System.out.println("FROM: " + x + " , " + y + " TO " + x1 + " , " + y1 + " ROAD :");
         for(Roads r : list){
-        	 System.out.println(r.getPos() + " type : " + r.getType());
+        	 //System.out.println(r.getPos() + " type : " + r.getType());
         }
-    	x1 = x1 * 96;
-        y1 = y1 * 54;
-        x = x * 96;
-        y = y * 54;
+    	x1 = x1 * sX;
+        y1 = y1 * sY;
+        x = x * sX;
+        y = y * sY;
         Point p = new Point(x1, y1);
         for(Stack s : stacks){
             if(s.getX() == x && s.getY() == y){
@@ -235,7 +235,7 @@ public class Map {
                 if ( mapY.get(i).get(j) == 49) {//1
                     try {
                         image = ImageIO.read(new File("Graphics/Part1.png"));
-                        g.drawImage(image, 96 * j , 54 * i, 96, 54, null);
+                        g.drawImage(image, sX * j , sY * i, sX, sY, null);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -244,8 +244,8 @@ public class Map {
                 else if ( mapY.get(i).get(j) == 50) {//2
                     try {
                         image = ImageIO.read(new File("Graphics/StackV2.png"));
-                        g.drawImage(image, 96 * j , 54 * i, 96, 54, null);
-                        stacks.add(new Stack( 96 * j , 54 * i));
+                        g.drawImage(image, sX * j , sY * i, sX, sY, null);
+                        stacks.add(new Stack( sX * j , sY * i));
 
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -254,7 +254,7 @@ public class Map {
                 else if (mapY.get(i).get(j) == 51) {//3
                     try {
                         image = ImageIO.read(new File("Graphics/RoadVertical.png"));
-                        g.drawImage(image, 96 * j , 54 * i, 96, 54, null);
+                        g.drawImage(image, sX * j , sY * i, sX, sY, null);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -262,7 +262,7 @@ public class Map {
                 else if (mapY.get(i).get(j) == 52) {//4
                     try {
                         image = ImageIO.read(new File("Graphics/RoadHorizontal.png"));
-                        g.drawImage(image, 96 * j , 54 * i, 96, 54, null);
+                        g.drawImage(image, sX * j , sY * i, sX, sY, null);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -271,15 +271,15 @@ public class Map {
                 else if (mapY.get(i).get(j) == 53) {//5
                     try {
                         image = ImageIO.read(new File("Graphics/rightbottom.png"));
-                        g.drawImage(image, 96 * j , 54 * i, 96, 54, null);
+                        g.drawImage(image, sX * j , sY * i, sX, sY, null);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                 }
-                else if (mapY.get(i).get(j) == 54) {//6
+                else if (mapY.get(i).get(j) == sY) {//6
                     try {
                         image = ImageIO.read(new File("Graphics/lefttop.png"));
-                        g.drawImage(image, 96 * j , 54 * i, 96, 54, null);
+                        g.drawImage(image, sX * j , sY * i, sX, sY, null);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -287,7 +287,7 @@ public class Map {
                 else if (mapY.get(i).get(j) == 55) {//7
                     try {
                         image = ImageIO.read(new File("Graphics/topright.png"));
-                        g.drawImage(image, 96 * j , 54 * i, 96, 54, null);
+                        g.drawImage(image, sX * j , sY * i, sX, sY, null);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -295,7 +295,7 @@ public class Map {
                 else if (mapY.get(i).get(j) == 56) {//8
                     try {
                         image = ImageIO.read(new File("Graphics/leftbottom.png"));
-                        g.drawImage(image, 96 * j , 54 * i, 96, 54, null);
+                        g.drawImage(image, sX * j , sY * i, sX, sY, null);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }

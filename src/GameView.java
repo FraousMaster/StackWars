@@ -66,12 +66,8 @@ public class GameView extends Observable implements Observer{
                 for(Stack s : gameState.getStacks())
                 {
                 	g.setColor(Color.WHITE);
-                	System.out.println("SCALING FACTOR X: " + Resources.getScalingFactorX());
-                	System.out.println("SCALING FACTOR Y: " + Resources.getScalingFactorY());
-                	int oX = Resources.getScalingFactorX()/2;
+                	int oX = Resources.getScalingFactorY()/2;
                 	int oY = Resources.getScalingFactorY()/2;
-                	System.out.println("SCALING FACTOR OX: " + oX);
-                	System.out.println("SCALING FACTOR OY: " + oY);
                 	g.drawString("Pop: " + s.getPopulation(), s.getX() + oX, s.getY() + oY);
                 }
 				try {
