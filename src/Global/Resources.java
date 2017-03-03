@@ -18,9 +18,9 @@ public class Resources {
 	
 	private enum playerIDs{
 		player_one,
-	    player_two,
-	    player_three,
-	    player_four
+		player_two,
+		player_three,
+		player_four
     };
 	    
 	public Resources()
@@ -63,7 +63,7 @@ public class Resources {
 	public static void setHeight(int y)
 	{
 		height = y;
-		scalingFactorX = width/20;
+		scalingFactorY = height/20;
 	}
 	
 	public static void setMyPlayerID(String x)
