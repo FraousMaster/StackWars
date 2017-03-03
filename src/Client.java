@@ -63,9 +63,10 @@ public class Client extends Thread{
 				DatagramPacket GamePacket = new DatagramPacket(sendData, sendData.length, host, PORT);
 				gameSocket.send(GamePacket);
 				//echo("client sent : "+SendMessage);
+				sleep(33);
 			}	
 		} 
-		catch (IOException e) 
+		catch (Exception e)
 		{
 			e.printStackTrace();
 		}
@@ -114,23 +115,29 @@ public class Client extends Thread{
 		//echo("TEMP :"+ temp);
 		return temp;
 	 }
-			
-	 
-	 
-	 
-	 
+
 	private void gameRunning() throws IOException{
+
 		if(!(messageReceived.equals("Start"))){
-			if(messageReceived.equals(null)){
-				//System.out.println(messageReceived+" : Rasdasd");
+			if(!messageReceived.equals("")){
 				ants = freshList(messageReceived);
 				state.updateAllAnts(ants);
 			}
 		}
+
+		if(!state.getAntsToUpload().isEmpty())
+		{
+			String x = "";
+			for(Ant s : state.getAntsToUpload())
+			{
+				x += s.toString();
+			}
+			SendMessage = x;
+			state.getAntsToUpload().clear();
+		}
 		else
 		{
 			SendMessage = "OK".toString();
-			sendData = SendMessage.getBytes();
 		}
 	}
 	private ArrayList<Ant> freshList(String x) throws IOException{

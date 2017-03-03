@@ -75,7 +75,7 @@ public class Map {
                 	for(int k = 0; k <= 4; k++){
                 		//check y + 1 under stack
                 		if(i != 19 && (56 >= mapY.get(i + 1).get(j) && mapY.get(i + 1).get(j) >= 51)){
-                			temp.add(new Roads(j * 96, (i + 1) * 52));
+                			temp.add(new Roads(j * 96, (i + 1) * 52, mapY.get(i + 1).get(j)));
                 			for(Roads r : getRoad(j, (i + 1), previousDirection.over_tile)){
                 				temp.add(r);
                 			}
@@ -84,7 +84,7 @@ public class Map {
                 		}
                 		//check over stack - y
                 		if (i != 0 && (56 >= mapY.get(i - 1).get(j) && mapY.get(i - 1).get(j) >= 51)){
-                			temp.add(new Roads(j * 96, (i - 1) * 52));
+                			temp.add(new Roads(j * 96, (i - 1) * 52, mapY.get(i - 1).get(j)));
                 			for(Roads r : getRoad(j, (i - 1), previousDirection.under_tile)){
                 				temp.add(r);
                 			}
@@ -94,7 +94,7 @@ public class Map {
                 		}
                 		//check left of stack -x
                 		if (j != 0 && (56 >= mapY.get(i).get(j - 1) && mapY.get(i).get(j - 1) >= 51)){
-                			temp.add(new Roads((j - 1) * 96, i * 52));
+                			temp.add(new Roads((j - 1) * 96, i * 52, mapY.get(i).get(j - 1)));
                 			for(Roads r : getRoad((j - 1), i, previousDirection.right_of_tile)){
                 				temp.add(r);
                 			}
@@ -103,7 +103,7 @@ public class Map {
                 		}
                 		//check right of stack + x
                 		if (j != 19 && (56 >= mapY.get(i).get(j + 1) && mapY.get(i).get(j + 1) >= 51)){
-                			temp.add(new Roads((j + 1) * 96, i * 52));
+                			temp.add(new Roads((j + 1) * 96, i * 52, mapY.get(i).get(j + 1)));
                 			for(Roads r : getRoad((j + 1), i, previousDirection.left_of_tile)){
                 				temp.add(r);
                 			}
@@ -128,7 +128,7 @@ public class Map {
 	            if (56 >= mapY.get((y + 1)).get((x)) && mapY.get(y + 1).get((x)) >= 51){
 	            	//System.out.println("In under: y :"+ y + " x: "+ x + " " + mapY.get(y).get((x)) + "  Dir: " + dir);
 	            	y += 1;
-	                temp.add(new Roads(x * 96, y * 54));
+	                temp.add(new Roads(x * 96, y * 54, mapY.get(y).get(x)));
 	                dir = previousDirection.over_tile;
 	            }
 	            if (y != 19 && mapY.get((y + 1)).get(x) == 50){
@@ -147,7 +147,7 @@ public class Map {
 	            	 //System.out.println("over: y :"+ y + " x: "+ x);
 	            	
 	            	y -= 1;
-	                temp.add(new Roads(x * 96, y * 54));
+	                temp.add(new Roads(x * 96, y * 54, mapY.get(y).get(x)));
 	                dir = previousDirection.under_tile;
 	            }
 	            if(y != 0 && mapY.get((y - 1)).get(x) == 50){
@@ -165,7 +165,7 @@ public class Map {
                 if(56 >= mapY.get(y).get((x + 1)) &&  mapY.get(y).get((x + 1)) >= 51){
 	            	 //System.out.println("Right: y :"+ y + " x: "+ x);
 	            	x += 1;
-	                temp.add(new Roads(x * 96, y * 54));
+	                temp.add(new Roads(x * 96, y * 54, mapY.get(y).get(x)));
 	                dir = previousDirection.left_of_tile;
 	            }
 	           
@@ -183,7 +183,7 @@ public class Map {
 	            	//System.out.println("In left:"+ " y :"+ y + " x: "+ x + " " + mapY.get(y).get((x)) + "  Dir: " + dir);
 	            	//System.out.println("left: y :"+ y + " x: "+ x);
 	            	x -= 1;
-	                temp.add(new Roads(x * 96, y * 54));
+	                temp.add(new Roads(x * 96, y * 54, mapY.get(y).get(x)));
 	                dir = previousDirection.right_of_tile;
 
 	            }
@@ -207,9 +207,9 @@ public class Map {
         return temp;
     }
     private void addRoadToStack(int x,int y, int x1, int y1, ArrayList<Roads> list){
-        //System.out.println("FROM: " + x + " , " + y + " TO " + x1 + " , " + y1 + " ROAD :");
+        System.out.println("FROM: " + x + " , " + y + " TO " + x1 + " , " + y1 + " ROAD :");
         for(Roads r : list){
-        	 //System.out.println(r.getPos());
+        	 System.out.println(r.getPos() + " type : " + r.getType());
         }
     	x1 = x1 * 96;
         y1 = y1 * 54;
