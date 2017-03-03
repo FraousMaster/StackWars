@@ -1,6 +1,7 @@
 import java.io.*;
 import java.net.*;
 import java.util.*;
+import Global.Resources;
 
 public class Server extends Thread {
 

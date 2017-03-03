@@ -1,3 +1,4 @@
+import Global.Resources;
 
 public class StackStats {
 	private int population;

@@ -1,5 +1,5 @@
 import javax.swing.*;
-
+import Global.Resources;
 
 public class Menu extends JFrame {
 	

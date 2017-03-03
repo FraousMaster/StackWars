@@ -1,4 +1,5 @@
 import java.awt.*;
+import Global.Resources;
 
 public class Roads {
 

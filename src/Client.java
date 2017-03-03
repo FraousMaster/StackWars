@@ -1,7 +1,7 @@
 import java.io.*;
 import java.net.*;
 import java.util.*;
-
+import Global.Resources;
 
 public class Client extends Thread{
 	private static String IP_ADDRESS;

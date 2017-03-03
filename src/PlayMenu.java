@@ -1,6 +1,7 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import Global.Resources;
 
 public class PlayMenu extends JPanel {
 

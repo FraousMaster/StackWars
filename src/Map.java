@@ -5,6 +5,7 @@ import javax.swing.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import Global.Resources;
 
 public class Map {
     private enum previousDirection{

@@ -3,15 +3,14 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.AffineTransform;
 import javax.imageio.ImageIO;
-
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.Observable;
 import java.util.Observer;
-
 import javax.swing.*;
+import Global.Resources;
 
 public class GameView extends Observable implements Observer{
 

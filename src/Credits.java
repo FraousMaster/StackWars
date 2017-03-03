@@ -1,3 +1,4 @@
+import Global.Resources;
 
 public class Credits {
 

@@ -2,8 +2,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.UnknownHostException;
-
 import javax.swing.*;
+import Global.Resources;
 
 public class GameMenu extends JPanel {
 

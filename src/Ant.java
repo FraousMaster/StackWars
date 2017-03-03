@@ -1,5 +1,5 @@
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import Global.Resources;
 
 public class Ant {
 	/**

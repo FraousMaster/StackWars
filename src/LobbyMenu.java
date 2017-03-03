@@ -1,9 +1,9 @@
- import java.awt.*;
+import java.awt.*;
 import java.awt.event.*;
 import java.net.*;
 import java.util.ArrayList;
-
 import javax.swing.*;
+import Global.Resources;
 
 public class LobbyMenu extends JPanel {
 	/**

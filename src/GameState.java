@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.*;
 import java.util.ArrayList;
 import java.util.*;
+import Global.Resources;
 
 public class GameState extends Observable{
 
