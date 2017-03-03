@@ -91,7 +91,7 @@ public class Server extends Thread {
                 players.add(messageReceived);
                 for(int i = 0; i <= players.size(); i++)
                 {
-                	int playerID = i + 1;
+                	int playerID = i;
                 	sendData = ("setplayer" + playerID).getBytes();
                 }	
                 
@@ -104,8 +104,8 @@ public class Server extends Thread {
         if(messageReceived.equals("OK")) {
             sendData = temp.getBytes();
            
-        } else if (!(messageReceived.equals(players.getLast()) || messageReceived.equals("success") || messageReceived.equals("start") || messageReceived.equals("started?") || messageReceived.equals(null)
-                || messageReceived == null || messageReceived.equals("OK")))
+        } else if (!(messageReceived.equals(players.getLast()) || messageReceived.equals("success") || messageReceived.equals("start") || messageReceived.equals(null)
+                || messageReceived == null || messageReceived.equals("OK") || check(messageReceived)))
         {
             ants.add(new Ant(messageReceived));
             sendData = temp.getBytes();
@@ -147,15 +147,16 @@ public class Server extends Thread {
         }
     }
 
-    private boolean check(String s) {
+    private boolean check(String s)
+    {
         boolean exists = false;
-        for (Ant x : ants) {
-            if (x.toString().equals(s)) {
+        for(String x : players){
+            if( x.toString().equals(s))
+            {
                 exists = true;
             }
         }
         return exists;
-
     }
 }
 
