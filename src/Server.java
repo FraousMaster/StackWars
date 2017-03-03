@@ -111,7 +111,7 @@ public class Server extends Thread {
                     sendData = temp.getBytes();
                     DatagramPacket sendUpdate = new DatagramPacket(sendData, sendData.length, IPAddress, port);
                     serverSocket.send(sendUpdate);
-                } else if (!(messageReceived.equals("update") || messageReceived.equals("start") || messageReceived.equals("started?") || messageReceived.equals(null)
+                } else if (!(messageReceived.equals("success") || messageReceived.equals("start") || messageReceived.equals("started?") || messageReceived.equals(null)
                         || messageReceived == null || messageReceived.equals("OK"))){
                     ants.add(new Ant(messageReceived));
                     sendData = temp.getBytes();
