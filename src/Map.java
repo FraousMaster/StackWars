@@ -29,7 +29,7 @@ public class Map {
 
     public Map(){
         stacks = new ArrayList<Stack>();
-        im = new BufferedImage(1920,1080,BufferedImage.TYPE_INT_RGB);
+        im = new BufferedImage(Resources.getWidth(), Resources.getHeight(), BufferedImage.TYPE_INT_RGB);
         readFile();
         drawImage();
         setLabel();
@@ -314,7 +314,7 @@ public class Map {
                 g.drawImage(im,0,0,null);
             }
         };
-        label.setPreferredSize(new Dimension(1920,1080));
+        label.setPreferredSize(new Dimension(Resources.getWidth(),Resources.getHeight()));
     }
     public BufferedImage getImage(){
         return im;

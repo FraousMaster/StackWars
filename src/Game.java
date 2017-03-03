@@ -10,8 +10,8 @@ public class Game {
     private GameController gameController = null;
     private GameState gameState = null;
     public Game() {
-    	//Resources.setHeight(1000);
-    	//Resources.setWidth(1000);
+    	Resources.setHeight(1000);
+    	Resources.setWidth(1000);
     	//readingSettings();
         gameState = new GameState();
         gameView = new GameView(gameState);

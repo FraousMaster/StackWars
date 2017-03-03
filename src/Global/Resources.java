@@ -44,9 +44,11 @@ public class Resources {
 	public static void setWidth(int x)
 	{
 		width = x;
+		scalingFactorX = width/20;
 	}
 	public static void setHeight(int y)
 	{
-		width = y;
+		height = y;
+		scalingFactorX = width/20;
 	}
 }
