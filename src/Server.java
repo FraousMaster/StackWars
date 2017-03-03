@@ -115,13 +115,22 @@ public class Server extends Thread {
                 temp = "";
                 for (int i = 0; i < ants.size(); i++) {
                     Ant a = ants.get(i);
+                    
                     //System.out.println("This is the ant at index " + i + " and its value " + a);
-                    String[] antValues = a.toString().split(":");
+            		String[] antValues = a.toString().split(":");
+            		int type = Integer.parseInt(antValues[3]);
                     int x = Integer.parseInt(antValues[0]);
-                    x += 1;
+                    if(type == 4)
+                    {
+                    	x += 1;
+                    }
+                    
                     antValues[0] = x + "";
                     int b = Integer.parseInt(antValues[1]);
-                    b += 1;
+                    if(type == 3)
+                    {
+                    	b += 1;
+                    }
                     antValues[1] = b + "";
                     String dummy = "";
                     boolean first = true;
