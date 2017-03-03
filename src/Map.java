@@ -86,7 +86,7 @@ public class Map {
                 		}
                 		//check over stack - y
                 		if (i != 0 && (56 >= mapY.get(i - 1).get(j) && mapY.get(i - 1).get(j) >= 51)){
-                			temp.add(new Roads(j * sX, (i - 1) * sY, mapY.get(i - 1).get(j)));
+                			temp.add(new Roads(j * sX, (i - 1) * sY, mapY.get(i - 1).get(j) +5));
                 			for(Roads r : getRoad(j, (i - 1), previousDirection.under_tile)){
                 				temp.add(r);
                 			}
@@ -96,7 +96,7 @@ public class Map {
                 		}
                 		//check left of stack -x
                 		if (j != 0 && (56 >= mapY.get(i).get(j - 1) && mapY.get(i).get(j - 1) >= 51)){
-                			temp.add(new Roads((j - 1) * sX, i * sY, mapY.get(i).get(j - 1)));
+                			temp.add(new Roads((j - 1) * sX, i * sY, mapY.get(i).get(j - 1) + 5));
                 			for(Roads r : getRoad((j - 1), i, previousDirection.right_of_tile)){
                 				temp.add(r);
                 			}
