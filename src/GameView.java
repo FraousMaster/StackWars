@@ -112,7 +112,11 @@ public class GameView extends Observable implements Observer{
             	}
             	else if(a.getCurrentMapObject() == 8)
             	{
-            		return 0;
+            		return -(Math.PI / 2);
+            	}
+            	else if(a.getCurrentMapObject() == 9)
+            	{
+            		return Math.PI;
             	}
             	else
         		{
