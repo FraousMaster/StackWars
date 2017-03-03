@@ -60,7 +60,6 @@ public class Server extends Thread {
     private void currentModeInLobby()
     {
         if(started){
-           
             System.out.println("trying to go into game bitch");
             inLobby = false;
         }
@@ -80,7 +79,12 @@ public class Server extends Thread {
             }
             else {
                 players.add(messageReceived);
-                sendData = messageReceived.getBytes();
+                for(int i = 0; i <= players.size(); i++)
+                {
+                	int playerID = i + 1;
+                	sendData = (playerID + "").getBytes();
+                }	
+                
             }
         }
     	
@@ -101,7 +105,7 @@ public class Server extends Thread {
                 temp = "";
                 for (int i = 0; i < ants.size(); i++) {
                     Ant a = ants.get(i);
-                    System.out.println("This is the ant at index " + i + " and its value " + a);
+                    //System.out.println("This is the ant at index " + i + " and its value " + a);
                     String[] antValues = a.toString().split(":");
                     int x = Integer.parseInt(antValues[0]);
                     x += 1;
