@@ -89,15 +89,19 @@ public class Server extends Thread {
     }
 
     private void gameRunning() {
+    	
     	System.out.println("IN GAME RUNNING BITCH");
+    	
 
         try {
-        	
+    
         	 sendData = "Start".getBytes();
              DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, IPAddress, port);
              serverSocket.send(sendPacket);
+     
         	
             while (true) {
+            	
             	//System.out.println("in server gamerunning while loop");
                 DatagramPacket oKPacket = new DatagramPacket(receiveData, receiveData.length);
                 serverSocket.receive(oKPacket);
@@ -113,7 +117,6 @@ public class Server extends Thread {
                     sendData = temp.getBytes();
                    
                 }
-
                 if (!(ants.isEmpty())) {
                     try {
                         temp = "";
@@ -142,6 +145,7 @@ public class Server extends Thread {
                             a = new Ant(dummy);
                             ants.set(i, a);
                             temp += "&" + a.toString() + "&";
+                            sendData =temp.getBytes();
                         }
                         sleep(33);
                     } catch (InterruptedException e) {
@@ -150,7 +154,8 @@ public class Server extends Thread {
                 }
                 DatagramPacket sendUpdate = new DatagramPacket(sendData, sendData.length, IPAddress, port);
                 serverSocket.send(sendUpdate);
-
+               // System.out.println("sent from server : "+sendData);
+                sleep(1500);
             }
 
 

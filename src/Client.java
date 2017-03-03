@@ -58,6 +58,9 @@ public class Client extends Thread{
 					
 					if(messageReceived.equals("Start")){
 						inLobby = false;
+						menu.startGame();
+						game =	menu.returnGame();
+						state = menu.returnState();
 						gameRunning();
 						System.out.println("START PRESSED");
 						SendMessage = "success";
@@ -68,9 +71,7 @@ public class Client extends Thread{
 						
 					}
 					else if(messageReceived.equals("OK")){
-						menu.startGame();
-						game =	menu.returnGame();
-						state = menu.returnState();
+						
 						inLobby = false;
 						
 					}
@@ -131,30 +132,41 @@ public class Client extends Thread{
 	private void gameRunning(){
 
 		try {
-			SendMessage = "OK";
-			sendData = SendMessage.getBytes();
-			DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, host, PORT);
-			gameSocket.send(sendPacket);
+			
 			
 
 			while (true) {
 			
-				//echo("in client gamerunning while loop");
+				SendMessage = "OK";
+				sendData = SendMessage.getBytes();
+				DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, host, PORT);
+				gameSocket.send(sendPacket);
+				
+				echo("in client gamerunning while loop");
 				DatagramPacket receivethis = new DatagramPacket(receiveData, receiveData.length);
+				echo("in client gamerunning while loop");
+				try{
+					gameSocket.setSoTimeout(1000);
 				gameSocket.receive(receivethis);
+				} catch(IOException e){
+					e.printStackTrace();
+					continue;
+				}
+				echo("in client gamerunning while loo2p");
 				receiveData = receivethis.getData();
+				echo("in client gamerunning while loo444p");
 				messageReceived = new String(receiveData, 0, receivethis.getLength());
-				System.out.println("received in gamerunning"+messageReceived);
+				System.out.println("received in gamerunning : "+messageReceived);
 				
 				if(!(messageReceived.equals("Start"))){
 					if(messageReceived.equals(null)){
-						System.out.println(messageReceived+"Rasdasd");
+						System.out.println(messageReceived+" : Rasdasd");
 						ants = freshList(messageReceived);
 						state.updateAllAnts(ants);
 					}
 				}
 				
-				else if(state.getAntsToUpload() != null & !state.getAntsToUpload().isEmpty()) {
+				/*else if((state.getAntsToUpload() == null || state.getAntsToUpload().isEmpty() || state.getAntsToUpload().equals(null))) {
 					for (Ant x : state.getAntsToUpload()) {
 						SendMessage = x.toString();
 						sendData = SendMessage.getBytes();
@@ -162,7 +174,7 @@ public class Client extends Thread{
 						//System.out.println("sent from client : " + SendMessage);
 					}
 					state.getAntsToUpload().clear();
-				}
+				} */
 				else{
 					SendMessage = "OK".toString();
 					sendData = SendMessage.getBytes();
@@ -171,10 +183,10 @@ public class Client extends Thread{
 				}
 				sleep(33);
 			
-				DatagramPacket sendMe = new DatagramPacket(sendData, sendData.length, host, PORT);
-				gameSocket.send(sendMe);
+				//DatagramPacket sendMe = new DatagramPacket(sendData, sendData.length, host, PORT);
+				//gameSocket.send(sendMe);
 			
-			
+				echo("in client gamerunning while loo444p444");
 			}
 
 			
