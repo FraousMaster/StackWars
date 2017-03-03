@@ -44,6 +44,7 @@ public class Server extends Thread {
                    
                     System.out.println("trying to go into game bitch");
                     gameRunning();
+                    
                  
              
                 }
@@ -87,10 +88,6 @@ public class Server extends Thread {
 
     }
 
-    
-    
-    
-    
     private void gameRunning() {
     	System.out.println("IN GAME RUNNING BITCH");
 
@@ -101,7 +98,7 @@ public class Server extends Thread {
              serverSocket.send(sendPacket);
         	
             while (true) {
-            	System.out.println("in server gamerunning while loop");
+            	//System.out.println("in server gamerunning while loop");
                 DatagramPacket oKPacket = new DatagramPacket(receiveData, receiveData.length);
                 serverSocket.receive(oKPacket);
                 receiveData = oKPacket.getData();
@@ -109,14 +106,12 @@ public class Server extends Thread {
 
                 if(messageReceived.equals("OK")) {
                     sendData = temp.getBytes();
-                    DatagramPacket sendUpdate = new DatagramPacket(sendData, sendData.length, IPAddress, port);
-                    serverSocket.send(sendUpdate);
-                } else if (!(messageReceived.equals("success") || messageReceived.equals("start") || messageReceived.equals("started?") || messageReceived.equals(null)
+                   
+                } else if (!(messageReceived.equals(players.getLast()) || messageReceived.equals("success") || messageReceived.equals("start") || messageReceived.equals("started?") || messageReceived.equals(null)
                         || messageReceived == null || messageReceived.equals("OK"))){
                     ants.add(new Ant(messageReceived));
                     sendData = temp.getBytes();
-                    DatagramPacket sendUpdate = new DatagramPacket(sendData, sendData.length, IPAddress, port);
-                    serverSocket.send(sendUpdate);
+                   
                 }
 
                 if (!(ants.isEmpty())) {
@@ -153,6 +148,8 @@ public class Server extends Thread {
                         e.printStackTrace();
                     }
                 }
+                DatagramPacket sendUpdate = new DatagramPacket(sendData, sendData.length, IPAddress, port);
+                serverSocket.send(sendUpdate);
 
             }
 

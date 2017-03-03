@@ -132,11 +132,13 @@ public class Client extends Thread{
 			
 
 			while (true) {
-				echo("in client gamerunning while loop");
+			
+				//echo("in client gamerunning while loop");
 				DatagramPacket receivethis = new DatagramPacket(receiveData, receiveData.length);
 				gameSocket.receive(receivethis);
 				receiveData = receivethis.getData();
 				messageReceived = new String(receiveData, 0, receivethis.getLength());
+				System.out.println("received in gamerunning"+messageReceived);
 				
 				if(!(messageReceived.equals("Start"))){
 				ants = freshList(messageReceived);
@@ -147,8 +149,7 @@ public class Client extends Thread{
 					for (Ant x : state.getAntsToUpload()) {
 						SendMessage = x.toString();
 						sendData = SendMessage.getBytes();
-						DatagramPacket sendMe = new DatagramPacket(sendData, sendData.length, host, PORT);
-						gameSocket.send(sendMe);
+						
 						//System.out.println("sent from client : " + SendMessage);
 					}
 					state.getAntsToUpload().clear();
@@ -156,17 +157,23 @@ public class Client extends Thread{
 				else{
 					SendMessage = "OK".toString();
 					sendData = SendMessage.getBytes();
-					DatagramPacket sendMe = new DatagramPacket(sendData, sendData.length, host, PORT);
-					gameSocket.send(sendMe);
+					
 					//System.out.println("sent from client : " + SendMessage);
 				}
 				sleep(33);
+			
+				DatagramPacket sendMe = new DatagramPacket(sendData, sendData.length, host, PORT);
+				gameSocket.send(sendMe);
+			
+			
 			}
 
+			
+			
 		}catch(IOException | InterruptedException e){
 			e.printStackTrace();
-		}
 	}
+}
 	
 	
 	
