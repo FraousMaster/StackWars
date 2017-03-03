@@ -1,8 +1,20 @@
+import java.awt.GridBagLayout;
 
-public class Credits {
+import javax.swing.JPanel;
+
+import Global.Resources;
+
+public class Credits extends JPanel {
 
     public Credits(){
-        new Game();
+    	setLayout(new GridBagLayout());
+		buttons();	
     }
 
+    private void buttons(){
+    	
+    	
+    	
+    }
+    
 }

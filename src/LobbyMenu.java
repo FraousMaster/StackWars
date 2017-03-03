@@ -1,7 +1,9 @@
 import java.awt.*;
 import java.awt.event.*;
 import java.net.*;
+import java.util.ArrayList;
 import javax.swing.*;
+import Global.Resources;
 
 public class LobbyMenu extends JPanel {
 	/**
@@ -52,6 +54,7 @@ public class LobbyMenu extends JPanel {
 		create();
 	}
 
+<<<<<<< HEAD
 
 	public void setPlayers(String name){
 		if(p1.getText().equals("Waiting...")){
@@ -67,7 +70,33 @@ public class LobbyMenu extends JPanel {
 		}
 		else if(p4.getText().equals("Waiting...")){
 			p4.setText(name);
+=======
+	
+	public void setPlayers(ArrayList<String> players){
+		int i = 0;
+		for(String x : players){
+			setLabels(x, i);
+			i++;
+>>>>>>> Devel
 		}
+		
+	}
+	private void setLabels(String x, int y){
+		
+	    if(y == 0){
+	    	p1.setText(x);
+	    }
+	    if(y == 1){
+	    	p2.setText(x);
+	    }
+	    if(y == 2){
+	    	p3.setText(x);
+	    }
+	    if(y == 3){
+	    	p4.setText(x);
+	    }
+		
+		
 	}
 
 	private void create(){
@@ -156,7 +185,16 @@ public class LobbyMenu extends JPanel {
 	public Game returnGame(){
 		return game;
 	}
+<<<<<<< HEAD
 
+=======
+	
+	public GameState returnState(){
+		return game.getState();
+		
+	}
+	
+>>>>>>> Devel
 	public class Handler implements ActionListener {
 		GameMenu menu;
 		@Override

@@ -1,16 +1,13 @@
 import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
-
 import javax.swing.*;
 import javax.xml.parsers.*;
 import javax.xml.transform.*;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-
 import org.w3c.dom.*;
-
-
+import Global.Resources;
 
 public class SettingsMenu extends JPanel {
 
@@ -138,13 +135,11 @@ public class SettingsMenu extends JPanel {
 					settings.appendChild(resolution);
 					volume.appendChild(document.createTextNode(getVol()));
 					resolution.appendChild(document.createTextNode(getRes()));
-					
 					TransformerFactory transFactory = TransformerFactory.newInstance();
 					Transformer transformer = transFactory.newTransformer();
 					DOMSource source = new DOMSource(document);
-				StreamResult result = new StreamResult(new File("Settings/file.xml"));
-					transformer.transform(source, result);
-					System.out.println("filen ska vara sparad.");
+                    StreamResult result = new StreamResult(new File("../Settings/file.xml"));
+                    transformer.transform(source, result);
 					
 					
 					
@@ -153,7 +148,7 @@ public class SettingsMenu extends JPanel {
 					pce.printStackTrace();
 				}catch(TransformerException te){
 					te.printStackTrace();
-				}
+                }catch(Exception all){}
 				
 			}	
 		}
