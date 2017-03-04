@@ -16,18 +16,31 @@ public class PlayMenu extends JPanel {
 	}
 	
 	private void buttons(){
+		ImageIcon str = new ImageIcon("Graphics/Buttons/join.png");
+		ImageIcon opt = new ImageIcon("Graphics/Buttons/Host.png");
+		ImageIcon cre = new ImageIcon("Graphics/Buttons/back.png");
+		
+		
 		GridBagConstraints c = new GridBagConstraints();
 		joinButton = new JButton("Join");
 		hostButton = new JButton("Host");
 		backButton = new JButton("Back");
 		
+		joinButton.setIcon(str);
+		hostButton.setIcon(opt);
+		backButton.setIcon(cre);
+		
+		joinButton.setIconTextGap(-6);
+		hostButton.setIconTextGap(-6);
+		backButton.setIconTextGap(-6);
+		
 		joinButton.addActionListener(new Handler());
 		hostButton.addActionListener(new Handler());
 		backButton.addActionListener(new Handler());
 
-		joinButton.setPreferredSize(new Dimension(100, 50));
-		hostButton.setPreferredSize(new Dimension(100, 50));
-		backButton.setPreferredSize(new Dimension(100, 50));
+		joinButton.setPreferredSize(new Dimension(100, 40));
+		hostButton.setPreferredSize(new Dimension(100, 40));
+		backButton.setPreferredSize(new Dimension(100, 40));
 
 		
 		c.fill = GridBagConstraints.HORIZONTAL;

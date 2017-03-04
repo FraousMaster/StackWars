@@ -86,9 +86,10 @@ public class LobbyMenu extends JPanel {
 		p2 = new JLabel("Waiting...");
 		p3 = new JLabel("Waiting...");
 		p4 = new JLabel("Waiting...");
+		
+		
 		if(cameFrom == 0)
 		start = new JButton("Start");
-		
 		back = new JButton("Back");
 		
 		if(cameFrom == 0)

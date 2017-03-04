@@ -14,7 +14,8 @@ public class GameMenu extends JPanel {
 	private JComboBox antBox;
 	private JComboBox mapButton;
 	private JButton gameButton;
-	private JButton backButton;
+	private JButton backButton1;
+	private JButton backButton2;
 	private JButton joinButton;
 	private String IP_ADDRESS;
 	private String NAME;
@@ -35,68 +36,75 @@ public class GameMenu extends JPanel {
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private void settings(){
 		
+		ImageIcon crt = new ImageIcon("Graphics/Buttons/creategame.png");
+		ImageIcon bck = new ImageIcon("Graphics/Buttons/bigBack.png");
+		ImageIcon jin = new ImageIcon("Graphics/Buttons/join.png");
+		ImageIcon sbck = new ImageIcon("Graphics/Buttons/back.png");
+		
 		GridBagConstraints c = new GridBagConstraints();
 		
-		if(goTo == 1)
-		ipField = new JTextField("Ip Address");
-		
-		nameField = new JTextField("Name");
-		
-		if(goTo == 0){
-		antBox = new JComboBox(ants);
-		mapButton = new JComboBox(maps);
-		gameButton = new JButton("Create Game");
-		}
-		
-		backButton = new JButton("Back");
-		
-		if(goTo == 1)
-		joinButton = new JButton("Join");
-		
-		if(goTo == 0){
-		antBox.addActionListener(new Handler());
-		mapButton.addActionListener(new Handler());
-		}
-		
-		if(goTo == 0)
-		gameButton.addActionListener(new Handler());
-		backButton.addActionListener(new Handler());
-		
 		if(goTo == 1){
+		ipField = new JTextField("Ip Address");
+		joinButton = new JButton("Join");
+		joinButton.setIcon(jin);
+		joinButton.setIconTextGap(-5);
+		backButton1 = new JButton("Back");
+		backButton1.setIcon(sbck);
+		backButton1.setIconTextGap(-5);
+		backButton1.setPreferredSize(new Dimension(100, 40));
+		backButton1.addActionListener(new Handler());
 		joinButton.addActionListener(new Handler());
 		ipField.setPreferredSize(new Dimension(100, 50));
-		}
+		joinButton.setPreferredSize(new Dimension(100, 40));
 		
-		nameField.setPreferredSize(new Dimension(100, 50));
-		
-		if(goTo == 0){
-		antBox.setPreferredSize(new Dimension(100, 50));
-		mapButton.setPreferredSize(new Dimension(100, 50));
-		gameButton.setPreferredSize(new Dimension(150, 50));
-		}
-		
-		backButton.setPreferredSize(new Dimension(100, 50));
-		
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 3;
+		c.gridy = 2;
 		if(goTo == 1)
-		joinButton.setPreferredSize(new Dimension(100, 50));
-
+		add(joinButton, c);
+		
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 3;
+		c.gridy = 5;
+		add(backButton1, c);
 		
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 3;
 		c.gridy = 0;
 		if(goTo == 1)
 		add(ipField, c);
-	
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.gridx = 3;
-		c.gridy = 1;
-		add(nameField, c);
+		
+		}
+		
+		if(goTo == 0){
+		antBox = new JComboBox(ants);
+		mapButton = new JComboBox(maps);
+		gameButton = new JButton("Create Game");
+		gameButton.setIcon(crt);
+		gameButton.setIconTextGap(-6);	
+		backButton2 = new JButton("Back");
+		backButton2.setIcon(bck);
+		backButton2.setIconTextGap(-5);
+		backButton2.setPreferredSize(new Dimension(150, 40));
+		antBox.addActionListener(new Handler());
+		mapButton.addActionListener(new Handler());
+		gameButton.addActionListener(new Handler());
+		backButton2.addActionListener(new Handler());
+		antBox.setPreferredSize(new Dimension(100, 40));
+		mapButton.setPreferredSize(new Dimension(100, 40));
+		gameButton.setPreferredSize(new Dimension(150, 40));
 		
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 3;
-		c.gridy = 2;
+		c.gridy = 5;
+		add(backButton2, c);
+		
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 3;
+		c.gridy = 4;
 		if(goTo == 0)
-		add(antBox, c);
+		add(gameButton, c);
+		
 		
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 3;
@@ -106,20 +114,18 @@ public class GameMenu extends JPanel {
 		
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 3;
-		c.gridy = 4;
-		if(goTo == 0)
-		add(gameButton, c);
-	
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.gridx = 3;
-		c.gridy = 5;
-		add(backButton, c);
-		
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.gridx = 3;
 		c.gridy = 2;
-		if(goTo == 1)
-		add(joinButton, c);
+		if(goTo == 0)
+		add(antBox, c);
+		}
+		
+		nameField = new JTextField("Name");
+		nameField.setPreferredSize(new Dimension(100, 50));
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 3;
+		c.gridy = 1;
+		add(nameField, c);
+		
 	}
 	
 	public String getName(){
@@ -165,7 +171,7 @@ public class GameMenu extends JPanel {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if(e.getSource() == backButton){
+			if(e.getSource() == backButton1 || e.getSource() == backButton2){
 				remove();
 				PlayMenu menu = new PlayMenu();
 				add(menu);
