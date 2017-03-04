@@ -59,17 +59,48 @@ public class Resources {
 	{
 		return setFile;
 	}
+	public static int getAntXOffset(int type)
+	{
+		int temp = (scalingFactorX / 2) - 15;
+		int xOffset = 0;
+		switch(type) {
+			case 3: xOffset = temp;
+					break;
+			case 4: xOffset = temp + 20;
+					break;
+			case 8: xOffset = temp;
+					break;
+			case 9: xOffset = -temp;
+					break;
+		}
+		return xOffset;
+	}
+	public static int getAntYOffset(int type)
+	{
+		int temp = (scalingFactorY / 2) - 10;
+		int yOffset = 0;
+		switch(type) {
+			case 3: yOffset = temp + 15;
+					break;
+			case 4: yOffset = temp;
+					break;
+			case 8: yOffset = temp - 15;	
+					break;
+			case 9: yOffset = temp;
+					break;
+		}
+		return yOffset;
+	}
 	
 	
-	public static void setWidth(int x)
+	public static void setResolution(int x, int y)
 	{
 		width = x;
 		scalingFactorX = width/20;
-	}
-	public static void setHeight(int y)
-	{
 		height = y;
 		scalingFactorY = height/20;
+		double x1 = x;
+		double y1 = y;
 	}
 	
 	public static void setMyPlayerID(String x)

@@ -72,9 +72,9 @@ public class GameView extends Observable implements Observer{
                 		g.setColor(Color.WHITE);
                 	}
                 	
-                	int oX = Resources.getScalingFactorY()/2;
-                	int oY = Resources.getScalingFactorY()/2;
-                	g.drawString("Pop: " + s.getPopulation(), s.getX() + oX-20, s.getY() + oY + 5);
+                	int oX = Resources.getScalingFactorX()/2 - 20;
+                	int oY = Resources.getScalingFactorY()/2 + 3;
+                	g.drawString("Pop: " + s.getPopulation(), s.getX() + oX, s.getY()+ oY);
                 }
 				try {
 					image = ImageIO.read(new File("Graphics/Ant/smallAnt.png"));

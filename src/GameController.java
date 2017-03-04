@@ -49,9 +49,10 @@ public class GameController implements Observer{
 										//System.out.println("THIS IS THE ROAD: " + stackSelected.getConnectedStacks(s.getX(), s.getY()).get(0).getType());
 										stackSelected.decreasePopulation();
 										int type = stackSelected.getConnectedStacks(s.getX(), s.getY()).get(0).getType();
-										int x = getAntXOffset(type);
-										int y = getAntYOffset(type);
-										
+										int x = Resources.getAntXOffset(type);
+										int y = Resources.getAntYOffset(type);
+										System.out.println("STACK SELECTED X: " + stackSelected.getX());
+										System.out.println("OFFSET X: " + x);
 										gameState.addAnt(new Ant(stackSelected.getX() + x, stackSelected.getY() + y, 
 												stackSelected.getConnectedStacks(s.getX(), s.getY()).get(0).getType(), 
 												stackSelected.getConnectedStacks(s.getX(), s.getY())));
@@ -84,40 +85,5 @@ public class GameController implements Observer{
 			//gameView.updateFrame();
 			
 		}
-	}
-	
-	public int getAntXOffset(int type)
-	{
-		//System.out.println("THIS IS THE TYPE IN GC: " + type);
-		int xOffset = 0;
-		switch(type) {
-			case 3: xOffset = 10;
-					break;
-			case 4: xOffset = 30;
-					break;
-			case 8: xOffset = 10;
-					break;
-			case 9: xOffset = -10;
-					break;
-		}
-		//System.out.println("THIS IS THE VALUE OF OFFSET: " + xOffset);
-		return xOffset;
-	}
-	public int getAntYOffset(int type)
-	{
-		//System.out.println("THIS IS THE TYPE IN GC: " + type);
-		int yOffset = 0;
-		switch(type) {
-			case 3: yOffset = 30;
-					break;
-			case 4: yOffset = 15;
-					break;
-			case 8: yOffset = 0;	
-					break;
-			case 9: yOffset = 15;
-					break;
-		}
-		//System.out.println("THIS IS THE VALUE OF OFFSET: " + yOffset);
-		return yOffset;
 	}
 }

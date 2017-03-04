@@ -10,8 +10,7 @@ public class Game {
     private GameController gameController = null;
     private GameState gameState = null;
     public Game() {
-    	Resources.setHeight(1000);
-    	Resources.setWidth(1000);
+    	Resources.setResolution(1920,1080);
     	readingSettings();
         gameState = new GameState();
         gameView = new GameView(gameState);
@@ -43,8 +42,7 @@ public class Game {
                     String name = eElement.getElementsByTagName("Resolution").item(0).getTextContent();
                     temp = name.split("x");
                     System.out.println("Width: " + Integer.parseInt(temp[0]) + "\n Height: " + Integer.parseInt(temp[1]));
-                    Resources.setWidth(Integer.parseInt(temp[0]));
-                    Resources.setHeight(Integer.parseInt(temp[1]));
+                    Resources.setResolution(Integer.parseInt(temp[0]), Integer.parseInt(temp[1]));
                 }
             }
         }catch(Exception filee){
