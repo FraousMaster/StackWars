@@ -43,7 +43,6 @@ public class GameState extends Observable{
 
     public void addAnt(Ant a){
         antsToUpload.add(a);
-
     }
 
     

@@ -136,7 +136,6 @@ public class GameView extends Observable implements Observer{
         }
     }
 
-
 	@Override
 	public void update(Observable o, Object arg1) {
 		if(o == gameState)

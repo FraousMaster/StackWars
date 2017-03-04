@@ -22,7 +22,8 @@ public class Map {
     private ArrayList<Stack> stacks;
     private int lastX, lastY;
     private int sX = Resources.getScalingFactorX(), sY = Resources.getScalingFactorY();
-    
+    private int playerID = Resources.getMyPlayerID();
+    private Stack myStack;
     HashMap<Integer, Integer> mapX = new HashMap<>();
 
     private HashMap<Integer, HashMap<Integer, Integer>> mapY = new HashMap<>();
@@ -35,10 +36,52 @@ public class Map {
         setLabel();
         setRoads();
         for(Stack s: stacks){
-        	s.setOwnedBy();
+        	if(myStack == null)
+        		myStack = s;
+        	
+        	setMyStack(s);
+        	myStack.setOwnedBy();
+        	System.out.println("THIS IS THE STACK: " + s.getX() + ", " + s.getY());
         }
+        
     }
-
+    
+    private void setMyStack(Stack s)
+    {
+    	if(playerID == 1)
+    	{
+    		if(s.getX() < myStack.getX() && s.getY() < myStack.getY())
+    		{
+    			myStack = s;
+    		}
+    	}
+    	if(playerID == 2)
+    	{
+    		if(s.getX() > myStack.getX() && s.getY() < myStack.getY())
+    		{
+    			myStack = s;
+    		}
+    	}
+    	if(playerID == 3)
+    	{
+    		if(s.getX() < myStack.getX() && s.getY() > myStack.getY())
+    		{
+    			myStack = s;
+    		}
+    	}
+    	if(playerID == 4)
+    	{
+    		if(s.getX() > myStack.getX() && s.getY() > myStack.getY())
+    		{
+    			myStack = s;
+    		}
+    	}
+    }
+    
+    public Stack getMyStacks()
+    {
+    	return myStack;
+    }
     private void readFile(){
         FileReader fr;
         int i, x = 0, y = 0;

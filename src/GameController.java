@@ -35,7 +35,10 @@ public class GameController implements Observer{
 						if(mouseClick.getButton() == 1)
 						{	
 							//System.out.println();
-							this.stackSelected = s;
+							if(s.getOwnedBy() == Resources.getMyPlayerID())
+							{
+								this.stackSelected = s;
+							}
 						}
 						else if(mouseClick.getButton() == 3)
 						{
@@ -54,8 +57,6 @@ public class GameController implements Observer{
 												stackSelected.getConnectedStacks(s.getX(), s.getY())));
 									}
 							}
-							
-							
 						}
 					}
 				}
