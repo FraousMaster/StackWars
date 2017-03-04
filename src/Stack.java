@@ -38,6 +38,10 @@ public class Stack extends JComponent{
     {
     	return ownedBy;
     }
+    public void setOwnedBy()
+    {
+    	ownedBy = Resources.getMyPlayerID();
+    }
     public void decreasePopulation()
     {
     	population -= 1;

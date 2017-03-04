@@ -43,7 +43,7 @@ public class GameController implements Observer{
 							{
 									if(!(stackSelected.getPopulation() == 0))
 									{
-										System.out.println("THIS IS THE ROAD: " + stackSelected.getConnectedStacks(s.getX(), s.getY()).get(0).getType());
+										//System.out.println("THIS IS THE ROAD: " + stackSelected.getConnectedStacks(s.getX(), s.getY()).get(0).getType());
 										stackSelected.decreasePopulation();
 										int type = stackSelected.getConnectedStacks(s.getX(), s.getY()).get(0).getType();
 										int x = getAntXOffset(type);

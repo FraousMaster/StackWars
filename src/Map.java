@@ -35,7 +35,7 @@ public class Map {
         setLabel();
         setRoads();
         for(Stack s: stacks){
-        	//System.out.println(s.testPrint());
+        	s.setOwnedBy();
         }
     }
 
@@ -122,6 +122,7 @@ public class Map {
     private ArrayList<Roads> getRoad(int x, int y, previousDirection dir)
     {
         ArrayList<Roads> temp = new ArrayList<>();
+        
         while(true){
             /*check position under the road at pos x y (+ y)
             *this means direction from stack != under_stack
@@ -278,6 +279,7 @@ public class Map {
                 }
                 else if (mapY.get(i).get(j) == sY) {//6
                     try {
+                    	System.out.println("TRYING TO MAKE LEFT TOP MAP OBJECT");
                         image = ImageIO.read(new File("Graphics/lefttop.png"));
                         g.drawImage(image, sX * j , sY * i, sX, sY, null);
                     } catch (IOException e) {
