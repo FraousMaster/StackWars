@@ -7,14 +7,15 @@ import Global.Resources;
 
 public class Stack extends JComponent{
 
-    private int population, stackPosX, stackPosY;
+    private int population, stackPosX, stackPosY, ownedBy;
     private BufferedImage image;
     private HashMap<Point, ArrayList<Roads>> connectedStacks = new HashMap<>();
 
     public Stack(int posX, int posY){
         population = 10;
         stackPosX = posX;
-        stackPosY = posY;   
+        stackPosY = posY;
+        ownedBy = 0;
     }
 
     public BufferedImage getImage()
@@ -33,9 +34,17 @@ public class Stack extends JComponent{
     {
     	return population;
     }
+    public int getOwnedBy()
+    {
+    	return ownedBy;
+    }
     public void decreasePopulation()
     {
     	population -= 1;
+    }
+    public void increasePopulation()
+    {
+    	population += 1;
     }
     public ArrayList<Roads> getConnectedStacks(int x, int y)
     {

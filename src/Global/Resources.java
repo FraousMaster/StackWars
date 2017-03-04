@@ -14,7 +14,7 @@ public class Resources {
 	
 	private static File setFile = new File("Settings\\file.xml");
 	
-	private static playerIDs myPlayerID = null;
+	private static int myPlayerID;
 	
 	private enum playerIDs{
 		player_one,
@@ -45,7 +45,7 @@ public class Resources {
 		return scalingFactorY;
 	}
 	
-	public static playerIDs getMyPlayerID()
+	public static int getMyPlayerID()
 	{
 		return myPlayerID;
 	}
@@ -68,8 +68,9 @@ public class Resources {
 	
 	public static void setMyPlayerID(String x)
 	{
-
-		if(x.equals("1"))
+		//System.out.println(x);;
+		myPlayerID = Integer.parseInt(x);
+		/*if(x.equals("1"))
 		{
 			myPlayerID = playerIDs.player_one;
 		}
@@ -84,6 +85,6 @@ public class Resources {
 		if(x.equals("4"))
 		{
 			myPlayerID = playerIDs.player_four;
-		}
+		}*/
 	}
 }

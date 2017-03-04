@@ -19,11 +19,11 @@ public class Ant {
     //private BufferedImage image;
     double speedX, speedY, angle;
     
-    public Ant(int x, int y, int owns, int currentMapObject, ArrayList<Roads> road){
+    public Ant(int x, int y, int currentMapObject, ArrayList<Roads> road){
         posX = x;
         posY = y;
         this.road = road;
-        ownedBy = owns;
+        ownedBy = Resources.getMyPlayerID();
         this.currentMapObject = currentMapObject;
     }
     

@@ -39,8 +39,6 @@ public class GameView extends Observable implements Observer{
             drawPanel.addMouseListener(new MouseAdapter(){
             	public void mouseClicked(MouseEvent e)
             	{
-            		int x = e.getX();
-            		int y = e.getY();
             		setChanged();
             		notifyObservers(e);
             	}
@@ -65,7 +63,15 @@ public class GameView extends Observable implements Observer{
                 g.drawImage(gameState.getMap().getImage(), 0, 0, D_W, D_H, null);
                 for(Stack s : gameState.getStacks())
                 {
-                	g.setColor(Color.WHITE);
+                	if(s.getOwnedBy() == Resources.getMyPlayerID())
+                	{
+                		g.setColor(Color.GREEN);
+                	}
+                	else
+                	{
+                		g.setColor(Color.WHITE);
+                	}
+                	
                 	int oX = Resources.getScalingFactorY()/2;
                 	int oY = Resources.getScalingFactorY()/2;
                 	g.drawString("Pop: " + s.getPopulation(), s.getX() + oX-20, s.getY() + oY + 5);

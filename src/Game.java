@@ -12,7 +12,7 @@ public class Game {
     public Game() {
     	Resources.setHeight(1000);
     	Resources.setWidth(1000);
-    	//readingSettings();
+    	readingSettings();
         gameState = new GameState();
         gameView = new GameView(gameState);
         gameController = new GameController(gameView, gameState);
@@ -35,12 +35,18 @@ public class Game {
             doc.getDocumentElement().normalize();
             System.out.println("Root Element:" + doc.getDocumentElement().getNodeName());
             NodeList nodeList = doc.getElementsByTagName("Game");
-                Node node = nodeList.item(0);
-                Element eElement = (Element) node;
-                String temp[];
-                String name = eElement.getElementsByTagName("resolution").item(0).getTextContent();
-                temp = name.split("x");
-                System.out.println("pls: " + Integer.parseInt(temp[0]));
+            for(int i = 0; i < nodeList.getLength();i++){
+                Node node = nodeList.item(i);
+                if(node.getNodeType() == Node.ELEMENT_NODE){
+                    Element eElement = (Element) node;
+                    String temp[];
+                    String name = eElement.getElementsByTagName("Resolution").item(0).getTextContent();
+                    temp = name.split("x");
+                    System.out.println("Width: " + Integer.parseInt(temp[0]) + "\n Height: " + Integer.parseInt(temp[1]));
+                    Resources.setWidth(Integer.parseInt(temp[0]));
+                    Resources.setHeight(Integer.parseInt(temp[1]));
+                }
+            }
         }catch(Exception filee){
             filee.printStackTrace();
         }

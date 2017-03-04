@@ -8,7 +8,7 @@ public class GameController implements Observer{
 	private GameView gameView = null;
 	private GameState gameState = null;
 	private Stack stackSelected;
-	
+	private int populationIncrease = 0;
 	public GameController(GameView gameView, GameState gameState)
 	{
 		this.gameView = gameView;
@@ -49,7 +49,7 @@ public class GameController implements Observer{
 										int x = getAntXOffset(type);
 										int y = getAntYOffset(type);
 										
-										gameState.addAnt(new Ant(stackSelected.getX() + x, stackSelected.getY() + y, 1, 
+										gameState.addAnt(new Ant(stackSelected.getX() + x, stackSelected.getY() + y, 
 												stackSelected.getConnectedStacks(s.getX(), s.getY()).get(0).getType(), 
 												stackSelected.getConnectedStacks(s.getX(), s.getY())));
 									}
@@ -67,8 +67,19 @@ public class GameController implements Observer{
 		}
 		if(o == gameState)
 		{
-			
-			System.out.println("ENTERING UPDATE IN GAME CONTROLLER");
+			populationIncrease++;
+			if(populationIncrease >= 120)
+			{
+				for(Stack s : gameState.getStacks())
+				{
+					if(s.getOwnedBy() == Resources.getMyPlayerID())
+					{
+						s.increasePopulation();
+					}
+				}
+				populationIncrease = 0;
+			}
+			//System.out.println("ENTERING UPDATE IN GAME CONTROLLER");
 			//gameView.updateFrame();
 			
 		}
