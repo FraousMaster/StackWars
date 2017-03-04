@@ -17,6 +17,7 @@ public class GameController implements Observer{
 	
 	@Override
 	public void update(Observable o, Object arg) {
+		
 		if(o == gameView)
 		{
 			try
@@ -26,7 +27,6 @@ public class GameController implements Observer{
 				
 				for(Stack s : gameState.getStacks())
 				{
-					
 					if(point.getX() >= s.getX() && point.getX() <= (s.getX() + 96) && 
 					   point.getY() >= s.getY() && point.getY() <= (s.getY() + 54))
 					{
@@ -67,14 +67,16 @@ public class GameController implements Observer{
 		}
 		if(o == gameState)
 		{
-			gameView.updateFrame();
+			
+			System.out.println("ENTERING UPDATE IN GAME CONTROLLER");
+			//gameView.updateFrame();
 			
 		}
 	}
 	
 	public int getAntXOffset(int type)
 	{
-		System.out.println("THIS IS THE TYPE IN GC: " + type);
+		//System.out.println("THIS IS THE TYPE IN GC: " + type);
 		int xOffset = 0;
 		switch(type) {
 			case 3: xOffset = 10;
@@ -86,12 +88,12 @@ public class GameController implements Observer{
 			case 9: xOffset = -10;
 					break;
 		}
-		System.out.println("THIS IS THE VALUE OF OFFSET: " + xOffset);
+		//System.out.println("THIS IS THE VALUE OF OFFSET: " + xOffset);
 		return xOffset;
 	}
 	public int getAntYOffset(int type)
 	{
-		System.out.println("THIS IS THE TYPE IN GC: " + type);
+		//System.out.println("THIS IS THE TYPE IN GC: " + type);
 		int yOffset = 0;
 		switch(type) {
 			case 3: yOffset = 30;
@@ -103,7 +105,7 @@ public class GameController implements Observer{
 			case 9: yOffset = 15;
 					break;
 		}
-		System.out.println("THIS IS THE VALUE OF OFFSET: " + yOffset);
+		//System.out.println("THIS IS THE VALUE OF OFFSET: " + yOffset);
 		return yOffset;
 	}
 }

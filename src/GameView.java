@@ -135,9 +135,7 @@ public class GameView extends Observable implements Observer{
 	public void update(Observable o, Object arg1) {
 		if(o == gameState)
 		{
-			this.gameState = gameState;
 			gameFrame.updateThisFrame();
-
 		}
 	}
 }
