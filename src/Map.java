@@ -60,7 +60,7 @@ public class Map {
     {
     	if(playerID == 1)
     	{
-    		if(s.getX() < myStack.getX() && s.getY() < myStack.getY())
+    		if(s.getX() <= myStack.getX() && s.getY() <= myStack.getY())
     		{
     			System.out.println(myStack);
     			myStack = s;
@@ -68,21 +68,21 @@ public class Map {
     	}
     	if(playerID == 2)
     	{
-    		if(s.getX() > myStack.getX() && s.getY() < myStack.getY())
+    		if(s.getX() >= myStack.getX() && s.getY() <= myStack.getY())
     		{
     			myStack = s;
     		}
     	}
     	if(playerID == 3)
     	{
-    		if(s.getX() < myStack.getX() && s.getY() > myStack.getY())
+    		if(s.getX() <= myStack.getX() && s.getY() >= myStack.getY())
     		{
     			myStack = s;
     		}
     	}
     	if(playerID == 4)
     	{
-    		if(s.getX() > myStack.getX() && s.getY() > myStack.getY())
+    		if(s.getX() >= myStack.getX() && s.getY() >= myStack.getY())
     		{
     			myStack = s;
     		}
