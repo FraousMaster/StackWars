@@ -72,7 +72,6 @@ public class Stack extends JComponent{
     }
     public ArrayList<Roads> getConnectedStacks(int x, int y)
     {
-    	
     	Point key = new Point(x,y);
     	//System.out.println(connectedStacks);
     	if(connectedStacks.get(key) != null)

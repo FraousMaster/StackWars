@@ -26,7 +26,7 @@ public class Map {
     private int playerID = Resources.getMyPlayerID();
     private Stack myStack;
     HashMap<Integer, Integer> mapX = new HashMap<>();
-
+    
     private HashMap<Integer, HashMap<Integer, Integer>> mapY = new HashMap<>();
 
     public Map(){
@@ -36,7 +36,40 @@ public class Map {
         drawImage();
         setLabel();
         setRoads();
-        ArrayList<String> temp = new ArrayList<>();
+        setAllStacks();
+        for(Stack s: stacks){
+        	if(myStack == null)
+        	{
+        		myStack = s;
+    		}
+        	setMyStack(s);
+        }
+        String a = "";
+        myStack.setOwnedBy(5);
+    	a += myStack.getX() + ":" + myStack.getY() + ":" + myStack.getOwnedBy() + ":" + myStack.getPopulation();
+    	Resources.setMyStack(a);
+    	sendAllRoadsToResources();
+    }
+    
+    private void sendAllRoadsToResources()
+    {
+    	ArrayList<String> allRoadsInString = new ArrayList<>();
+    	String a = "";
+    	for(Roads r : allRoads)
+    	{
+    		Point p = r.getPos();
+    		int x = (int)p.getX();
+    		int y = (int)p.getY();
+    		int type = r.getType();
+    		a += x + ":" + y + ":" + type;
+    		allRoadsInString.add(a);
+    		Resources.setAllRoads(allRoadsInString);
+    	}
+    }
+    
+    private void setAllStacks()
+    {
+    	ArrayList<String> temp = new ArrayList<>();
         String a = "";
         for(Stack s : stacks)
         {
@@ -45,18 +78,8 @@ public class Map {
         	a = "";
         }
         Resources.setAllStacks(temp);
-        for(Stack s: stacks){
-        	if(myStack == null)
-        	{
-        		myStack = s;
-    		}
-        	setMyStack(s);
-        }
-        myStack.setOwnedBy(5);
-    	a += myStack.getX() + ":" + myStack.getY() + ":" + myStack.getOwnedBy() + ":" + myStack.getPopulation();
-    	Resources.setMyStack(a);
+        
     }
-    
     private void setMyStack(Stack s)
     {
     	if(playerID == 1)
@@ -244,19 +267,29 @@ public class Map {
         return temp;
     }
     private void addRoadToStack(int x,int y, int x1, int y1, ArrayList<Roads> list){
-
-        if(list != null) {
-            Point yP  = list.get((list.size()- 1)).getPos();
-            Point xP = list.get(0).getPos();
-            Resources.setAllRoads(xP, yP);
-        }
+    	boolean checkExistence = false;
+    	
         for(Roads r : list){
             if(allRoads.isEmpty()){
                 allRoads.add(r);
             }
             else{
                 if(!(allRoads.contains(r)));
-                    allRoads.add(r);
+                {
+                	for(Roads r1 : allRoads)
+                	{
+                		if(r1.getPos().equals(r.getPos()))
+                		{
+                			checkExistence = true;
+                			break;
+                		}
+                		
+                	}
+                	if(!checkExistence)
+                	{
+                		allRoads.add(r);
+                	}
+                }
             }
         }
 

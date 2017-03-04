@@ -1,3 +1,4 @@
+import java.awt.Point;
 import java.io.*;
 import java.net.*;
 import java.util.*;
@@ -20,6 +21,8 @@ public class Server extends Thread {
     protected boolean inLobby = true;
     private ArrayList<Ant> ants = new ArrayList<>();
     private ArrayList<Stack> stacks = new ArrayList<>();
+    private ArrayList<Roads> roads = new ArrayList<>();
+    private HashMap<Point, ArrayList<Roads>> allRoads = new HashMap<>();
     private String temp = "";
 
     public Server() throws Exception {
@@ -79,6 +82,12 @@ public class Server extends Thread {
             	Stack stack = new Stack(s);
             	stacks.add(stack);
     		}
+            for(String s : Resources.getAllRoads())
+            {
+            	Roads road = new Roads(s);
+            	roads.add(road);
+            }
+            
         }
         else if(messageReceived.equals("OK")) {
             started = true;
@@ -179,7 +188,7 @@ public class Server extends Thread {
                     temp += "&" + a.toString() + "&";
                     sendData =temp.getBytes();
                 }
-                sleep(33);
+                sleep(50);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

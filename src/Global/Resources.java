@@ -15,10 +15,10 @@ public class Resources {
 	private static int scalingFactorY = height/20;
 	
 	private static File setFile = new File("Settings\\file.xml");
-    private static HashMap<Integer, ArrayList<Point>>  mapMap = new HashMap<>();
 	private static int myPlayerID;
 	
 	private static ArrayList<String> stacks = new ArrayList<>();
+    private static ArrayList<String> allRoads = new ArrayList<>();
 	private static String myStack = "";
 	
 	private enum playerIDs{
@@ -33,10 +33,6 @@ public class Resources {
 		
 	}
 
-    public static HashMap<Integer, ArrayList<Point>> getRoads()
-    {
-        return mapMap;
-    }
 	public static int getWidth()
 	{
 		return width;
@@ -124,29 +120,8 @@ public class Resources {
 			myPlayerID = playerIDs.player_four;
 		}*/
 	}
-    public static void setAllRoads(Point start, Point end){
-        int i;
-        boolean unique = true;
-        ArrayList<Point> tempOne = new ArrayList<>();
-        ArrayList<Point> tempTwo = new ArrayList<>();
-        tempOne.add(start);
-        tempOne.add(end);
-        tempTwo.add(end);
-        tempTwo.add(start);
-
-        if(mapMap.isEmpty()){
-            mapMap.put(0, tempOne);
-        }
-        for (i = 0; i < mapMap.size(); i++) {
-            if (mapMap.get(i).equals(tempOne) || mapMap.get(i).equals(tempTwo)) {
-                unique = false;
-            }
-        }
-
-        if(unique) {
-            mapMap.put(i, tempOne);
-        }
-
+    public static void setAllRoads(ArrayList<String> list){
+        allRoads = list;
     }
     
     public static void setAllStacks(ArrayList<String> stackString)
@@ -156,6 +131,11 @@ public class Resources {
     public static ArrayList<String> getAllStacks()
     {
     	return stacks;
+    }
+    
+    public static ArrayList<String> getAllRoads()
+    {
+    	return allRoads;
     }
 
 	public static void setMyStack(String s)
