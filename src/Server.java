@@ -121,13 +121,8 @@ public class Server extends Thread {
         		{
         			int index = stacks.indexOf(stack);
         			stacks.set(index, tempStack);
-        			
         		}
         		
-        	}
-        	for(Stack stack : stacks)
-        	{
-        		System.out.println(stack.getPopulation());
         	}
         }
         else if (!(messageReceived.equals(players.getLast()) || messageReceived.equals("success") || messageReceived.equals("start") || messageReceived.equals(null)
