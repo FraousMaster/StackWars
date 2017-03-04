@@ -22,6 +22,7 @@ public class LobbyMenu extends JPanel {
 	private GameMenu lMenu;
 	private boolean isPressed = false;
 	private Game game;
+	private boolean connection = false;
 	
 	public LobbyMenu(int from, GameMenu menu) throws UnknownHostException{
 		String IP = null;
@@ -77,8 +78,6 @@ public class LobbyMenu extends JPanel {
 	    if(y == 3){
 	    	p4.setText(x);
 	    }
-		
-		
 	}
 	
 	private void create(){
@@ -173,6 +172,12 @@ public class LobbyMenu extends JPanel {
 		
 	}
 	
+	public boolean closeConnection(){
+		return connection;
+		
+		
+	}
+	
 	public class Handler implements ActionListener {
 		GameMenu menu;
 		@Override
@@ -183,7 +188,9 @@ public class LobbyMenu extends JPanel {
 				 menu = new GameMenu(0);
 				}
 				else{
+					System.out.println("back pressed");
 				 menu = new GameMenu(1);
+				 connection = true;
 				}
 				add(menu);	
 			}
