@@ -19,13 +19,14 @@ public class Server extends Thread {
     protected boolean gameIsRunning = true;
     protected boolean inLobby = true;
     private ArrayList<Ant> ants = new ArrayList<>();
+    private ArrayList<Stack> stacks = new ArrayList<>();
     private String temp = "";
 
     public Server() throws Exception {
         serverSocket = new DatagramSocket(1203);
         players = new LinkedList<>();
-        ants = new ArrayList<>();
-
+        ants = new ArrayList<>();      
+        stacks = new ArrayList<>();
     }
 
     public void run() {
@@ -34,6 +35,7 @@ public class Server extends Thread {
         try {
             while (true) {
             	recData();
+            	//System.out.println(messageReceived);
                 if(inLobby)
                 {
                 	currentModeInLobby();
@@ -70,8 +72,13 @@ public class Server extends Thread {
     private void currentModeInLobby()
     {
         if(started){
-            System.out.println("trying to go into game bitch");
+            //System.out.println("trying to go into game bitch");
             inLobby = false;
+            for(String s :Resources.getAllStacks())
+    		{
+            	Stack stack = new Stack(s);
+            	stacks.add(stack);
+    		}
         }
         else if(messageReceived.equals("OK")) {
             started = true;
@@ -94,7 +101,6 @@ public class Server extends Thread {
                 	int playerID = i;
                 	sendData = ("setplayer" + playerID).getBytes();
                 }	
-                
             }
         }
     	
@@ -103,8 +109,28 @@ public class Server extends Thread {
     private void gameRunning() {
         if(messageReceived.equals("OK")) {
             sendData = temp.getBytes();
-           
-        } else if (!(messageReceived.equals(players.getLast()) || messageReceived.equals("success") || messageReceived.equals("start") || messageReceived.equals(null)
+            //System.out.println("HELLOW WORLD CAN U SEE ME");
+        }
+        else if(messageReceived.contains("setplayerstack"))
+        {
+        	String playerStack = messageReceived.replace("setplayerstack", "");
+        	Stack tempStack = new Stack(playerStack);
+        	for(Stack stack : stacks)
+        	{
+        		if(stack.getX() == tempStack.getY() && stack.getY() == tempStack.getY())
+        		{
+        			int index = stacks.indexOf(stack);
+        			stacks.set(index, tempStack);
+        			
+        		}
+        		
+        	}
+        	for(Stack stack : stacks)
+        	{
+        		System.out.println(stack.getPopulation());
+        	}
+        }
+        else if (!(messageReceived.equals(players.getLast()) || messageReceived.equals("success") || messageReceived.equals("start") || messageReceived.equals(null)
                 || messageReceived == null || messageReceived.equals("OK") || check(messageReceived)))
         {
             ants.add(new Ant(messageReceived));

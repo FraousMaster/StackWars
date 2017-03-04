@@ -51,8 +51,6 @@ public class GameController implements Observer{
 										int type = stackSelected.getConnectedStacks(s.getX(), s.getY()).get(0).getType();
 										int x = Resources.getAntXOffset(type);
 										int y = Resources.getAntYOffset(type);
-										System.out.println("STACK SELECTED X: " + stackSelected.getX());
-										System.out.println("OFFSET X: " + x);
 										gameState.addAnt(new Ant(stackSelected.getX() + x, stackSelected.getY() + y, 
 												stackSelected.getConnectedStacks(s.getX(), s.getY()).get(0).getType(), 
 												stackSelected.getConnectedStacks(s.getX(), s.getY())));

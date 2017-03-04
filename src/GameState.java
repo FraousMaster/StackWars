@@ -40,7 +40,7 @@ public class GameState extends Observable{
         setChanged();
     	notifyObservers();
     }
-
+    
     public void addAnt(Ant a){
         antsToUpload.add(a);
     }

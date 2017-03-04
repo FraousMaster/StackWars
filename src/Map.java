@@ -35,15 +35,25 @@ public class Map {
         drawImage();
         setLabel();
         setRoads();
+        ArrayList<String> temp = new ArrayList<>();
+        String a = "";
+        for(Stack s : stacks)
+        {
+        	a += s.getX() + ":" + s.getY() + ":" + s.getOwnedBy() + ":" + s.getPopulation();
+        	temp.add(a);
+        	a = "";
+        }
+        Resources.setAllStacks(temp);
         for(Stack s: stacks){
         	if(myStack == null)
+        	{
         		myStack = s;
-        	
+    		}
         	setMyStack(s);
-        	myStack.setOwnedBy();
-        	System.out.println("THIS IS THE STACK: " + s.getX() + ", " + s.getY());
         }
-        
+        myStack.setOwnedBy(5);
+    	a += myStack.getX() + ":" + myStack.getY() + ":" + myStack.getOwnedBy() + ":" + myStack.getPopulation();
+    	Resources.setMyStack(a);
     }
     
     private void setMyStack(Stack s)
@@ -52,6 +62,7 @@ public class Map {
     	{
     		if(s.getX() < myStack.getX() && s.getY() < myStack.getY())
     		{
+    			System.out.println(myStack);
     			myStack = s;
     		}
     	}

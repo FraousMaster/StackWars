@@ -19,6 +19,7 @@ public class Client extends Thread{
 	private InetAddress host;
 	private ArrayList<Ant> ants;
 	private GameState state;
+	private boolean checkFirst = true;
 	
 	@SuppressWarnings("static-access")
 	public Client(String IP, String name, LobbyMenu menu) throws SocketException{
@@ -71,10 +72,9 @@ public class Client extends Thread{
 			 System.out.println("TRYING TO START GAME!");
 			 menu.startGame();
 			 menu.returnGame();
+			 System.out.println("STARTED GAME");
 			 state = menu.returnState();
 			 inLobby = false;
-			 SendMessage = "success";
-			 sendData = SendMessage.getBytes();
 		 }
 		 else if(messageReceived.contains("setplayer"))
 		 {
@@ -148,7 +148,7 @@ public class Client extends Thread{
 				state.updateAllAnts(ants);
 			}
 		}
-
+		
 		if(!state.getAntsToUpload().isEmpty())
 		{
 			String x = "";
@@ -158,6 +158,13 @@ public class Client extends Thread{
 			}
 			SendMessage = x;
 			state.getAntsToUpload().clear();
+		}
+		else if(checkFirst)
+		{
+			checkFirst = false;
+			System.out.println("HELLOW WORLD CAN U SEE ME!");
+			SendMessage = "setplayerstack" + Resources.getMyStack();
+			sendData = SendMessage.getBytes();
 		}
 		else
 		{

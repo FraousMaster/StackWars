@@ -18,6 +18,9 @@ public class Resources {
     private static HashMap<Integer, ArrayList<Point>>  mapMap = new HashMap<>();
 	private static int myPlayerID;
 	
+	private static ArrayList<String> stacks = new ArrayList<>();
+	private static String myStack = "";
+	
 	private enum playerIDs{
 		player_one,
 		player_two,
@@ -92,15 +95,12 @@ public class Resources {
 		return yOffset;
 	}
 	
-	
 	public static void setResolution(int x, int y)
 	{
 		width = x;
 		scalingFactorX = width/20;
 		height = y;
 		scalingFactorY = height/20;
-		double x1 = x;
-		double y1 = y;
 	}
 	
 	public static void setMyPlayerID(String x)
@@ -148,5 +148,23 @@ public class Resources {
         }
 
     }
+    
+    public static void setAllStacks(ArrayList<String> stackString)
+    {
+    	stacks = stackString;
+    }
+    public static ArrayList<String> getAllStacks()
+    {
+    	return stacks;
+    }
 
+	public static void setMyStack(String s)
+	{
+		myStack = s;
+	}
+	public static String getMyStack()
+	{
+		return myStack;
+	}
 }
+
