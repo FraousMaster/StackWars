@@ -15,7 +15,7 @@ public class Resources {
 	private static int scalingFactorY = height/20;
 	
 	private static File setFile = new File("Settings\\file.xml");
-    private static HashMap<Integer, ArrayList<Point>> mapMap = new HashMap<>();
+    private static HashMap<Integer, ArrayList<Point>>  mapMap = new HashMap<>();
 	private static int myPlayerID;
 	
 	private enum playerIDs{
@@ -30,7 +30,10 @@ public class Resources {
 		
 	}
 
-
+    public static HashMap<Integer, ArrayList<Point>> getRoads()
+    {
+        return mapMap;
+    }
 	public static int getWidth()
 	{
 		return width;
@@ -100,13 +103,18 @@ public class Resources {
         tempTwo.add(end);
         tempTwo.add(start);
 
-        for(i = 0; i <= mapMap.size(); i ++){
-            if(mapMap.get(i).equals(tempOne) || mapMap.get(i).equals(tempTwo)){
+        if(mapMap.isEmpty()){
+            mapMap.put(0, tempOne);
+        }
+        for (i = 0; i < mapMap.size(); i++) {
+            if (mapMap.get(i).equals(tempOne) || mapMap.get(i).equals(tempTwo)) {
                 unique = false;
             }
         }
-        if(unique)
+
+        if(unique) {
             mapMap.put(i, tempOne);
+        }
 
     }
 

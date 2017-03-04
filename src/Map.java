@@ -77,11 +77,7 @@ public class Map {
     		}
     	}
     }
-    
-    public Stack getMyStacks()
-    {
-    	return myStack;
-    }
+
     private void readFile(){
         FileReader fr;
         int i, x = 0, y = 0;
@@ -237,7 +233,12 @@ public class Map {
     }
     private void addRoadToStack(int x,int y, int x1, int y1, ArrayList<Roads> list){
 
-        Resources.setAllRoads(list.get(0).getPos(), list.get(list.size()).getPos());
+        if(list != null) {
+            Point yP  = list.get((list.size()- 1)).getPos();
+            Point xP = list.get(0).getPos();
+            Resources.setAllRoads(xP, yP);
+        }
+
     	x1 = x1 * sX;
         y1 = y1 * sY;
         x = x * sX;
