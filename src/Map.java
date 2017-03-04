@@ -20,7 +20,7 @@ public class Map {
     private BufferedImage image;
     JLabel label;
     private ArrayList<Stack> stacks;
-    private ArrayList<Roads> allRoads;
+    private ArrayList<Roads> allRoads = new ArrayList<>();
     private int lastX, lastY;
     private int sX = Resources.getScalingFactorX(), sY = Resources.getScalingFactorY();
     private int playerID = Resources.getMyPlayerID();
