@@ -20,6 +20,7 @@ public class Map {
     private BufferedImage image;
     JLabel label;
     private ArrayList<Stack> stacks;
+    private ArrayList<Roads> allRoads;
     private int lastX, lastY;
     private int sX = Resources.getScalingFactorX(), sY = Resources.getScalingFactorY();
     private int playerID = Resources.getMyPlayerID();
@@ -248,6 +249,15 @@ public class Map {
             Point yP  = list.get((list.size()- 1)).getPos();
             Point xP = list.get(0).getPos();
             Resources.setAllRoads(xP, yP);
+        }
+        for(Roads r : list){
+            if(allRoads.isEmpty()){
+                allRoads.add(r);
+            }
+            else{
+                if(!(allRoads.contains(r)));
+                    allRoads.add(r);
+            }
         }
 
     	x1 = x1 * sX;
