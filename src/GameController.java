@@ -77,13 +77,13 @@ public class GameController implements Observer{
 		System.out.println("THIS IS THE TYPE IN GC: " + type);
 		int xOffset = 0;
 		switch(type) {
-			case 3: xOffset = -30;
+			case 3: xOffset = 10;
 					break;
-			case 4: xOffset = 40;
+			case 4: xOffset = 30;
 					break;
-			case 8: xOffset = -30;
+			case 8: xOffset = 10;
 					break;
-			case 9: xOffset = -70;
+			case 9: xOffset = -10;
 					break;
 		}
 		System.out.println("THIS IS THE VALUE OF OFFSET: " + xOffset);
@@ -94,13 +94,13 @@ public class GameController implements Observer{
 		System.out.println("THIS IS THE TYPE IN GC: " + type);
 		int yOffset = 0;
 		switch(type) {
-			case 3: yOffset = 50;
+			case 3: yOffset = 30;
 					break;
-			case 4: yOffset = 0;
+			case 4: yOffset = 15;
 					break;
-			case 8: yOffset = -50;	
+			case 8: yOffset = 0;	
 					break;
-			case 9: yOffset = 0;
+			case 9: yOffset = 15;
 					break;
 		}
 		System.out.println("THIS IS THE VALUE OF OFFSET: " + yOffset);

@@ -122,22 +122,22 @@ public class Server extends Thread {
                     int x = Integer.parseInt(antValues[0]);
                     if(type == 4)
                     {
-                    	x += 1;
+                    	x += 4;
                     }
                     if(type == 9)
                     {
-                    	x -= 1;
+                    	x -= 4;
                     }
                     
                     antValues[0] = x + "";
                     int b = Integer.parseInt(antValues[1]);
                     if(type == 3)
                     {
-                    	b += 1;
+                    	b += 4;
                     }
                     if(type == 8)
                     {
-                    	b -= 1;
+                    	b -= 4;
                     }
                     
                     antValues[1] = b + "";

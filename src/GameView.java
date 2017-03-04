@@ -71,7 +71,7 @@ public class GameView extends Observable implements Observer{
                 	g.drawString("Pop: " + s.getPopulation(), s.getX() + oX-20, s.getY() + oY + 5);
                 }
 				try {
-					image = ImageIO.read(new File("Graphics/Ant/AntV4.png"));
+					image = ImageIO.read(new File("Graphics/Ant/smallAnt.png"));
 
 				} catch (IOException e) {
 					e.printStackTrace();
@@ -84,7 +84,7 @@ public class GameView extends Observable implements Observer{
                 	AffineTransform tx = AffineTransform.getRotateInstance(rotationRequired, locationX, locationY);
                 	AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
                 	
-                    g.drawImage(op.filter(image, null), a.getPosX(), a.getPosY(), 82, 70, null);
+                    g.drawImage(op.filter(image, null), a.getPosX(), a.getPosY(), null);
                 }
             }
             
