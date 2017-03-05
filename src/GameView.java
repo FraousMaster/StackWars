@@ -67,11 +67,14 @@ public class GameView extends Observable implements Observer{
                 	{
                 		g.setColor(Color.GREEN);
                 	}
+                	else if(s.getOwnedBy() != 0)
+                	{
+                		g.setColor(Color.RED);
+                	}
                 	else
                 	{
                 		g.setColor(Color.WHITE);
                 	}
-                	
                 	int oX = Resources.getScalingFactorX()/2 - 20;
                 	int oY = Resources.getScalingFactorY()/2 + 3;
                 	g.drawString("Pop: " + s.getPopulation(), s.getX() + oX, s.getY()+ oY);

@@ -125,8 +125,15 @@ public class Server extends Thread {
     			if(count == 60)
 	                inLobby = false;
     			
-    			
-    			sendMessage = "started";
+    			String s = "";
+    			for(Stack stack : stacks)
+    			{
+    				if(stack.getOwnedBy() != 0)
+    				{
+    					s += stack.toString() + "&";
+    				}
+    			}
+    			sendMessage = "started" + s;
             }
     		else
     			sendMessage = "Start";

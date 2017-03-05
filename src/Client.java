@@ -147,8 +147,27 @@ public class Client extends Thread{
 
 	private void gameRunning() throws IOException{
 		
-		if(messageReceived.equals("started"))
+		if(messageReceived.contains("started"))
 		{
+			String a = messageReceived.replace("started", "");
+			String[] arr = a.split("&");
+			
+			for(int i = 0; i < arr.length; i++)
+			{
+				Stack enemyStack = new Stack(arr[i]);
+				if(enemyStack.getOwnedBy() != Resources.getMyPlayerID())
+				{
+					System.out.println(arr[0]);
+					for(Stack s : state.getStacks())
+					{
+						if(enemyStack.getX() == s.getX() && enemyStack.getY() == s.getY())
+						{
+							int temp = state.getStacks().indexOf(s);
+							state.getStacks().set(temp, enemyStack);
+						}
+					}
+				}
+			}
 			started = true;
 		}
 		else
@@ -157,7 +176,7 @@ public class Client extends Thread{
 		if(started)
 		{
 			//System.out.println("HELOOW WORLD CAN U SEE ME!");
-			if(!(messageReceived.equals("Start") || messageReceived.equals("started"))){
+			if(!(messageReceived.equals("Start") || messageReceived.contains("started"))){
 				if(messageReceived.equals("b"))
 				{
 					state.updateAllAnts(null);
