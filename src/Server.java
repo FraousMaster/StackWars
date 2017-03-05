@@ -20,6 +20,7 @@ public class Server extends Thread {
     protected boolean gameIsRunning = true;
     protected boolean inLobby = true;
     private boolean starting = false;
+    private int count = 0;
     private ArrayList<Ant> ants = new ArrayList<>();
     private ArrayList<Stack> stacks = new ArrayList<>();
     private ArrayList<Roads> roads = new ArrayList<>();
@@ -80,16 +81,20 @@ public class Server extends Thread {
     	{
     		if(messageReceived.equals("success"))
         	{
-        		System.out.println("WE GET ONE SUCCESS!");
+        		
         		countPlayersStarted++;
         		if(countPlayersStarted >= players.size())
         		{
+        			System.out.println("WE GET ONE SUCCESS!");
         			started = true;
         		}
         	}
     		else if(started){
                 //System.out.println("trying to go into game bitch");
-                inLobby = false;
+    			count++;
+    			if(count == 60)
+	                inLobby = false;
+    			
                 sendData = "started".getBytes();
                 for(String s :Resources.getAllStacks())
         		{
@@ -234,10 +239,8 @@ public class Server extends Thread {
          	int yPos = s.getY();
          	int xEndPos = xPos + xBlock;
          	int yEndPos = yPos + yBlock;
-         	System.out.println("XPOS: " + xPos + " YPOS : " + yPos + " ," +  x + " , " + y + " ,  " + xEndPos + " ,  " + yEndPos);
          	if(x > xPos && x < xEndPos && y > yPos && y < yEndPos)
          	{
-             	System.out.println("COLLIDEEE!!!");
              	return true;
      		}
          	

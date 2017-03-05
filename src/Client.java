@@ -156,6 +156,7 @@ public class Client extends Thread{
 		
 		if(started)
 		{
+			//System.out.println("HELOOW WORLD CAN U SEE ME!");
 			if(!(messageReceived.equals("Start") || messageReceived.equals("started"))){
 				if(messageReceived.equals("b"))
 				{
