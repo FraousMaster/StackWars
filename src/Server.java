@@ -27,6 +27,7 @@ public class Server extends Thread {
     private HashMap<Point, ArrayList<Roads>> allRoads = new HashMap<>();
     private String temp = "";
     private int countPlayersStarted = 0;
+    private String sendMessage;
 
     public Server() throws Exception {
         serverSocket = new DatagramSocket(1203);
@@ -57,10 +58,15 @@ public class Server extends Thread {
         }
     }
 
-    private void sendData() throws IOException{
-    	 DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, IPAddress, port);
-         serverSocket.send(sendPacket);
-    }
+    private void sendData(){
+		 try {
+		 	sendData = sendMessage.getBytes();
+			DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, IPAddress, port);
+			serverSocket.send(sendPacket);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+	 }
     
     private void recData() throws IOException{
     	
@@ -95,7 +101,7 @@ public class Server extends Thread {
     			if(count == 60)
 	                inLobby = false;
     			
-                sendData = "started".getBytes();
+    			sendMessage = "started";
                 for(String s :Resources.getAllStacks())
         		{
                 	Stack stack = new Stack(s);
@@ -108,13 +114,13 @@ public class Server extends Thread {
                 }
             }
     		else
-    			sendData = "Start".getBytes();
+    			sendMessage = "Start";
     	}
     	else
     	{
     		 if(messageReceived.equals("OK")) {
                 starting = true;
-                sendData = "Start".getBytes();
+                sendMessage = "Start";
     		 }
     		 else{
 	            if(players.contains(messageReceived)){
@@ -124,14 +130,14 @@ public class Server extends Thread {
 	                   y += x + "&";
 
 	                }
-	                sendData = y.getBytes();
+	                sendMessage = y;
 	            }
 	            else {
 	                players.add(messageReceived);
 	                for(int i = 0; i <= players.size(); i++)
 	                {
 	                	int playerID = i;
-	                	sendData = ("setplayer" + playerID).getBytes();
+	                	sendMessage = ("setplayer" + playerID);
 	                }	
 	            }
 	        }
@@ -140,7 +146,7 @@ public class Server extends Thread {
 
     private void gameRunning() {
         if(messageReceived.equals("OK")) {
-            sendData = temp.getBytes();
+        	sendMessage = temp;
             //System.out.println("HELLOW WORLD CAN U SEE ME");
         }
         else if(messageReceived.contains("setplayerstack"))
@@ -161,7 +167,7 @@ public class Server extends Thread {
                 || messageReceived == null || messageReceived.equals("OK") || check(messageReceived) || messageReceived.equals("waiting")))
         {
             ants.add(new Ant(messageReceived));
-            sendData = temp.getBytes();
+            sendMessage = temp;
         }
         if (!(ants.isEmpty())) {
             try {
@@ -211,7 +217,7 @@ public class Server extends Thread {
                     if(checkCollide(x, b, a.getCurrentMapObject()))
                 		ants.remove(a);
                     temp += "&" + a.toString() + "&";
-                    sendData =temp.getBytes();
+                    sendMessage =temp;
                     
                    
                     	
@@ -224,7 +230,7 @@ public class Server extends Thread {
             }
         }
         else
-        	sendData = "b".getBytes();
+        	sendMessage = "b";
     }
     
     private boolean checkCollide(int x, int y, int type)
