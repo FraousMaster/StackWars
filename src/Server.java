@@ -217,8 +217,11 @@ public class Server extends Thread {
                 		ants.remove(a);
                     temp += "&" + a.toString() + "&";
 <<<<<<< HEAD
+<<<<<<< HEAD
                     sendData =temp.getBytes();
 =======
+=======
+>>>>>>> d63166d66e0f0d11606d347ed5f3ce04a7fd37a5
                     sendMessage =temp;
                     
                    
