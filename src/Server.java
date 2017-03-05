@@ -88,7 +88,6 @@ public class Server extends Thread {
     	{
     		if(messageReceived.contains("success"))
         	{
-    			System.out.println(messageReceived);
         		countPlayersStarted++;
         		if(countPlayersStarted >= players.size())
         		{
@@ -104,6 +103,7 @@ public class Server extends Thread {
             		}
             		first = false;	
             	}
+        		System.out.println(messageReceived);
         		String a = messageReceived.replace("success", "");
         		Stack tempS = new Stack(a);
         		for(Stack stack : stacks)
@@ -113,13 +113,8 @@ public class Server extends Thread {
         				stacks.set(stacks.indexOf(stack), tempS);
         			}
         		}
-        		for(Stack s : stacks)
-        		{
-        			System.out.println(s.getOwnedBy());
-        		}
         	}
     		else if(started){
-                
     			count++;
     			
     			if(count == 10)
@@ -133,7 +128,7 @@ public class Server extends Thread {
     					s += stack.toString() + "&";
     				}
     			}
-    			System.out.println("IN SERVER: " + s);
+    			
     			sendMessage = "started" + s;
             }
     		else
