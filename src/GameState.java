@@ -35,6 +35,19 @@ public class GameState extends Observable{
     	return stacks;
     }
     
+    public void updateAllStacks(String a)
+    {
+    	System.out.println(a);
+    	Stack stack = new Stack(a);
+    	for(Stack s : stacks)
+    	{
+    		if(s.getX() == stack.getX() && s.getY() == stack.getY())
+    		{
+    			stacks.set(stacks.indexOf(s), stack);
+    		}
+    	}
+    }
+    
     public void updateAllAnts(ArrayList<Ant> a){
     	if(a != null)
         {

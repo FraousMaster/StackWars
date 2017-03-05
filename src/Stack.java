@@ -20,7 +20,7 @@ public class Stack extends JComponent{
     }
     
     public String toString(){
-    	return stackPosX + ":" + stackPosY + ":" + ownedBy + ":" + population + ":";
+    	return stackPosX + ":" + stackPosY + ":" + ownedBy + ":" + population;
     }
     
     public Stack(String s){

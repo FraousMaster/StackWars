@@ -24,6 +24,7 @@ public class Server extends Thread {
     private ArrayList<Ant> ants = new ArrayList<>();
     private ArrayList<Stack> stacks = new ArrayList<>();
     private ArrayList<Roads> roads = new ArrayList<>();
+    private ArrayList<String> stacksToUpdate = new ArrayList<>();
     private HashMap<Point, ArrayList<Roads>> allRoads = new HashMap<>();
     private String temp = "";
     private int countPlayersStarted = 0;
@@ -103,7 +104,7 @@ public class Server extends Thread {
             		}
             		first = false;	
             	}
-        		System.out.println(messageReceived);
+        		
         		String a = messageReceived.replace("success", "");
         		Stack tempS = new Stack(a);
         		for(Stack stack : stacks)
@@ -126,6 +127,7 @@ public class Server extends Thread {
     				if(stack.getOwnedBy() != 0)
     				{
     					s += stack.toString() + "&";
+    					//System.out.println(s);
     				}
     			}
     			
@@ -185,7 +187,20 @@ public class Server extends Thread {
         else if (!(messageReceived.equals(players.getLast()) || messageReceived.contains("success") || messageReceived.equals("start") || messageReceived.equals(null)
                 || messageReceived == null || messageReceived.equals("OK") || check(messageReceived) || messageReceived.equals("waiting")))
         {
-            ants.add(new Ant(messageReceived));
+        	Ant dummy = new Ant(messageReceived);
+            ants.add(dummy);
+            int xS = Resources.getAntXOffset(dummy.getCurrentMapObject());
+            int yS = Resources.getAntYOffset(dummy.getCurrentMapObject());
+            //System.out.println("FACTOR : " + xS + " , " + yS);
+            for(Stack s : stacks)
+            {	
+            	//System.out.println("DUMMY : " + dummy.getPosX() + " , " + dummy.getPosY());
+            	if((dummy.getPosX() - xS) == s.getX() && (dummy.getPosY() - yS) == s.getY())
+            	{
+            		//System.out.println("HELOOW WORLD CAN U SEE ME!");
+            		setStacksToUpdate(s, -1);
+            	}
+            }
             sendMessage = temp;
         }
         if (!(ants.isEmpty())) {
@@ -249,9 +264,39 @@ public class Server extends Thread {
             if(checkCollide(a, x, b))
             	ants.remove(a);
             temp += "&" + a.toString() + "&";
-            sendData =temp.getBytes();
+            String s = "";
+            if(!stacksToUpdate.isEmpty())
+            {
+            	s = "s" + getStacksToUpdate();;
+            	temp += dummy;
+            }
+            sendData = temp.getBytes();
             sendMessage = temp;
+            temp.replace(s, "");
         }
+    }
+    
+    private String getStacksToUpdate()
+    {
+    	String a = "";
+    	for(String s : stacksToUpdate)
+    	{
+    		a += s;
+    	}
+    	stacksToUpdate = new ArrayList<>();
+    	return a;
+    }
+    private void setStacksToUpdate(Stack s, int x)
+    {
+    	if(x > 0)
+    	{
+    		s.increasePopulation();
+    	}
+    	else
+    		s.decreasePopulation();
+    	
+    	
+    	stacksToUpdate.add(s.toString());
     }
     
     private void antsCollide(Ant a)
@@ -330,13 +375,14 @@ public class Server extends Thread {
              
     		if(s.getOwnedBy() != a.getOwnedBy())
     		{
-    			System.out.println(s.getOwnedBy() + " , " + a.getOwnedBy());
+    			//System.out.println(s.getOwnedBy() + " , " + a.getOwnedBy());
 	         	int xPos = s.getX() + 10;
 	         	int yPos = s.getY() - 10;
 	         	int xEndPos = xPos + xBlock;
 	         	int yEndPos = yPos + yBlock;
 	         	if(x > xPos && x < xEndPos && y > yPos && y < yEndPos)
 	         	{
+	         		setStacksToUpdate(s, -1);
 	             	return true;
 	     		}
     		}
