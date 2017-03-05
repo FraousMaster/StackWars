@@ -87,6 +87,10 @@ public class Stack extends JComponent{
     {
     	population += 1;
     }
+    public void setPopulation(int x)
+    {
+    	population = x;
+    }
     public ArrayList<Roads> getConnectedStacks(int x, int y)
     {
     	Point key = new Point(x,y);

@@ -49,7 +49,8 @@ public class GameState extends Observable{
 		    	{
 		    		if(s.getX() == stack.getX() && s.getY() == stack.getY())
 		    		{
-		    			stacks.set(stacks.indexOf(s), stack);
+		    			s.setPopulation(stack.getPopulation());
+		    			s.setOwnedBy(stack.getOwnedBy());
 		    		}
 		    	}
     		}

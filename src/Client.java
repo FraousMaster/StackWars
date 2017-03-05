@@ -188,6 +188,7 @@ public class Client extends Thread{
 				}
 				else if(!messageReceived.equals("")){
 					String[] a = messageReceived.split("s");
+					System.out.println(messageReceived);
 					state.updateAllStacks(a[1]);
 					ants = freshList(a[0]);
 					state.updateAllAnts(ants);

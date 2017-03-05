@@ -181,7 +181,6 @@ public class Server extends Thread {
         			int index = stacks.indexOf(stack);
         			stacks.set(index, tempStack);
         		}
-        		
         	}
         }
         else if (!(messageReceived.equals(players.getLast()) || messageReceived.contains("success") || messageReceived.equals("start") || messageReceived.equals(null)
@@ -204,6 +203,7 @@ public class Server extends Thread {
             try 
             {
             	antCalculations();
+            	//System.out.println(getAllStacks());
             	temp += "s" + getAllStacks();
                 sendData = temp.getBytes();
                 sendMessage = temp;
@@ -398,7 +398,7 @@ public class Server extends Thread {
     			int x2 = s.getX();
     			if(type == 4)
     			{
-    				if((x1 + 30) >= x2)
+    				if((x1 + 30) >= x2 && x1 <= (x2 + xBlock))
     				{
     					if(s.getOwnedBy() == a.getOwnedBy())
     					{
@@ -413,8 +413,9 @@ public class Server extends Thread {
     			}
     			else
     			{
-    				if(x1 <= (x2 + xBlock))
+    				if(x1 <= (x2 + xBlock) && x1 > x2)
     				{
+    					
     					if(s.getOwnedBy() == a.getOwnedBy())
     					{
     						s.increasePopulation();
