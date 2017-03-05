@@ -30,7 +30,7 @@ public class Server extends Thread {
     private int countPlayersStarted = 0;
     private String sendMessage;
     private boolean first = true;
-    
+    private int popIncrease = 0;
     public Server() throws Exception {
         serverSocket = new DatagramSocket(1203);
         players = new LinkedList<>();
@@ -270,11 +270,21 @@ public class Server extends Thread {
     
     private String getAllStacks()
     {
+    	popIncrease++;
+    	boolean increaseCheck = false;
+    	
     	String stacksInString = "";
     	for(Stack s : stacks)
     	{
+    		if(popIncrease >= 120)
+    		{
+    			s.increasePopulation();
+    			increaseCheck = true;
+    		}
     		stacksInString += s.toString() + "&";
     	}
+    	if(increaseCheck)
+    		popIncrease = 0;
     	
     	return stacksInString;
     }
@@ -353,15 +363,18 @@ public class Server extends Thread {
     	int yBlock = Resources.getScalingFactorY() - 3;
     	for(Stack s : stacks){
     		int type = a.getCurrentMapObject();
+    		int antOffX = Resources.getAntXOffset(type);
+			int antOffY = Resources.getAntYOffset(type);
+			int x1 = a.getPosX();
+			int x2 = s.getX();
+			int y1 = a.getPosY();
+    		int y2 = s.getY();
 			if(type == 3 || type == 8)
-    		{
-    			int y1 = a.getPosY();
-        		int y2 = s.getY();
-    			
+			{
     			if(type == 3)
     			{
     				
-    				if((y1 + 30) >= y2 && y1 <= (y2 + yBlock))
+    				if((y1 + 30) >= y2 && y1 <= (y2 + yBlock) && (x1 - antOffX) >= x2 && (x1- antOffX) <= (x2 + xBlock))
     				{
     					System.out.println((y1 + 30) + " , "  + y2 + " , " + y1 + " , " + (y2 + yBlock));
     					if(s.getOwnedBy() == a.getOwnedBy())
@@ -377,7 +390,7 @@ public class Server extends Thread {
     			}
     			else
     			{
-    				if(y1 <= (y2 + yBlock) && y1 >= y2)
+    				if(y1 <= (y2 + yBlock) && y1 >= y2 && (x1 - antOffX) >= x2 && (x1- antOffX) <= (x2 + xBlock))
     				{
     					if(s.getOwnedBy() == a.getOwnedBy())
     					{
@@ -394,11 +407,10 @@ public class Server extends Thread {
     		if(type == 4 || type == 9)
     		{
     			
-    			int x1 = a.getPosX();
-    			int x2 = s.getX();
+    			
     			if(type == 4)
     			{
-    				if((x1 + 30) >= x2 && x1 <= (x2 + xBlock))
+    				if((x1 + 30) >= x2 && x1 <= (x2 + xBlock) && (y1 - antOffY) >= y2 && (y1 - antOffY) <= (y2 + yBlock))
     				{
     					if(s.getOwnedBy() == a.getOwnedBy())
     					{
@@ -413,7 +425,7 @@ public class Server extends Thread {
     			}
     			else
     			{
-    				if(x1 <= (x2 + xBlock) && x1 > x2)
+    				if(x1 <= (x2 + xBlock) && x1 > x2 && (y1 - antOffY) >= y2 && (y1 - antOffY) <= (y2 + yBlock))
     				{
     					
     					if(s.getOwnedBy() == a.getOwnedBy())

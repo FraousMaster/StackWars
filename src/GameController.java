@@ -69,20 +69,6 @@ public class GameController implements Observer{
 		}
 		if(o == gameState)
 		{
-			populationIncrease++;
-			if(populationIncrease >= 120)
-			{
-				for(Stack s : gameState.getStacks())
-				{
-					if(s.getOwnedBy() != 0)
-					{
-						s.increasePopulation();
-					}
-				}
-				populationIncrease = 0;
-			}
-			//System.out.println("ENTERING UPDATE IN GAME CONTROLLER");
-			//gameView.updateFrame();
 			
 		}
 	}
