@@ -63,13 +63,17 @@ public class GameView extends Observable implements Observer{
                 g.drawImage(gameState.getMap().getImage(), 0, 0, D_W, D_H, null);
                 for(Stack s : gameState.getStacks())
                 {
-                	if(s.getOwnedBy() == Resources.getMyPlayerID())
+                	if(s.getOwnedBy() == 1)
                 	{
                 		g.setColor(Color.GREEN);
                 	}
-                	else if(s.getOwnedBy() != 0)
+                	else if(s.getOwnedBy() == 2)
                 	{
                 		g.setColor(Color.RED);
+                	}
+                	else if(s.getOwnedBy() == 3)
+                	{
+                		g.setColor(Color.BLUE);
                 	}
                 	else
                 	{
