@@ -246,7 +246,7 @@ public class Server extends Thread {
             	
             antsCollide(a);
             
-            if(checkCollide(x, b, a.getCurrentMapObject()))
+            if(checkCollide(a, x, b))
             	ants.remove(a);
             temp += "&" + a.toString() + "&";
             sendData =temp.getBytes();
@@ -300,7 +300,6 @@ public class Server extends Thread {
         			{
         				if(x1 > (x2 - 36))
         				{
-        					System.out.println("Hellow world!" + x1 + " x2 : " + x2);
         					antTemp = check;
         					break;
         				}
@@ -323,23 +322,24 @@ public class Server extends Thread {
     	}
     	ants = temp;
     }
-    private boolean checkCollide(int x, int y, int type)
+    private boolean checkCollide(Ant a, int x, int y)
     {
-    	int xOff = Resources.getAntXOffset(type);
-    	int yOff = Resources.getAntYOffset(type);
     	int xBlock = Resources.getScalingFactorX();
     	int yBlock = Resources.getScalingFactorY();
     	for(Stack s : stacks){
              
-         	int xPos = s.getX();
-         	int yPos = s.getY();
-         	int xEndPos = xPos + xBlock;
-         	int yEndPos = yPos + yBlock;
-         	if(x > xPos && x < xEndPos && y > yPos && y < yEndPos)
-         	{
-             	return true;
-     		}
-         	
+    		if(s.getOwnedBy() != a.getOwnedBy())
+    		{
+    			System.out.println(s.getOwnedBy() + " , " + a.getOwnedBy());
+	         	int xPos = s.getX() + 10;
+	         	int yPos = s.getY() - 10;
+	         	int xEndPos = xPos + xBlock;
+	         	int yEndPos = yPos + yBlock;
+	         	if(x > xPos && x < xEndPos && y > yPos && y < yEndPos)
+	         	{
+	             	return true;
+	     		}
+    		}
          }
     	 return false;
     }
