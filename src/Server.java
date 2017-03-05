@@ -182,64 +182,17 @@ public class Server extends Thread {
         		
         	}
         }
-        else if (!(messageReceived.equals(players.getLast()) || messageReceived.equals("success") || messageReceived.equals("start") || messageReceived.equals(null)
+        else if (!(messageReceived.equals(players.getLast()) || messageReceived.contains("success") || messageReceived.equals("start") || messageReceived.equals(null)
                 || messageReceived == null || messageReceived.equals("OK") || check(messageReceived) || messageReceived.equals("waiting")))
         {
             ants.add(new Ant(messageReceived));
             sendMessage = temp;
         }
         if (!(ants.isEmpty())) {
-            try {
-                temp = "";
-                for (int i = 0; i < ants.size(); i++) {
-                    Ant a = ants.get(i);
-                    
-                    //System.out.println("This is the ant at index " + i + " and its value " + a);
-            		String[] antValues = a.toString().split(":");
-            		int type = Integer.parseInt(antValues[3]);
-                    int x = Integer.parseInt(antValues[0]);
-                    if(type == 4)
-                    {
-                    	x += 8;
-                    }
-                    if(type == 9)
-                    {
-                    	x -= 8;
-                    }
-                    
-                    antValues[0] = x + "";
-                    int b = Integer.parseInt(antValues[1]);
-                    if(type == 3)
-                    {
-                    	b += 8;
-                    }
-                    if(type == 8)
-                    {
-                    	b -= 8;
-                    }
-                    
-                    		
-                    antValues[1] = b + "";
-                    String dummy = "";
-                    boolean first = true;
-                    for (String s : antValues) {
-                        if (first) {
-                            dummy += s;
-                            first = false;
-                        } else {
-                            dummy += ":" + s;
-                        }
-                    }
-                    a = new Ant(dummy);
-                    ants.set(i, a);
-                    if(checkCollide(x, b, a.getCurrentMapObject()))
-                		ants.remove(a);
-                    temp += "&" + a.toString() + "&";
-                    sendData =temp.getBytes();
-                    sendMessage =temp;
-                    
-                }
-                sleep(33);
+            try 
+            {
+            	antCalculations();
+            	sleep(33);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -248,6 +201,128 @@ public class Server extends Thread {
         	sendMessage = "b";
     }
     
+    private void antCalculations()
+    {
+    	temp = "";
+        for (int i = 0; i < ants.size(); i++) {
+            Ant a = ants.get(i);
+            
+    		String[] antValues = a.toString().split(":");
+    		int type = Integer.parseInt(antValues[3]);
+            int x = Integer.parseInt(antValues[0]);
+            if(type == 4)
+            {
+            	x += 8;
+            }
+            if(type == 9)
+            {
+            	x -= 8;
+            }
+            
+            antValues[0] = x + "";
+            int b = Integer.parseInt(antValues[1]);
+            if(type == 3)
+            {
+            	b += 8;
+            }
+            if(type == 8)
+            {
+            	b -= 8;
+            }
+            
+            antValues[1] = b + "";
+            String dummy = "";
+            boolean first = true;
+            for (String s : antValues) {
+                if (first) {
+                    dummy += s;
+                    first = false;
+                } else {
+                    dummy += ":" + s;
+                }
+            }
+            a = new Ant(dummy);
+            ants.set(i, a);
+            	
+            antsCollide(a);
+            
+            if(checkCollide(x, b, a.getCurrentMapObject()))
+            	ants.remove(a);
+            temp += "&" + a.toString() + "&";
+            sendData =temp.getBytes();
+            sendMessage = temp;
+        }
+    }
+    
+    private void antsCollide(Ant a)
+    {
+    	ArrayList<Ant> temp = ants;
+    	Ant antTemp = null;
+    	for(Ant check : temp)
+    	{
+    		int owner1 = a.getOwnedBy();
+    		int owner2 = check.getOwnedBy();
+    		
+    		if(owner1 != owner2)
+    		{
+    			
+        		int type2 = check.getCurrentMapObject();
+        		int type1 = a.getCurrentMapObject();
+        		
+        		if((type1 == 3 && type2 == 8) || (type1 == 8 && type2 == 3))
+        		{
+        			int y1 = a.getPosY();
+            		int y2 = check.getPosY();
+        			
+        			if(type1 == 3)
+        			{
+        				if((y2- 7) > y1)
+        				{
+        					antTemp = check;
+        					break;
+        				}
+        			}
+        			else
+        			{
+        				if(y1 < (y2 - 7))
+        				{
+        					antTemp = check;
+        					break;
+        				}
+        			}
+        		}
+        		if((type1 == 4 && type2 == 9) || (type1 == 4 && type2 == 9))
+        		{
+        			
+        			int x1 = a.getPosX();
+        			int x2 = check.getPosX();
+        			if(type1 == 4)
+        			{
+        				if(x1 > (x2 - 36))
+        				{
+        					System.out.println("Hellow world!" + x1 + " x2 : " + x2);
+        					antTemp = check;
+        					break;
+        				}
+        			}
+        			else
+        			{
+        				if((x2 + 36) < x1)
+        				{
+        					antTemp = check;
+        					break;
+        				}
+        			}
+        		}
+    		}
+    	}
+    	if(antTemp != null)
+    	{
+    		temp.remove(antTemp);
+    		temp.remove(a);
+    	}
+    	ants = temp;
+    }
     private boolean checkCollide(int x, int y, int type)
     {
     	int xOff = Resources.getAntXOffset(type);

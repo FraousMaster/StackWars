@@ -74,7 +74,7 @@ public class GameController implements Observer{
 			{
 				for(Stack s : gameState.getStacks())
 				{
-					if(s.getOwnedBy() == Resources.getMyPlayerID())
+					if(s.getOwnedBy() != 0)
 					{
 						s.increasePopulation();
 					}
