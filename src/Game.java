@@ -9,12 +9,14 @@ public class Game {
     private GameView gameView = null;
     private GameController gameController = null;
     private GameState gameState = null;
+    private AnticipatedUppdate antup;
     public Game() {
     	Resources.setResolution(1920,1080);
     	readingSettings();
         gameState = new GameState();
         gameView = new GameView(gameState);
         gameController = new GameController(gameView, gameState);
+        antup = new AnticipatedUppdate(gameState);
         gameState.addObserver(gameView);
         gameState.addObserver(gameController);
         gameView.addObserver(gameController);     
@@ -22,7 +24,6 @@ public class Game {
     
     public GameState getState(){
     	return gameState;
-    	
     }
     
     private void readingSettings(){
