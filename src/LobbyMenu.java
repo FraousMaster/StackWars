@@ -81,6 +81,10 @@ public class LobbyMenu extends JPanel {
 	}
 	
 	private void create(){
+		
+		ImageIcon crt = new ImageIcon("Graphics/Buttons/Start.png");
+		ImageIcon bck = new ImageIcon("Graphics/Buttons/back.png");
+		
 		GridBagConstraints c = new GridBagConstraints();
 		p1 = new JLabel("Waiting...");
 		p2 = new JLabel("Waiting...");
@@ -88,9 +92,15 @@ public class LobbyMenu extends JPanel {
 		p4 = new JLabel("Waiting...");
 		
 		
-		if(cameFrom == 0)
+		if(cameFrom == 0){
 		start = new JButton("Start");
+		start.setIcon(crt);
+		start.setIconTextGap(-6);	
+		}
+		
 		back = new JButton("Back");
+		back.setIcon(bck);
+		
 		
 		if(cameFrom == 0)
 		start.addActionListener(new Handler());
@@ -98,9 +108,10 @@ public class LobbyMenu extends JPanel {
 		back.addActionListener(new Handler());
 		
 		if(cameFrom == 0)
-		start.setPreferredSize(new Dimension(100, 50));
-		
-		back.setPreferredSize(new Dimension(100, 50));
+		start.setPreferredSize(new Dimension(100, 40));
+		back.setPreferredSize(new Dimension(100, 40));
+		back.setIconTextGap(-6);	
+	
 		p1.setPreferredSize(new Dimension(100, 50));
 		p2.setPreferredSize(new Dimension(100, 50));
 		p3.setPreferredSize(new Dimension(100, 50));
