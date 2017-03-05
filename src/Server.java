@@ -122,7 +122,7 @@ public class Server extends Thread {
                 //System.out.println("trying to go into game bitch");
     			count++;
     			
-    			if(count == 60)
+    			if(count == 10)
 	                inLobby = false;
     			
     			String s = "";
