@@ -1,12 +1,6 @@
 package Global;
-import org.w3c.dom.*;
-import javax.xml.parsers.*;
-
-import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class Resources {
 	private static int width = 1920;

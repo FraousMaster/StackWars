@@ -19,6 +19,10 @@ public class Stack extends JComponent{
         ownedBy = 0;
     }
     
+    public String toString(){
+    	return getX() + ":" + getY();
+    }
+    
     public Stack(String s){
     	String b[] = s.split(":");
     	stackPosX = Integer.parseInt(b[0]);

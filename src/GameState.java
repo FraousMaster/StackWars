@@ -30,7 +30,7 @@ public class GameState extends Observable{
     public ArrayList<Ant> getAntsToUpload(){
         return antsToUpload;
     }
-
+    
     public ArrayList<Stack> getStacks(){
     	return stacks;
     }

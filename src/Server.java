@@ -180,13 +180,31 @@ public class Server extends Thread {
                         } else {
                             dummy += ":" + s;
                         }
-
-                        //System.out.println("This is my new position " + dummy);
                     }
+                   // System.out.println("This is my new position " + dummy);
                     a = new Ant(dummy);
                     ants.set(i, a);
                     temp += "&" + a.toString() + "&";
                     sendData =temp.getBytes();
+                    
+                    for(Stack s : stacks){
+                    
+                    	int xPos = s.getX();
+                    	int y = s.getY();
+                    	//System.out.println("stack xpos = "+ xPos+ "  ypos = "+ y);
+                    	
+                    	
+                    	//System.out.println("ant xpos = "+( a.getPosX()-25) + "  ypos = "+  (a.getPosY()-1));
+                    	
+                    if(a.getPosX()-25 == xPos && a.getPosY()-1 == y  ){
+                    	System.out.println("COLLIDEEE!!!");
+                    	ants.remove(a);
+                    
+                    	}
+                    }
+                    	
+                    	
+                 
                 }
                 sleep(50);
             } catch (InterruptedException e) {

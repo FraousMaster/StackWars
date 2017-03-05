@@ -86,7 +86,7 @@ public class Map {
     	{
     		if(s.getX() <= myStack.getX() && s.getY() <= myStack.getY())
     		{
-    			System.out.println(myStack);
+    			//System.out.println(myStack);
     			myStack = s;
     		}
     	}
@@ -357,7 +357,7 @@ public class Map {
                 }
                 else if (mapY.get(i).get(j) == sY) {//6
                     try {
-                    	System.out.println("TRYING TO MAKE LEFT TOP MAP OBJECT");
+                    	//System.out.println("TRYING TO MAKE LEFT TOP MAP OBJECT");
                         image = ImageIO.read(new File("Graphics/lefttop.png"));
                         g.drawImage(image, sX * j , sY * i, sX, sY, null);
                     } catch (IOException e) {
