@@ -19,7 +19,8 @@ public class Client extends Thread{
 	private InetAddress host;
 	private ArrayList<Ant> ants;
 	private GameState state;
-	
+	private boolean started = false;
+	private boolean first = true;
 	@SuppressWarnings("static-access")
 	public Client(String IP, String name, LobbyMenu menu) throws SocketException{
 		this.IP_ADDRESS = IP;
@@ -96,7 +97,11 @@ public class Client extends Thread{
 			 }
 		 }
 		 if(menu.startPressed()){
-			 SendMessage = "OK";	
+			 if(first)
+			 {
+				 SendMessage = "OK";
+				 first = false;
+			 }
 		 }
 	 }
 	 
@@ -141,32 +146,41 @@ public class Client extends Thread{
 	 }
 
 	private void gameRunning() throws IOException{
-
-		if(!(messageReceived.equals("Start"))){
-			if(messageReceived.equals("b"))
-			{
-				state.updateAllAnts(null);
-			}
-			else if(!messageReceived.equals("")){
-				ants = freshList(messageReceived);
-				state.updateAllAnts(ants);
-			}
-			
-		}
-
-		if(!state.getAntsToUpload().isEmpty())
+		
+		if(messageReceived.equals("started"))
 		{
-			String x = "";
-			for(Ant s : state.getAntsToUpload())
-			{
-				x += s.toString();
-			}
-			SendMessage = x;
-			state.getAntsToUpload().clear();
+			started = true;
 		}
 		else
+			SendMessage = "waiting".toString();
+		
+		if(started)
 		{
-			SendMessage = "OK".toString();
+			if(!(messageReceived.equals("Start") || messageReceived.equals("started"))){
+				if(messageReceived.equals("b"))
+				{
+					state.updateAllAnts(null);
+				}
+				else if(!messageReceived.equals("")){
+					ants = freshList(messageReceived);
+					state.updateAllAnts(ants);
+				}
+				
+			}
+			if(!state.getAntsToUpload().isEmpty())
+			{
+				String x = "";
+				for(Ant s : state.getAntsToUpload())
+				{
+					x += s.toString();
+				}
+				SendMessage = x;
+				state.getAntsToUpload().clear();
+			}
+			else
+			{
+				SendMessage = "OK".toString();
+			}
 		}
 	}
 	
