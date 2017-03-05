@@ -143,10 +143,15 @@ public class Client extends Thread{
 	private void gameRunning() throws IOException{
 
 		if(!(messageReceived.equals("Start"))){
-			if(!messageReceived.equals("")){
+			if(messageReceived.equals("b"))
+			{
+				state.updateAllAnts(null);
+			}
+			else if(!messageReceived.equals("")){
 				ants = freshList(messageReceived);
 				state.updateAllAnts(ants);
 			}
+			
 		}
 
 		if(!state.getAntsToUpload().isEmpty())

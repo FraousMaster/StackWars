@@ -9,6 +9,8 @@ public class GameController implements Observer{
 	private GameState gameState = null;
 	private Stack stackSelected;
 	private int populationIncrease = 0;
+	private int sX = Resources.getScalingFactorX();
+	private int sY = Resources.getScalingFactorY();
 	public GameController(GameView gameView, GameState gameState)
 	{
 		this.gameView = gameView;
@@ -27,8 +29,8 @@ public class GameController implements Observer{
 				
 				for(Stack s : gameState.getStacks())
 				{
-					if(point.getX() >= s.getX() && point.getX() <= (s.getX() + 96) && 
-					   point.getY() >= s.getY() && point.getY() <= (s.getY() + 54))
+					if(point.getX() >= s.getX() && point.getX() <= (s.getX() + sX) && 
+					   point.getY() >= s.getY() && point.getY() <= (s.getY() + sY))
 					{
 						
 						

@@ -170,6 +170,7 @@ public class Server extends Thread {
                     	b -= 4;
                     }
                     
+                    		
                     antValues[1] = b + "";
                     String dummy = "";
                     boolean first = true;
@@ -184,35 +185,47 @@ public class Server extends Thread {
                    // System.out.println("This is my new position " + dummy);
                     a = new Ant(dummy);
                     ants.set(i, a);
+                    if(checkCollide(x, b, a.getCurrentMapObject()))
+                		ants.remove(a);
                     temp += "&" + a.toString() + "&";
                     sendData =temp.getBytes();
                     
-                    for(Stack s : stacks){
-                    
-                    	int xPos = s.getX();
-                    	int y = s.getY();
-                    	//System.out.println("stack xpos = "+ xPos+ "  ypos = "+ y);
-                    	
-                    	
-                    	//System.out.println("ant xpos = "+( a.getPosX()-25) + "  ypos = "+  (a.getPosY()-1));
-                    	
-                    if(a.getPosX()-25 == xPos && a.getPosY()-1 == y  ){
-                    	System.out.println("COLLIDEEE!!!");
-                    	ants.remove(a);
-                    
-                    	}
-                    }
+                   
                     	
                     	
                  
                 }
-                sleep(50);
+                sleep(33);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
+        else
+        	sendData = "b".getBytes();
     }
-
+    
+    private boolean checkCollide(int x, int y, int type)
+    {
+    	int xOff = Resources.getAntXOffset(type);
+    	int yOff = Resources.getAntYOffset(type);
+    	int xBlock = Resources.getScalingFactorX();
+    	int yBlock = Resources.getScalingFactorY();
+    	for(Stack s : stacks){
+             
+         	int xPos = s.getX();
+         	int yPos = s.getY();
+         	int xEndPos = xPos + xBlock;
+         	int yEndPos = yPos + yBlock;
+         	//System.out.println("XPOS: " + xPos + " YPOS : " + yPos + " ," +  x + " , " + y + " ,  " + xEndPos + " ,  " + yEndPos);
+         	if(x > xPos && x < xEndPos && y > yPos && y < yEndPos)
+         	{
+             	System.out.println("COLLIDEEE!!!");
+             	return true;
+     		}
+         	
+         }
+    	 return false;
+    }
     private boolean check(String s)
     {
         boolean exists = false;

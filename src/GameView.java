@@ -92,6 +92,7 @@ public class GameView extends Observable implements Observer{
                 	
                     g.drawImage(op.filter(image, null), a.getPosX(), a.getPosY(), null);
                 }
+                
             }
             
             public double getRotationRequired(Ant a)

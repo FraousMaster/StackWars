@@ -36,7 +36,13 @@ public class GameState extends Observable{
     }
     
     public void updateAllAnts(ArrayList<Ant> a){
-        ants = a;
+    	if(a != null)
+        {
+    		ants = a;
+        }
+    	else
+    		ants = new ArrayList<>();
+    	
         setChanged();
     	notifyObservers();
     }
