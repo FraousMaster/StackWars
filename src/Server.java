@@ -28,7 +28,8 @@ public class Server extends Thread {
     private String temp = "";
     private int countPlayersStarted = 0;
     private String sendMessage;
-
+    private boolean first = true;
+    
     public Server() throws Exception {
         serverSocket = new DatagramSocket(1203);
         players = new LinkedList<>();
@@ -85,33 +86,47 @@ public class Server extends Thread {
     {
     	if(starting)
     	{
-    		if(messageReceived.equals("success"))
+    		if(messageReceived.contains("success"))
         	{
-        		
+    			System.out.println(messageReceived);
         		countPlayersStarted++;
         		if(countPlayersStarted >= players.size())
         		{
         			System.out.println("WE GET ONE SUCCESS!");
         			started = true;
         		}
+        		if(first)
+            	{
+            		for(String s :Resources.getAllStacks())
+            		{
+                    	Stack stack = new Stack(s);
+                    	stacks.add(stack);
+            		}
+            		first = false;	
+            	}
+        		String a = messageReceived.replace("success", "");
+        		Stack tempS = new Stack(a);
+        		for(Stack stack : stacks)
+        		{
+        			if(stack.getX() == tempS.getX() && stack.getY() == tempS.getY())
+        			{
+        				stacks.set(stacks.indexOf(stack), tempS);
+        			}
+        		}
+        		for(Stack s : stacks)
+        		{
+        			System.out.println(s.getOwnedBy());
+        		}
         	}
     		else if(started){
                 //System.out.println("trying to go into game bitch");
     			count++;
+    			
     			if(count == 60)
 	                inLobby = false;
     			
+    			
     			sendMessage = "started";
-                for(String s :Resources.getAllStacks())
-        		{
-                	Stack stack = new Stack(s);
-                	stacks.add(stack);
-        		}
-                for(String s : Resources.getAllRoads())
-                {
-                	Roads road = new Roads(s);
-                	roads.add(road);
-                }
             }
     		else
     			sendMessage = "Start";
@@ -145,6 +160,7 @@ public class Server extends Thread {
     }
 
     private void gameRunning() {
+    		
         if(messageReceived.equals("OK")) {
         	sendMessage = temp;
             //System.out.println("HELLOW WORLD CAN U SEE ME");

@@ -66,6 +66,11 @@ public class Stack extends JComponent{
 	   	}
     	setOwnedBy();
     }
+    public void setOwnedByEnemy(String s)
+    {
+    	Stack stack = new Stack(s);
+    	this.ownedBy = stack.getOwnedBy();
+    }
     public void decreasePopulation()
     {
     	population -= 1;

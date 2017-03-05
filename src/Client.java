@@ -74,7 +74,7 @@ public class Client extends Thread{
 			 menu.returnGame();
 			 state = menu.returnState();
 			 inLobby = false;
-			 SendMessage = "success";
+			 SendMessage = "success" + Resources.getMyStack();
 			 sendData = SendMessage.getBytes();
 		 }
 		 else if(messageReceived.contains("setplayer"))
