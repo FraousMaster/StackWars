@@ -55,7 +55,7 @@ public class Server extends Thread {
                 }
                 sendData();
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             System.out.print(e);
         }
     }
@@ -199,23 +199,47 @@ public class Server extends Thread {
             }
             sendMessage = temp;
         }
+        
+        updateStackPopulation();
         if (!(ants.isEmpty())) {
             try 
             {
-            	antCalculations();
-            	//System.out.println(getAllStacks());
-            	temp += "s" + getAllStacks();
-                sendData = temp.getBytes();
-                sendMessage = temp;
-            	sleep(33);
+		        	antCalculations();
+		        	
+		        	//System.out.println(getAllStacks());
+		        	temp += "s" + getAllStacks();
+		            sendData = temp.getBytes();
+		            sendMessage = temp;
+		            
+		        	sleep(33);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
         else
         	sendMessage = "b";
+        
+       
+        
     }
     
+    private void updateStackPopulation()
+    {
+    	popIncrease++;
+    	boolean checkIncrease = false;
+    	for(Stack s : stacks)
+    	{
+    		if(popIncrease >= 60)
+    		{
+    			if(s.getOwnedBy() != 0)
+    				s.increasePopulation();
+    			
+    			checkIncrease = true;
+    		}
+    	}
+    	if(checkIncrease)
+    		popIncrease = 0;
+    }
     private void antCalculations()
     {
     	temp = "";
@@ -270,21 +294,14 @@ public class Server extends Thread {
     
     private String getAllStacks()
     {
-    	popIncrease++;
-    	boolean increaseCheck = false;
     	
     	String stacksInString = "";
     	for(Stack s : stacks)
     	{
-    		if(popIncrease >= 120)
-    		{
-    			s.increasePopulation();
-    			increaseCheck = true;
-    		}
+    		
     		stacksInString += s.toString() + "&";
     	}
-    	if(increaseCheck)
-    		popIncrease = 0;
+    	
     	
     	return stacksInString;
     }
@@ -376,7 +393,7 @@ public class Server extends Thread {
     				
     				if((y1 + 30) >= y2 && y1 <= (y2 + yBlock) && (x1 - antOffX) >= x2 && (x1- antOffX) <= (x2 + xBlock))
     				{
-    					System.out.println((y1 + 30) + " , "  + y2 + " , " + y1 + " , " + (y2 + yBlock));
+    					//System.out.println((y1 + 30) + " , "  + y2 + " , " + y1 + " , " + (y2 + yBlock));
     					if(s.getOwnedBy() == a.getOwnedBy())
     					{
     						s.increasePopulation();
