@@ -205,18 +205,12 @@ public class Server extends Thread {
                             dummy += ":" + s;
                         }
                     }
-                   // System.out.println("This is my new position " + dummy);
                     a = new Ant(dummy);
                     ants.set(i, a);
                     if(checkCollide(x, b, a.getCurrentMapObject()))
                 		ants.remove(a);
                     temp += "&" + a.toString() + "&";
                     sendData =temp.getBytes();
-                    
-                   
-                    	
-                    	
-                 
                 }
                 sleep(33);
             } catch (InterruptedException e) {
