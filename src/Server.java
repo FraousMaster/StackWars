@@ -119,7 +119,7 @@ public class Server extends Thread {
         		}
         	}
     		else if(started){
-                //System.out.println("trying to go into game bitch");
+                
     			count++;
     			
     			if(count == 10)
@@ -133,6 +133,7 @@ public class Server extends Thread {
     					s += stack.toString() + "&";
     				}
     			}
+    			System.out.println("IN SERVER: " + s);
     			sendMessage = "started" + s;
             }
     		else
@@ -204,22 +205,22 @@ public class Server extends Thread {
                     int x = Integer.parseInt(antValues[0]);
                     if(type == 4)
                     {
-                    	x += 4;
+                    	x += 8;
                     }
                     if(type == 9)
                     {
-                    	x -= 4;
+                    	x -= 8;
                     }
                     
                     antValues[0] = x + "";
                     int b = Integer.parseInt(antValues[1]);
                     if(type == 3)
                     {
-                    	b += 4;
+                    	b += 8;
                     }
                     if(type == 8)
                     {
-                    	b -= 4;
+                    	b -= 8;
                     }
                     
                     		

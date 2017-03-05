@@ -16,13 +16,13 @@ public class AnticipatedUppdate extends Thread {
                 for (Ant a : antList) {
                     int m = a.getCurrentMapObject();
                     if (m == 3) {
-                        a.setPos(a.getPosX(), (a.getPosY() + 1));
+                        a.setPos(a.getPosX(), (a.getPosY() + 4));
                     } else if (m == 4) {
-                        a.setPos((a.getPosX() + 1), a.getPosY());
+                        a.setPos((a.getPosX() + 4), a.getPosY());
                     } else if (m == 8) {
-                        a.setPos(a.getPosX(), (a.getPosY() - 1));
+                        a.setPos(a.getPosX(), (a.getPosY() - 4));
                     } else if (m == 9) {
-                        a.setPos((a.getPosX() - 1), a.getPosY());
+                        a.setPos((a.getPosX() - 4), a.getPosY());
                     }
                 }
                 //System.out.print("hej \n");
