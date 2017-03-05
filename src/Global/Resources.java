@@ -59,11 +59,11 @@ public class Resources {
 		switch(type) {
 			case 3: xOffset = temp;
 					break;
-			case 4: xOffset = temp + 15;
+			case 4: xOffset = temp + scalingFactorY + 20;
 					break;
 			case 8: xOffset = temp;
 					break;
-			case 9: xOffset = -temp;
+			case 9: xOffset = -temp - scalingFactorY - 20;
 					break;
 		}
 		return xOffset;
@@ -73,11 +73,11 @@ public class Resources {
 		int temp = (scalingFactorY / 2) - 10;
 		int yOffset = 0;
 		switch(type) {
-			case 3: yOffset = temp + 10;
+			case 3: yOffset = temp + scalingFactorY - 20;
 					break;
 			case 4: yOffset = temp;
 					break;
-			case 8: yOffset = temp - 10;	
+			case 8: yOffset = temp - scalingFactorY + 20;	
 					break;
 			case 9: yOffset = temp;
 					break;

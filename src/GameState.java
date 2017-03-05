@@ -37,13 +37,21 @@ public class GameState extends Observable{
     
     public void updateAllStacks(String a)
     {
-    	System.out.println(a);
-    	Stack stack = new Stack(a);
-    	for(Stack s : stacks)
+    	//System.out.println("HELLOW WORLD CAN U SEE ME" + a);
+    	String[] dummy = a.split("&");
+    	for(String b : dummy)
     	{
-    		if(s.getX() == stack.getX() && s.getY() == stack.getY())
+    		if(!(b == "" || b == null || b.equals("") || b.equals(null)))
     		{
-    			stacks.set(stacks.indexOf(s), stack);
+    			Stack stack = new Stack(b);
+    		
+				for(Stack s : stacks)
+		    	{
+		    		if(s.getX() == stack.getX() && s.getY() == stack.getY())
+		    		{
+		    			stacks.set(stacks.indexOf(s), stack);
+		    		}
+		    	}
     		}
     	}
     }

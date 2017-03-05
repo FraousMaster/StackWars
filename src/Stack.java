@@ -29,7 +29,7 @@ public class Stack extends JComponent{
     	stackPosY = Integer.parseInt(b[1]);
     	ownedBy = Integer.parseInt(b[2]);
     	population = Integer.parseInt(b[3]);
-    	//System.out.println("building ANT");
+    	//System.out.println("building ANT" + b[1]);
     }
     
     public BufferedImage getImage()
@@ -54,17 +54,16 @@ public class Stack extends JComponent{
     }
     public void setOwnedBy()
     {
-    	ownedBy = Resources.getMyPlayerID();
-    }
-    public void setOwnedBy(int x)
-    {
-    	
     	if(checkFirst)
     	{	
     		population += 5;
     		checkFirst = false;
 	   	}
-    	setOwnedBy();
+    	ownedBy = Resources.getMyPlayerID();
+    }
+    public void setOwnedBy(int x)
+    {
+    	ownedBy = x;
     }
     public void setOwnedByEnemy(String s)
     {
@@ -74,6 +73,15 @@ public class Stack extends JComponent{
     public void decreasePopulation()
     {
     	population -= 1;
+    }
+    public void decreasePopulation(Ant a)
+    {
+    	if(population <= 0)
+    	{
+    		setOwnedBy(a.getOwnedBy());
+    	}
+    	else
+    		population -= 1;
     }
     public void increasePopulation()
     {

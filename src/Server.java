@@ -7,8 +7,8 @@ import Global.Resources;
 public class Server extends Thread {
 
     protected DatagramSocket serverSocket = null;
-    protected byte[] receiveData = new byte[1000];
-    protected byte[] sendData = new byte[1000];
+    protected byte[] receiveData = new byte[2000];
+    protected byte[] sendData = new byte[2000];
     private int port;
     @SuppressWarnings("unused")
     private InetAddress IPAddress;
@@ -191,14 +191,11 @@ public class Server extends Thread {
             ants.add(dummy);
             int xS = Resources.getAntXOffset(dummy.getCurrentMapObject());
             int yS = Resources.getAntYOffset(dummy.getCurrentMapObject());
-            //System.out.println("FACTOR : " + xS + " , " + yS);
             for(Stack s : stacks)
             {	
-            	//System.out.println("DUMMY : " + dummy.getPosX() + " , " + dummy.getPosY());
             	if((dummy.getPosX() - xS) == s.getX() && (dummy.getPosY() - yS) == s.getY())
             	{
-            		//System.out.println("HELOOW WORLD CAN U SEE ME!");
-            		setStacksToUpdate(s, -1);
+            		s.decreasePopulation(dummy);
             	}
             }
             sendMessage = temp;
@@ -207,6 +204,9 @@ public class Server extends Thread {
             try 
             {
             	antCalculations();
+            	temp += "s" + getAllStacks();
+                sendData = temp.getBytes();
+                sendMessage = temp;
             	sleep(33);
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -263,40 +263,20 @@ public class Server extends Thread {
             
             if(checkCollide(a, x, b))
             	ants.remove(a);
+            
             temp += "&" + a.toString() + "&";
-            String s = "";
-            if(!stacksToUpdate.isEmpty())
-            {
-            	s = "s" + getStacksToUpdate();;
-            	temp += dummy;
-            }
-            sendData = temp.getBytes();
-            sendMessage = temp;
-            temp.replace(s, "");
         }
     }
     
-    private String getStacksToUpdate()
+    private String getAllStacks()
     {
-    	String a = "";
-    	for(String s : stacksToUpdate)
+    	String stacksInString = "";
+    	for(Stack s : stacks)
     	{
-    		a += s;
+    		stacksInString += s.toString() + "&";
     	}
-    	stacksToUpdate = new ArrayList<>();
-    	return a;
-    }
-    private void setStacksToUpdate(Stack s, int x)
-    {
-    	if(x > 0)
-    	{
-    		s.increasePopulation();
-    	}
-    	else
-    		s.decreasePopulation();
     	
-    	
-    	stacksToUpdate.add(s.toString());
+    	return stacksInString;
     }
     
     private void antsCollide(Ant a)
@@ -370,25 +350,87 @@ public class Server extends Thread {
     private boolean checkCollide(Ant a, int x, int y)
     {
     	int xBlock = Resources.getScalingFactorX();
-    	int yBlock = Resources.getScalingFactorY();
+    	int yBlock = Resources.getScalingFactorY() - 3;
     	for(Stack s : stacks){
-             
-    		if(s.getOwnedBy() != a.getOwnedBy())
+    		int type = a.getCurrentMapObject();
+			if(type == 3 || type == 8)
     		{
-    			//System.out.println(s.getOwnedBy() + " , " + a.getOwnedBy());
-	         	int xPos = s.getX() + 10;
-	         	int yPos = s.getY() - 10;
-	         	int xEndPos = xPos + xBlock;
-	         	int yEndPos = yPos + yBlock;
-	         	if(x > xPos && x < xEndPos && y > yPos && y < yEndPos)
-	         	{
-	         		setStacksToUpdate(s, -1);
-	             	return true;
-	     		}
+    			int y1 = a.getPosY();
+        		int y2 = s.getY();
+    			
+    			if(type == 3)
+    			{
+    				
+    				if((y1 + 30) >= y2 && y1 <= (y2 + yBlock))
+    				{
+    					System.out.println((y1 + 30) + " , "  + y2 + " , " + y1 + " , " + (y2 + yBlock));
+    					if(s.getOwnedBy() == a.getOwnedBy())
+    					{
+    						s.increasePopulation();
+    						return true;
+    					}
+    					else {
+							s.decreasePopulation(a);
+							return true;
+						}
+    				}
+    			}
+    			else
+    			{
+    				if(y1 <= (y2 + yBlock) && y1 >= y2)
+    				{
+    					if(s.getOwnedBy() == a.getOwnedBy())
+    					{
+    						s.increasePopulation();
+    						return true;
+    					}
+    					else {
+							s.decreasePopulation(a);
+							return true;
+						}
+    				}
+    			}
+    		}
+    		if(type == 4 || type == 9)
+    		{
+    			
+    			int x1 = a.getPosX();
+    			int x2 = s.getX();
+    			if(type == 4)
+    			{
+    				if((x1 + 30) >= x2)
+    				{
+    					if(s.getOwnedBy() == a.getOwnedBy())
+    					{
+    						s.increasePopulation();
+    						return true;
+    					}
+    					else {
+							s.decreasePopulation(a);
+							return true;
+						}
+    				}
+    			}
+    			else
+    			{
+    				if(x1 <= (x2 + xBlock))
+    				{
+    					if(s.getOwnedBy() == a.getOwnedBy())
+    					{
+    						s.increasePopulation();
+    						return true;
+    					}
+    					else {
+							s.decreasePopulation(a);
+							return true;
+						}
+    				}
+    			}
     		}
          }
     	 return false;
     }
+    
     private boolean check(String s)
     {
         boolean exists = false;

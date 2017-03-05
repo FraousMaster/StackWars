@@ -6,8 +6,8 @@ import Global.Resources;
 public class Client extends Thread{
 	private static String IP_ADDRESS;
 	private static String name;
-	private static byte[] sendData = new byte[1000];
-	private static byte[] receiveData = new byte[1000];
+	private static byte[] sendData = new byte[2000];
+	private static byte[] receiveData = new byte[2000];
 	//private DatagramSocket clientSocket = null;
 	private DatagramSocket gameSocket = null ;
 	private String SendMessage;
@@ -186,15 +186,10 @@ public class Client extends Thread{
 				{
 					state.updateAllAnts(null);
 				}
-				else if(messageReceived.contains("s"))
-				{
+				else if(!messageReceived.equals("")){
 					String[] a = messageReceived.split("s");
 					state.updateAllStacks(a[1]);
 					ants = freshList(a[0]);
-					state.updateAllAnts(ants);
-				}
-				else if(!messageReceived.equals("")){
-					ants = freshList(messageReceived);
 					state.updateAllAnts(ants);
 				}
 			}
@@ -224,7 +219,12 @@ public class Client extends Thread{
 		  	{
 		  		if( !(z.equals("") || z == "") )
 		  		{
-		  			temp.add(new Ant(z));
+		  			if(!z.contains("s"))
+		  			{
+		  				//System.out.println("Ants: " + z);
+		  				temp.add(new Ant(z));
+		  			}
+		  				
 		  		}
 		  	}
 		}
@@ -232,6 +232,7 @@ public class Client extends Thread{
 			String[] newString = x.split("&");
 			for(String z : newString)
 			{
+				//System.out.println("Ants2: " + z);
 				temp.add(new Ant(z));
 			}
 		}

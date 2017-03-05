@@ -45,7 +45,7 @@ public class Map {
         	setMyStack(s);
         }
         String a = "";
-        myStack.setOwnedBy(5);
+        myStack.setOwnedBy();
     	a += myStack.getX() + ":" + myStack.getY() + ":" + myStack.getOwnedBy() + ":" + myStack.getPopulation();
     	Resources.setMyStack(a);
     	sendAllRoadsToResources();
