@@ -121,7 +121,7 @@ public class Server extends Thread {
     			if(count == 10)
 	                inLobby = false;
     			
-    			String s = "";
+    			/*String s = "";
     			for(Stack stack : stacks)
     			{
     				if(stack.getOwnedBy() != 0)
@@ -129,9 +129,9 @@ public class Server extends Thread {
     					s += stack.toString() + "&";
     					//System.out.println(s);
     				}
-    			}
+    			}*/
     			
-    			sendMessage = "started" + s;
+    			sendMessage = "started";// + s;
             }
     		else
     			sendMessage = "Start";

@@ -147,10 +147,10 @@ public class Client extends Thread{
 
 	private void gameRunning() throws IOException{
 		
-		if(messageReceived.contains("started"))
+		if(messageReceived.equals("started"))
 		{
 			
-			String a = messageReceived.replace("started", "");
+			/*String a = messageReceived.replace("started", "");
 			String[] arr = a.split("&");
 			
 			if(!(a == null || a == "" || a.equals(null) || a.equals("")))
@@ -172,7 +172,7 @@ public class Client extends Thread{
 						}
 					}
 				}
-			}
+			}*/
 			started = true;
 		}
 		else
