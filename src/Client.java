@@ -149,21 +149,25 @@ public class Client extends Thread{
 		
 		if(messageReceived.contains("started"))
 		{
+			System.out.println(messageReceived);
 			String a = messageReceived.replace("started", "");
 			String[] arr = a.split("&");
 			
-			for(int i = 0; i < arr.length; i++)
+			if(!(a == null || a == "" || a.equals(null) || a.equals("")))
 			{
-				Stack enemyStack = new Stack(arr[i]);
-				if(enemyStack.getOwnedBy() != Resources.getMyPlayerID())
+				for(int i = 0; i < arr.length; i++)
 				{
-					System.out.println(arr[0]);
-					for(Stack s : state.getStacks())
+					Stack enemyStack = new Stack(arr[i]);
+					if(enemyStack.getOwnedBy() != Resources.getMyPlayerID())
 					{
-						if(enemyStack.getX() == s.getX() && enemyStack.getY() == s.getY())
+						System.out.println(arr[0]);
+						for(Stack s : state.getStacks())
 						{
-							int temp = state.getStacks().indexOf(s);
-							state.getStacks().set(temp, enemyStack);
+							if(enemyStack.getX() == s.getX() && enemyStack.getY() == s.getY())
+							{
+								int temp = state.getStacks().indexOf(s);
+								state.getStacks().set(temp, enemyStack);
+							}
 						}
 					}
 				}
