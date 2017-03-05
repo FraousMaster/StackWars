@@ -153,7 +153,7 @@ public class Server extends Thread {
         	}
         }
         else if (!(messageReceived.equals(players.getLast()) || messageReceived.equals("success") || messageReceived.equals("start") || messageReceived.equals(null)
-                || messageReceived == null || messageReceived.equals("OK") || check(messageReceived)))
+                || messageReceived == null || messageReceived.equals("OK") || check(messageReceived) || messageReceived.equals("waiting")))
         {
             ants.add(new Ant(messageReceived));
             sendData = temp.getBytes();
