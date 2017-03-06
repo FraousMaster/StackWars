@@ -24,6 +24,7 @@ public class Server extends Thread {
     private ArrayList<Ant> ants = new ArrayList<>();
     private ArrayList<Stack> stacks = new ArrayList<>();
     private ArrayList<Roads> roads = new ArrayList<>();
+    private ArrayList<Stack> tempStackList = new ArrayList<>();
     private ArrayList<String> stacksToUpdate = new ArrayList<>();
     private HashMap<Point, ArrayList<Roads>> allRoads = new HashMap<>();
     private String temp = "";
@@ -95,24 +96,40 @@ public class Server extends Thread {
         			System.out.println("WE GET ONE SUCCESS!");
         			started = true;
         		}
-        		if(first)
+        		String a = messageReceived.replace("success", "");
+        		Stack tempS = new Stack(a);
+        		if(tempS.getOwnedBy() == 1)
             	{
+        			
             		for(String s :Resources.getAllStacks())
             		{
                     	Stack stack = new Stack(s);
                     	stacks.add(stack);
             		}
+            		
+            		
             		first = false;	
             	}
-        		
-        		String a = messageReceived.replace("success", "");
-        		Stack tempS = new Stack(a);
-        		for(Stack stack : stacks)
+        		if(!first)
         		{
-        			if(stack.getX() == tempS.getX() && stack.getY() == tempS.getY())
+        			if(!tempStackList.isEmpty())
         			{
-        				stacks.set(stacks.indexOf(stack), tempS);
+        				for(Stack s : tempStackList)
+        				{
+        					stacks.add(s);
+        				}
         			}
+        			for(Stack stack : stacks)
+            		{
+            			if(stack.getX() == tempS.getX() && stack.getY() == tempS.getY())
+            			{
+            				stacks.set(stacks.indexOf(stack), tempS);
+            			}
+            		}
+        		}
+        		else
+        		{
+        			tempStackList.add(tempS);
         		}
         	}
     		else if(started){
