@@ -188,7 +188,7 @@ public class Client extends Thread{
 				}
 				else if(!messageReceived.equals("")){
 					String[] a = messageReceived.split("s");
-					System.out.println(messageReceived);
+					//System.out.println(messageReceived);
 					if(a.length > 1){
 						state.updateAllStacks(a[1]);
 					}

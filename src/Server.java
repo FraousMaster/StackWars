@@ -170,19 +170,6 @@ public class Server extends Thread {
         	sendMessage = temp;
             //System.out.println("HELLOW WORLD CAN U SEE ME");
         }
-        else if(messageReceived.contains("setplayerstack"))
-        {
-        	String playerStack = messageReceived.replace("setplayerstack", "");
-        	Stack tempStack = new Stack(playerStack);
-        	for(Stack stack : stacks)
-        	{
-        		if(stack.getX() == tempStack.getY() && stack.getY() == tempStack.getY())
-        		{
-        			int index = stacks.indexOf(stack);
-        			stacks.set(index, tempStack);
-        		}
-        	}
-        }
         else if (!(messageReceived.equals(players.getLast()) || messageReceived.contains("success") || messageReceived.equals("start") || messageReceived.equals(null)
                 || messageReceived == null || messageReceived.equals("OK") || check(messageReceived) || messageReceived.equals("waiting")))
         {
@@ -218,8 +205,6 @@ public class Server extends Thread {
         }
         else
         	sendMessage = "b";
-        
-       
         
     }
     
