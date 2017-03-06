@@ -21,12 +21,12 @@ public class SettingsMenu extends JPanel {
 	private final String[] resSet = {"Default","1920x1080","1600x900","1360x768","1280x720"};
 	private String VOL = "Volume";
 	private String RES = "Default";
-
+	
 	public SettingsMenu(){
 		setLayout(new GridBagLayout());
-		buttons();
+		buttons();	
 	}
-
+	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private void buttons(){
 		GridBagConstraints c = new GridBagConstraints();
@@ -34,9 +34,9 @@ public class SettingsMenu extends JPanel {
 		resolution = new JComboBox(resSet);
 		applyButton = new JButton("Apply");
 		backButton = new JButton("Back");
-
-
-
+		
+		
+		
 		volume.addActionListener(new Handler());
 		resolution.addActionListener(new Handler());
 		applyButton.addActionListener(new Handler());
@@ -46,28 +46,28 @@ public class SettingsMenu extends JPanel {
 		applyButton.setPreferredSize(new Dimension(100, 50));
 		backButton.setPreferredSize(new Dimension(100, 50));
 
-
+		
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 3;
 		c.gridy = 0;
 		add(volume, c);
-
+		
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 3;
 		c.gridy = 1;
 		add(resolution, c);
-
+		
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 3;
 		c.gridy = 2;
 		add(applyButton, c);
-
+	
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 3;
 		c.gridy = 3;
 		add(backButton, c);
 	}
-
+	
 	private void volValue(String value){
 		this.VOL = value;
 		System.out.println(VOL);
@@ -94,7 +94,7 @@ public class SettingsMenu extends JPanel {
 		this.revalidate();
 		this.repaint();
 	}
-
+	
 	public class Handler implements ActionListener {
 
 		@Override
@@ -121,7 +121,7 @@ public class SettingsMenu extends JPanel {
 					Element settings = document.createElement("settings");
 					Element resolution = document.createElement("Resolution");
 					Element volume = document.createElement("Volume");
-
+					
 					document.appendChild(root);
 					root.appendChild(settings);
 					settings.appendChild(volume);
@@ -131,28 +131,19 @@ public class SettingsMenu extends JPanel {
 					TransformerFactory transFactory = TransformerFactory.newInstance();
 					Transformer transformer = transFactory.newTransformer();
 					DOMSource source = new DOMSource(document);
-<<<<<<< HEAD
-					StreamResult result = new StreamResult(new File("../Settings/file.xml"));
-					transformer.transform(source, result);
-
-
-
-
-=======
                     StreamResult result = new StreamResult(new File("Settings/file.xml"));
                     transformer.transform(source, result);
                     remove();
     				StartMenu menu = new StartMenu();
     				add(menu);
->>>>>>> Devel
 				}catch(ParserConfigurationException pce){
 					pce.printStackTrace();
 				}catch(TransformerException te){
 					te.printStackTrace();
-				}catch(Exception all){}
-
-			}
+                }catch(Exception all){}
+				
+			}	
 		}
 	}
-
+	
 }
