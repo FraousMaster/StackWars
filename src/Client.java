@@ -44,10 +44,8 @@ public class Client extends Thread{
 			while(true)
 			{
 				recData();
-<<<<<<< HEAD
 				//echo("client received "+messageReceived);
-=======
->>>>>>> cb13cd577e7817cbad3cbdcf99b4b6fd2f95ff8f
+
 				if(inLobby)
 				{
 					inLobby();
