@@ -11,6 +11,7 @@ public class GameController implements Observer{
 	private int populationIncrease = 0;
 	private int sX = Resources.getScalingFactorX();
 	private int sY = Resources.getScalingFactorY();
+	
 	public GameController(GameView gameView, GameState gameState)
 	{
 		this.gameView = gameView;
@@ -39,11 +40,20 @@ public class GameController implements Observer{
 							//System.out.println();
 							if(s.getOwnedBy() == Resources.getMyPlayerID())
 							{
+								
 								if(stackSelected != null) {
 									stackSelected.setSelected(false);
 								}
 								this.stackSelected = s;
 								stackSelected.setSelected(true);
+							}
+						}
+						else if(mouseClick.getButton() == 2)
+						{
+							if(stackSelected.getConnectedStacks(s.getX(), s.getY()) != null && stackSelected.getOwnedBy() == Resources.getMyPlayerID())
+							{
+								stackSelected.setRallyPoint(s);
+								gameState.addStackUpdate(stackSelected);
 							}
 						}
 						else if(mouseClick.getButton() == 3)

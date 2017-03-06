@@ -26,6 +26,13 @@ public class Ant {
         ownedBy = Resources.getMyPlayerID();
         this.currentMapObject = currentMapObject;
     }
+    public Ant(int x, int y, int currentMapObject, int ownedBy){
+        posX = x;
+        posY = y;
+        this.road = road;
+        this.ownedBy = ownedBy;
+        this.currentMapObject = currentMapObject;
+    }
     
 
     public Ant(String s){

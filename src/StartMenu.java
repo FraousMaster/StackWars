@@ -51,14 +51,6 @@ public class StartMenu extends JPanel {
 		creditsButton.setPreferredSize(new Dimension(100, 40));
 		exitButton.setPreferredSize(new Dimension(100, 40));
 		
-
-		startButton.setBorder(new RoundedBorder(10)); //10 is the radius
-
-		optionsButton.setBorder(new RoundedBorder(10)); //10 is the radius
-	
-		creditsButton.setBorder(new RoundedBorder(10)); //10 is the radius
-
-		exitButton.setBorder(new RoundedBorder(10)); //10 is the radius
 		
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 3;

@@ -10,6 +10,7 @@ public class Game {
     private GameController gameController = null;
     private GameState gameState = null;
     private AnticipatedUppdate antup;
+    
     public Game() {
     	Resources.setResolution(1920,1080);
     	readingSettings();
