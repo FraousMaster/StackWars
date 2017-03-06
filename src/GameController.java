@@ -50,7 +50,12 @@ public class GameController implements Observer{
 						}
 						else if(mouseClick.getButton() == 2)
 						{
-							if(stackSelected.getConnectedStacks(s.getX(), s.getY()) != null && stackSelected.getOwnedBy() == Resources.getMyPlayerID())
+							if(stackSelected.equals(s))
+							{
+								stackSelected.setRallyPoint(stackSelected);
+								gameState.addStackUpdate(stackSelected);
+							}
+							else if(stackSelected.getConnectedStacks(s.getX(), s.getY()) != null && stackSelected.getOwnedBy() == Resources.getMyPlayerID())
 							{
 								stackSelected.setRallyPoint(s);
 								gameState.addStackUpdate(stackSelected);

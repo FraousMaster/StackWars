@@ -41,8 +41,6 @@ public class GameState extends Observable{
     	return stacks;
     }
     
-    
-    
     public void updateAllStacks(String a)
     {
     	//System.out.println("HELLOW WORLD CAN U SEE ME" + a);

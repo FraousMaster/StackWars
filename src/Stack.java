@@ -27,7 +27,11 @@ public class Stack extends JComponent{
     }
     
     public String updateToString(){
-    	return stackPosX + ":" + stackPosY + ":" + rallyPoint.getX() + ":" + rallyPoint.getY();
+    	if(gotRallyPoint)
+    		return stackPosX + ":" + stackPosY + ":" + rallyPoint.getX() + ":" + rallyPoint.getY();
+    	
+    	else
+    		return stackPosX + ":" + stackPosY + ":" + stackPosX + ":" + stackPosY;
     }
         
     public Stack(String s){
@@ -90,10 +94,22 @@ public class Stack extends JComponent{
     
     public void setRallyPoint(Stack rallyPoint)
     {
-		gotRallyPoint = true;
-    	this.rallyPoint = rallyPoint;
+    	gotRallyPoint = true;
+    	if(this.equals(rallyPoint))
+    	{
+    		this.rallyPoint = rallyPoint;
+    		gotRallyPoint = false;
+    	}
+    	else
+    	{
+    		this.rallyPoint = rallyPoint;
+    	}
     }
     
+    public void removeRallyPoint()
+    {
+    	rallyPoint = null;
+    }
     public boolean checkIfRallyPoint()
     {
     	return gotRallyPoint;
@@ -115,12 +131,7 @@ public class Stack extends JComponent{
     }
     public void increasePopulation()
     {
-    	if(gotRallyPoint)
-    	{
-    		rallyPoint.increasePopulation();
-    	}
-    	else
-    		population += 1;
+		population += 1;
     }
     
     public void setPopulation(int x)

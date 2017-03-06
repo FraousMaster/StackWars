@@ -218,7 +218,6 @@ public class Server extends Thread {
 	            		
 	            		for(Stack rallyPoint : stacks)
 	            		{
-	            			
 	            			if(Integer.parseInt(a[2]) == rallyPoint.getX() && Integer.parseInt(a[3]) == rallyPoint.getY())
 	            			{
 	            				s.setRallyPoint(rallyPoint);
