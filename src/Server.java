@@ -302,18 +302,20 @@ public class Server extends Thread {
     		
     		if(owner1 != owner2)
     		{
-    			
+                int y1 = a.getPosY();
+                int y2 = check.getPosY();
+                int x1 = a.getPosX();
+                int x2 = check.getPosX();
         		int type2 = check.getCurrentMapObject();
         		int type1 = a.getCurrentMapObject();
         		
         		if((type1 == 3 && type2 == 8) || (type1 == 8 && type2 == 3))
         		{
-        			int y1 = a.getPosY();
-            		int y2 = check.getPosY();
+
         			
         			if(type1 == 3)
         			{
-        				if((y2- 7) > y1)
+        				if((y2- 7) > y1 && x1 == x2)
         				{
         					antTemp = check;
         					break;
@@ -321,7 +323,7 @@ public class Server extends Thread {
         			}
         			else
         			{
-        				if(y1 < (y2 - 7))
+        				if(y1 < (y2 - 7)&& x1 == x2)
         				{
         					antTemp = check;
         					break;
@@ -331,11 +333,10 @@ public class Server extends Thread {
         		if((type1 == 4 && type2 == 9) || (type1 == 4 && type2 == 9))
         		{
         			
-        			int x1 = a.getPosX();
-        			int x2 = check.getPosX();
-        			if(type1 == 4)
+
+                    if(type1 == 4)
         			{
-        				if(x1 > (x2 - 36))
+        				if(x1 > (x2 - 36) && y1 == y2)
         				{
         					antTemp = check;
         					break;
@@ -343,7 +344,7 @@ public class Server extends Thread {
         			}
         			else
         			{
-        				if((x2 + 36) < x1)
+        				if((x2 + 36) < x1 && y1 == y2)
         				{
         					antTemp = check;
         					break;
