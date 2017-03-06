@@ -103,7 +103,7 @@ public class GameView extends Observable implements Observer{
 				try {
 
                 	if(sprite <= 2) {
-						image = ImageIO.read(new File("Graphics/Ant/smallAnt.png"));
+						image = ImageIO.read(new File("Graphics/Ant/AntV1.png"));
 						sprite++;
 					}
 					else if(sprite <= 4){
