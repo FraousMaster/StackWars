@@ -55,7 +55,7 @@ public class Client extends Thread{
 				}
 				sendData();
 				//echo("client sent : "+SendMessage);
-				sleep(33);
+				sleep(132);
 			}	
 		} 
 		catch (Exception e)
@@ -149,30 +149,6 @@ public class Client extends Thread{
 		
 		if(messageReceived.equals("started"))
 		{
-			
-			/*String a = messageReceived.replace("started", "");
-			String[] arr = a.split("&");
-			
-			if(!(a == null || a == "" || a.equals(null) || a.equals("")))
-			{
-				for(int i = 0; i < arr.length; i++)
-				{
-					//System.out.println(arr[i]);
-					Stack enemyStack = new Stack(arr[i]);
-					if(enemyStack.getOwnedBy() != Resources.getMyPlayerID())
-					{
-						//System.out.println(arr[0]);
-						for(Stack s : state.getStacks())
-						{
-							if(enemyStack.getX() == s.getX() && enemyStack.getY() == s.getY())
-							{
-								int temp = state.getStacks().indexOf(s);
-								state.getStacks().set(temp, enemyStack);
-							}
-						}
-					}
-				}
-			}*/
 			started = true;
 		}
 		else
