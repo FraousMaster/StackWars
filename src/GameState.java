@@ -30,20 +30,47 @@ public class GameState extends Observable{
     public ArrayList<Ant> getAntsToUpload(){
         return antsToUpload;
     }
-
+    
     public ArrayList<Stack> getStacks(){
     	return stacks;
     }
     
+    public void updateAllStacks(String a)
+    {
+    	//System.out.println("HELLOW WORLD CAN U SEE ME" + a);
+    	String[] dummy = a.split("&");
+    	for(String b : dummy)
+    	{
+    		if(!(b == "" || b == null || b.equals("") || b.equals(null)))
+    		{
+    			Stack stack = new Stack(b);
+    		
+				for(Stack s : stacks)
+		    	{
+		    		if(s.getX() == stack.getX() && s.getY() == stack.getY())
+		    		{
+		    			s.setPopulation(stack.getPopulation());
+		    			s.setOwnedBy(stack.getOwnedBy());
+		    		}
+		    	}
+    		}
+    	}
+    }
+    
     public void updateAllAnts(ArrayList<Ant> a){
-        ants = a;
+    	if(a != null)
+        {
+    		ants = a;
+        }
+    	else
+    		ants = new ArrayList<>();
+    	
         setChanged();
     	notifyObservers();
     }
-
+    
     public void addAnt(Ant a){
         antsToUpload.add(a);
-
     }
 
     

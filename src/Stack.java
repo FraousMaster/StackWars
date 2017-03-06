@@ -7,16 +7,31 @@ import Global.Resources;
 
 public class Stack extends JComponent{
 
-    private int population, stackPosX, stackPosY;
+    private int population, stackPosX, stackPosY, ownedBy;
     private BufferedImage image;
     private HashMap<Point, ArrayList<Roads>> connectedStacks = new HashMap<>();
-
+    private boolean checkFirst = true;
+    
     public Stack(int posX, int posY){
-        population = 10;
+        population = 5;
         stackPosX = posX;
-        stackPosY = posY;   
+        stackPosY = posY;
+        ownedBy = 0;
     }
-
+    
+    public String toString(){
+    	return stackPosX + ":" + stackPosY + ":" + ownedBy + ":" + population;
+    }
+    
+    public Stack(String s){
+    	String b[] = s.split(":");
+    	stackPosX = Integer.parseInt(b[0]);
+    	stackPosY = Integer.parseInt(b[1]);
+    	ownedBy = Integer.parseInt(b[2]);
+    	population = Integer.parseInt(b[3]);
+    	//System.out.println("building ANT" + b[1]);
+    }
+    
     public BufferedImage getImage()
     {
         return image;
@@ -33,9 +48,51 @@ public class Stack extends JComponent{
     {
     	return population;
     }
+    public int getOwnedBy()
+    {
+    	return ownedBy;
+    }
+    public void setOwnedBy()
+    {
+    	if(checkFirst)
+    	{	
+    		population += 5;
+    		checkFirst = false;
+	   	}
+    	ownedBy = Resources.getMyPlayerID();
+    }
+    public void setOwnedBy(int x)
+    {
+    	ownedBy = x;
+    }
+    public void setOwnedByEnemy(String s)
+    {
+    	Stack stack = new Stack(s);
+    	this.ownedBy = stack.getOwnedBy();
+    }
+    public void decreasePopulation()
+    {
+    	population -= 1;
+    }
+    public void decreasePopulation(Ant a)
+    {
+    	if(population <= 0)
+    	{
+    		setOwnedBy(a.getOwnedBy());
+    	}
+    	else
+    		population -= 1;
+    }
+    public void increasePopulation()
+    {
+    	population += 1;
+    }
+    public void setPopulation(int x)
+    {
+    	population = x;
+    }
     public ArrayList<Roads> getConnectedStacks(int x, int y)
     {
-    	
     	Point key = new Point(x,y);
     	//System.out.println(connectedStacks);
     	if(connectedStacks.get(key) != null)

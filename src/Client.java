@@ -6,8 +6,8 @@ import Global.Resources;
 public class Client extends Thread{
 	private static String IP_ADDRESS;
 	private static String name;
-	private static byte[] sendData = new byte[1000];
-	private static byte[] receiveData = new byte[1000];
+	private static byte[] sendData = new byte[2000];
+	private static byte[] receiveData = new byte[2000];
 	//private DatagramSocket clientSocket = null;
 	private DatagramSocket gameSocket = null ;
 	private String SendMessage;
@@ -19,7 +19,8 @@ public class Client extends Thread{
 	private InetAddress host;
 	private ArrayList<Ant> ants;
 	private GameState state;
-	
+	private boolean started = false;
+	private boolean first = true;
 	@SuppressWarnings("static-access")
 	public Client(String IP, String name, LobbyMenu menu) throws SocketException{
 		this.IP_ADDRESS = IP;
@@ -54,7 +55,7 @@ public class Client extends Thread{
 				}
 				sendData();
 				//echo("client sent : "+SendMessage);
-				sleep(33);
+				sleep(132);
 			}	
 		} 
 		catch (Exception e)
@@ -73,7 +74,7 @@ public class Client extends Thread{
 			 menu.returnGame();
 			 state = menu.returnState();
 			 inLobby = false;
-			 SendMessage = "success";
+			 SendMessage = "success" + Resources.getMyStack();
 			 sendData = SendMessage.getBytes();
 		 }
 		 else if(messageReceived.contains("setplayer"))
@@ -96,7 +97,11 @@ public class Client extends Thread{
 			 }
 		 }
 		 if(menu.startPressed()){
-			 SendMessage = "OK";	
+			 if(first)
+			 {
+				 SendMessage = "OK";
+				 first = false;
+			 }
 		 }
 	 }
 	 
@@ -141,27 +146,70 @@ public class Client extends Thread{
 	 }
 
 	private void gameRunning() throws IOException{
-
-		if(!(messageReceived.equals("Start"))){
-			if(!messageReceived.equals("")){
-				ants = freshList(messageReceived);
-				state.updateAllAnts(ants);
-			}
-		}
-
-		if(!state.getAntsToUpload().isEmpty())
+		
+		if(messageReceived.equals("started"))
 		{
-			String x = "";
-			for(Ant s : state.getAntsToUpload())
+			
+			/*String a = messageReceived.replace("started", "");
+			String[] arr = a.split("&");
+			
+			if(!(a == null || a == "" || a.equals(null) || a.equals("")))
 			{
-				x += s.toString();
-			}
-			SendMessage = x;
-			state.getAntsToUpload().clear();
+				for(int i = 0; i < arr.length; i++)
+				{
+					//System.out.println(arr[i]);
+					Stack enemyStack = new Stack(arr[i]);
+					if(enemyStack.getOwnedBy() != Resources.getMyPlayerID())
+					{
+						//System.out.println(arr[0]);
+						for(Stack s : state.getStacks())
+						{
+							if(enemyStack.getX() == s.getX() && enemyStack.getY() == s.getY())
+							{
+								int temp = state.getStacks().indexOf(s);
+								state.getStacks().set(temp, enemyStack);
+							}
+						}
+					}
+				}
+			}*/
+			started = true;
 		}
 		else
+			SendMessage = "waiting".toString();
+		
+		if(started)
 		{
-			SendMessage = "OK".toString();
+			//System.out.println("HELOOW WORLD CAN U SEE ME!");
+			if(!(messageReceived.equals("Start") || messageReceived.contains("started"))){
+				if(messageReceived.equals("b"))
+				{
+					state.updateAllAnts(null);
+				}
+				else if(!messageReceived.equals("")){
+					String[] a = messageReceived.split("s");
+					//System.out.println(messageReceived);
+					if(a.length > 1){
+						state.updateAllStacks(a[1]);
+					}
+					ants = freshList(a[0]);
+					state.updateAllAnts(ants);
+				}
+			}
+			if(!state.getAntsToUpload().isEmpty())
+			{
+				String x = "";
+				for(Ant s : state.getAntsToUpload())
+				{
+					x += s.toString();
+				}
+				SendMessage = x;
+				state.getAntsToUpload().clear();
+			}
+			else
+			{
+				SendMessage = "OK".toString();
+			}
 		}
 	}
 	
@@ -174,7 +222,12 @@ public class Client extends Thread{
 		  	{
 		  		if( !(z.equals("") || z == "") )
 		  		{
-		  			temp.add(new Ant(z));
+		  			if(!z.contains("s"))
+		  			{
+		  				//System.out.println("Ants: " + z);
+		  				temp.add(new Ant(z));
+		  			}
+		  				
 		  		}
 		  	}
 		}
@@ -182,6 +235,7 @@ public class Client extends Thread{
 			String[] newString = x.split("&");
 			for(String z : newString)
 			{
+				//System.out.println("Ants2: " + z);
 				temp.add(new Ant(z));
 			}
 		}

@@ -39,8 +39,6 @@ public class GameView extends Observable implements Observer{
             drawPanel.addMouseListener(new MouseAdapter(){
             	public void mouseClicked(MouseEvent e)
             	{
-            		int x = e.getX();
-            		int y = e.getY();
             		setChanged();
             		notifyObservers(e);
             	}
@@ -65,13 +63,32 @@ public class GameView extends Observable implements Observer{
                 g.drawImage(gameState.getMap().getImage(), 0, 0, D_W, D_H, null);
                 for(Stack s : gameState.getStacks())
                 {
-                	g.setColor(Color.WHITE);
-                	int oX = Resources.getScalingFactorY()/2;
-                	int oY = Resources.getScalingFactorY()/2;
-                	g.drawString("Pop: " + s.getPopulation(), s.getX() + oX, s.getY() + oY);
+                	if(s.getOwnedBy() == 1)
+                	{
+                		g.setColor(Color.GREEN);
+                	}
+                	else if(s.getOwnedBy() == 2)
+                	{
+                		g.setColor(Color.RED);
+                	}
+                	else if(s.getOwnedBy() == 3)
+                	{
+                		g.setColor(Color.BLUE);
+                	}
+                	else if(s.getOwnedBy() == 4)
+                	{
+                		g.setColor(Color.BLACK);
+                	}
+                	else
+                	{
+                		g.setColor(Color.WHITE);
+                	}
+                	int oX = Resources.getScalingFactorX()/2 - 20;
+                	int oY = Resources.getScalingFactorY()/2 + 3;
+                	g.drawString("Pop: " + s.getPopulation(), s.getX() + oX, s.getY()+ oY);
                 }
 				try {
-					image = ImageIO.read(new File("Graphics/Ant/AntV4.png"));
+					image = ImageIO.read(new File("Graphics/Ant/smallAnt.png"));
 
 				} catch (IOException e) {
 					e.printStackTrace();
@@ -84,19 +101,20 @@ public class GameView extends Observable implements Observer{
                 	AffineTransform tx = AffineTransform.getRotateInstance(rotationRequired, locationX, locationY);
                 	AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
                 	
-                    g.drawImage(op.filter(image, null), a.getPosX(), a.getPosY(), 82, 70, null);
+                    g.drawImage(op.filter(image, null), a.getPosX(), a.getPosY(), null);
                 }
+                
             }
             
             public double getRotationRequired(Ant a)
             {
             	if(a.getCurrentMapObject() == 3)
             	{
-            		return 0;
+            		return Math.PI / 2;
             	}
             	else if(a.getCurrentMapObject() == 4)
             	{
-            		return Math.PI / 2;
+            		return 0;
             	}
             	else if(a.getCurrentMapObject() == 5)
             	{
@@ -112,7 +130,11 @@ public class GameView extends Observable implements Observer{
             	}
             	else if(a.getCurrentMapObject() == 8)
             	{
-            		return 0;
+            		return -(Math.PI / 2);
+            	}
+            	else if(a.getCurrentMapObject() == 9)
+            	{
+            		return Math.PI;
             	}
             	else
         		{
@@ -126,14 +148,11 @@ public class GameView extends Observable implements Observer{
         }
     }
 
-
 	@Override
 	public void update(Observable o, Object arg1) {
 		if(o == gameState)
 		{
-			this.gameState = gameState;
 			gameFrame.updateThisFrame();
-
 		}
 	}
 }

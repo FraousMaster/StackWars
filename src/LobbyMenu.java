@@ -22,7 +22,12 @@ public class LobbyMenu extends JPanel {
 	private GameMenu lMenu;
 	private boolean isPressed = false;
 	private Game game;
+<<<<<<< HEAD
 
+=======
+	private boolean connection = false;
+	
+>>>>>>> Devel
 	public LobbyMenu(int from, GameMenu menu) throws UnknownHostException{
 		String IP = null;
 		this.lMenu = menu;
@@ -64,6 +69,7 @@ public class LobbyMenu extends JPanel {
 
 	}
 	private void setLabels(String x, int y){
+<<<<<<< HEAD
 
 		if(y == 0){
 			p1.setText(x);
@@ -79,28 +85,69 @@ public class LobbyMenu extends JPanel {
 		}
 
 
+=======
+		
+	    if(y == 0){
+	    	p1.setText(x);
+	    }
+	    if(y == 1){
+	    	p2.setText(x);
+	    }
+	    if(y == 2){
+	    	p3.setText(x);
+	    }
+	    if(y == 3){
+	    	p4.setText(x);
+	    }
+>>>>>>> Devel
 	}
 
 	private void create(){
+		
+		ImageIcon crt = new ImageIcon("Graphics/Buttons/Start.png");
+		ImageIcon bck = new ImageIcon("Graphics/Buttons/back.png");
+		
 		GridBagConstraints c = new GridBagConstraints();
 		p1 = new JLabel("Waiting...");
 		p2 = new JLabel("Waiting...");
 		p3 = new JLabel("Waiting...");
 		p4 = new JLabel("Waiting...");
+<<<<<<< HEAD
 		if(cameFrom == 0)
 			start = new JButton("Start");
 
 		back = new JButton("Back");
 
+=======
+		
+		
+		if(cameFrom == 0){
+		start = new JButton("Start");
+		start.setIcon(crt);
+		start.setIconTextGap(-6);	
+		}
+		
+		back = new JButton("Back");
+		back.setIcon(bck);
+		
+		
+>>>>>>> Devel
 		if(cameFrom == 0)
 			start.addActionListener(new Handler());
 
 		back.addActionListener(new Handler());
 
 		if(cameFrom == 0)
+<<<<<<< HEAD
 			start.setPreferredSize(new Dimension(100, 50));
 
 		back.setPreferredSize(new Dimension(100, 50));
+=======
+		start.setPreferredSize(new Dimension(100, 40));
+		back.setPreferredSize(new Dimension(100, 40));
+		back.setIconTextGap(-6);	
+	
+>>>>>>> Devel
 		p1.setPreferredSize(new Dimension(100, 50));
 		p2.setPreferredSize(new Dimension(100, 50));
 		p3.setPreferredSize(new Dimension(100, 50));
@@ -172,7 +219,17 @@ public class LobbyMenu extends JPanel {
 		return game.getState();
 
 	}
+<<<<<<< HEAD
 
+=======
+	
+	public boolean closeConnection(){
+		return connection;
+		
+		
+	}
+	
+>>>>>>> Devel
 	public class Handler implements ActionListener {
 		GameMenu menu;
 		@Override
@@ -183,7 +240,13 @@ public class LobbyMenu extends JPanel {
 					menu = new GameMenu(0);
 				}
 				else{
+<<<<<<< HEAD
 					menu = new GameMenu(1);
+=======
+					System.out.println("back pressed");
+				 menu = new GameMenu(1);
+				 connection = true;
+>>>>>>> Devel
 				}
 				add(menu);
 			}

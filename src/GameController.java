@@ -8,7 +8,9 @@ public class GameController implements Observer{
 	private GameView gameView = null;
 	private GameState gameState = null;
 	private Stack stackSelected;
-	
+	private int populationIncrease = 0;
+	private int sX = Resources.getScalingFactorX();
+	private int sY = Resources.getScalingFactorY();
 	public GameController(GameView gameView, GameState gameState)
 	{
 		this.gameView = gameView;
@@ -17,6 +19,7 @@ public class GameController implements Observer{
 	
 	@Override
 	public void update(Observable o, Object arg) {
+		
 		if(o == gameView)
 		{
 			try
@@ -26,27 +29,35 @@ public class GameController implements Observer{
 				
 				for(Stack s : gameState.getStacks())
 				{
-					
-					if(point.getX() >= s.getX() && point.getX() <= (s.getX() + 96) && 
-					   point.getY() >= s.getY() && point.getY() <= (s.getY() + 54))
+					if(point.getX() >= s.getX() && point.getX() <= (s.getX() + sX) && 
+					   point.getY() >= s.getY() && point.getY() <= (s.getY() + sY))
 					{
 						
 						
 						if(mouseClick.getButton() == 1)
 						{	
 							//System.out.println();
-							this.stackSelected = s;
+							if(s.getOwnedBy() == Resources.getMyPlayerID())
+							{
+								this.stackSelected = s;
+							}
 						}
 						else if(mouseClick.getButton() == 3)
 						{
-							if(stackSelected.getConnectedStacks(s.getX(), s.getY()) != null)
+							if(stackSelected.getConnectedStacks(s.getX(), s.getY()) != null && stackSelected.getOwnedBy() == Resources.getMyPlayerID())
 							{
-								System.out.println("Right click");
-								gameState.addAnt(new Ant(stackSelected.getX(), stackSelected.getY(), 1, 4, 
-										stackSelected.getConnectedStacks(s.getX(), s.getY())));
+									if(!(stackSelected.getPopulation() == 0))
+									{
+										//System.out.println("THIS IS THE ROAD: " + stackSelected.getConnectedStacks(s.getX(), s.getY()).get(0).getType());
+										stackSelected.decreasePopulation();
+										int type = stackSelected.getConnectedStacks(s.getX(), s.getY()).get(0).getType();
+										int x = Resources.getAntXOffset(type);
+										int y = Resources.getAntYOffset(type);
+										gameState.addAnt(new Ant(stackSelected.getX() + x, stackSelected.getY() + y, 
+												stackSelected.getConnectedStacks(s.getX(), s.getY()).get(0).getType(), 
+												stackSelected.getConnectedStacks(s.getX(), s.getY())));
+									}
 							}
-							
-							System.out.println("adding ant");
 						}
 					}
 				}
@@ -58,7 +69,6 @@ public class GameController implements Observer{
 		}
 		if(o == gameState)
 		{
-			gameView.updateFrame();
 			
 		}
 	}

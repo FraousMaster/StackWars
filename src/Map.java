@@ -20,11 +20,13 @@ public class Map {
     private BufferedImage image;
     JLabel label;
     private ArrayList<Stack> stacks;
+    private ArrayList<Roads> allRoads = new ArrayList<>();
     private int lastX, lastY;
     private int sX = Resources.getScalingFactorX(), sY = Resources.getScalingFactorY();
-    
+    private int playerID = Resources.getMyPlayerID();
+    private Stack myStack;
     HashMap<Integer, Integer> mapX = new HashMap<>();
-
+    
     private HashMap<Integer, HashMap<Integer, Integer>> mapY = new HashMap<>();
 
     public Map(){
@@ -34,9 +36,81 @@ public class Map {
         drawImage();
         setLabel();
         setRoads();
+        setAllStacks();
         for(Stack s: stacks){
-        	//System.out.println(s.testPrint());
+        	if(myStack == null)
+        	{
+        		myStack = s;
+    		}
+        	setMyStack(s);
         }
+        String a = "";
+        myStack.setOwnedBy();
+    	a += myStack.getX() + ":" + myStack.getY() + ":" + myStack.getOwnedBy() + ":" + myStack.getPopulation();
+    	Resources.setMyStack(a);
+    	sendAllRoadsToResources();
+    }
+    
+    private void sendAllRoadsToResources()
+    {
+    	ArrayList<String> allRoadsInString = new ArrayList<>();
+    	String a = "";
+    	for(Roads r : allRoads)
+    	{
+    		Point p = r.getPos();
+    		int x = (int)p.getX();
+    		int y = (int)p.getY();
+    		int type = r.getType();
+    		a += x + ":" + y + ":" + type;
+    		allRoadsInString.add(a);
+    		Resources.setAllRoads(allRoadsInString);
+    	}
+    }
+    
+    private void setAllStacks()
+    {
+    	ArrayList<String> temp = new ArrayList<>();
+        String a = "";
+        for(Stack s : stacks)
+        {
+        	a += s.getX() + ":" + s.getY() + ":" + s.getOwnedBy() + ":" + s.getPopulation();
+        	temp.add(a);
+        	a = "";
+        }
+        Resources.setAllStacks(temp);
+        
+    }
+    private void setMyStack(Stack s)
+    {
+    	if(playerID == 1)
+    	{
+    		if(s.getX() <= myStack.getX() && s.getY() <= myStack.getY())
+    		{
+    			//System.out.println(myStack);
+    			myStack = s;
+    		}
+    	}
+    	if(playerID == 2)
+    	{
+    		if(s.getX() >= myStack.getX() && s.getY() <= myStack.getY())
+    		{
+    			myStack = s;
+    		}
+    	}
+    	if(playerID == 3)
+    	{
+    		if(s.getX() <= myStack.getX() && s.getY() >= myStack.getY())
+    		{
+    			myStack = s;
+    		}
+    	}
+    	if(playerID == 4)
+    	{
+    		if(s.getX() >= myStack.getX() && s.getY() >= myStack.getY())
+    		{
+    			myStack = s;
+    		}
+    	}
     }
 
     private void readFile(){
@@ -59,7 +133,6 @@ public class Map {
                             x = 0;
                             mapX = new HashMap<>();
                         }
-                        //System.out.println(" Key Y: "+ y + " Key X:"+ x + " content :" + mapX.get(x));
                     }
                 }
             }
@@ -86,7 +159,7 @@ public class Map {
                 		}
                 		//check over stack - y
                 		if (i != 0 && (56 >= mapY.get(i - 1).get(j) && mapY.get(i - 1).get(j) >= 51)){
-                			temp.add(new Roads(j * sX, (i - 1) * sY, mapY.get(i - 1).get(j)));
+                			temp.add(new Roads(j * sX, (i - 1) * sY, mapY.get(i - 1).get(j) +5));
                 			for(Roads r : getRoad(j, (i - 1), previousDirection.under_tile)){
                 				temp.add(r);
                 			}
@@ -96,7 +169,7 @@ public class Map {
                 		}
                 		//check left of stack -x
                 		if (j != 0 && (56 >= mapY.get(i).get(j - 1) && mapY.get(i).get(j - 1) >= 51)){
-                			temp.add(new Roads((j - 1) * sX, i * sY, mapY.get(i).get(j - 1)));
+                			temp.add(new Roads((j - 1) * sX, i * sY, mapY.get(i).get(j - 1) + 5));
                 			for(Roads r : getRoad((j - 1), i, previousDirection.right_of_tile)){
                 				temp.add(r);
                 			}
@@ -122,20 +195,18 @@ public class Map {
     private ArrayList<Roads> getRoad(int x, int y, previousDirection dir)
     {
         ArrayList<Roads> temp = new ArrayList<>();
+        
         while(true){
             /*check position under the road at pos x y (+ y)
             *this means direction from stack != under_stack
              */
         	if(y != 19 && dir != previousDirection.under_tile){
 	            if (56 >= mapY.get((y + 1)).get((x)) && mapY.get(y + 1).get((x)) >= 51){
-	            	//System.out.println("In under: y :"+ y + " x: "+ x + " " + mapY.get(y).get((x)) + "  Dir: " + dir);
 	            	y += 1;
 	                temp.add(new Roads(x * sX, y * sY, mapY.get(y).get(x)));
 	                dir = previousDirection.over_tile;
 	            }
 	            if (y != 19 && mapY.get((y + 1)).get(x) == 50){
-	            	//System.out.println("STack found");
-	            	//System.out.println("IN break in under: " + mapY.get((y + 1)).get(x)+ " y: " + y + " x: " + x);
 	            	y += 1;
 	            	 break;
 	            }
@@ -145,15 +216,12 @@ public class Map {
              */
         	if(y != 0 && dir != previousDirection.over_tile){
 	            if((56 >= mapY.get(y - 1).get(x) && mapY.get(y - 1).get((x)) >= 51)){
-	            	//System.out.println("In Over: y :"+ y + " x: "+ x + " " + mapY.get(y).get((x)) + "  Dir: " + dir);
-	            	 //System.out.println("over: y :"+ y + " x: "+ x);
 	            	
 	            	y -= 1;
-	                temp.add(new Roads(x * sX, y * sY, mapY.get(y).get(x)));
+	                temp.add(new Roads(x * sX, y * sY, (mapY.get(y).get(x) + 5)));
 	                dir = previousDirection.under_tile;
 	            }
 	            if(y != 0 && mapY.get((y - 1)).get(x) == 50){
-	            	//System.out.println("IN break in over: " + mapY.get((y - 1)).get(x)+ " y: " + y + " x: " + x);
 	            	y -= 1;
 	            	break;
 	            }
@@ -163,16 +231,13 @@ public class Map {
              */
 
         	if(x != 19 && dir != previousDirection.right_of_tile){
-        		//System.out.println("in Right: y :"+ y + " x: "+ x + " " + mapY.get(y).get((x)) + "  Dir: " + dir);
                 if(56 >= mapY.get(y).get((x + 1)) &&  mapY.get(y).get((x + 1)) >= 51){
-	            	 //System.out.println("Right: y :"+ y + " x: "+ x);
 	            	x += 1;
-	                temp.add(new Roads(x * sX, y * sY, mapY.get(y).get(x)));
+	                temp.add(new Roads(x * sX, y * sY,(mapY.get(y).get(x) + 5)));
 	                dir = previousDirection.left_of_tile;
 	            }
 	           
 	            if (x != 19 && mapY.get(y).get((x + 1)) == 50){
-	            	//System.out.println("IN break in reigh: " + mapY.get((y)).get(x + 1)+ " y: " + y + " x: " + x);
 	            	x += 1;
 	            	break;
 	            }
@@ -182,37 +247,52 @@ public class Map {
              */
         	if(x != 0  && dir != previousDirection.left_of_tile){
 	            if(x != 19 && (56 >= mapY.get(y).get((x - 1)) && mapY.get(y).get((x - 1)) >= 51)){
-	            	//System.out.println("In left:"+ " y :"+ y + " x: "+ x + " " + mapY.get(y).get((x)) + "  Dir: " + dir);
-	            	//System.out.println("left: y :"+ y + " x: "+ x);
 	            	x -= 1;
 	                temp.add(new Roads(x * sX, y * sY, mapY.get(y).get(x)));
 	                dir = previousDirection.right_of_tile;
 
 	            }
 	            if(x != 0 && mapY.get(y).get((x - 1)) == 50){
-	            	//System.out.println("IN break in left: " + mapY.get((y)).get(x - 1)+ " y: " + y + " x: " + x);
 	            	x -= 1;
 	            	break;
 	            }
         	}
         	
             if(mapY.get(y).get(x) == 50){
-            	//System.out.println("end: y :"+ y + " x: "+ x + " " + mapY.get(y).get((x)) + "  Dir: " + dir);
             	break;
             }
-        }    
-        /*System.out.println();
-        System.out.println("DONE");
-        System.out.println();*/
+        }
         lastX = x;
         lastY = y;
         return temp;
     }
     private void addRoadToStack(int x,int y, int x1, int y1, ArrayList<Roads> list){
-        //System.out.println("FROM: " + x + " , " + y + " TO " + x1 + " , " + y1 + " ROAD :");
+    	boolean checkExistence = false;
+    	
         for(Roads r : list){
-        	 //System.out.println(r.getPos() + " type : " + r.getType());
+            if(allRoads.isEmpty()){
+                allRoads.add(r);
+            }
+            else{
+                if(!(allRoads.contains(r)));
+                {
+                	for(Roads r1 : allRoads)
+                	{
+                		if(r1.getPos().equals(r.getPos()))
+                		{
+                			checkExistence = true;
+                			break;
+                		}
+                		
+                	}
+                	if(!checkExistence)
+                	{
+                		allRoads.add(r);
+                	}
+                }
+            }
         }
+
     	x1 = x1 * sX;
         y1 = y1 * sY;
         x = x * sX;
@@ -230,7 +310,6 @@ public class Map {
     private void drawImage() {
         Graphics g = im.getGraphics();
         for (int i = 0; i < 20; i++) {
-           // System.out.println(i + " " + mapY.get(i).size());
             for (int j = 0; j < 20; j++) {
                 if ( mapY.get(i).get(j) == 49) {//1
                     try {
@@ -278,6 +357,7 @@ public class Map {
                 }
                 else if (mapY.get(i).get(j) == sY) {//6
                     try {
+                    	//System.out.println("TRYING TO MAKE LEFT TOP MAP OBJECT");
                         image = ImageIO.read(new File("Graphics/lefttop.png"));
                         g.drawImage(image, sX * j , sY * i, sX, sY, null);
                     } catch (IOException e) {

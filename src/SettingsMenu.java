@@ -131,12 +131,20 @@ public class SettingsMenu extends JPanel {
 					TransformerFactory transFactory = TransformerFactory.newInstance();
 					Transformer transformer = transFactory.newTransformer();
 					DOMSource source = new DOMSource(document);
+<<<<<<< HEAD
 					StreamResult result = new StreamResult(new File("../Settings/file.xml"));
 					transformer.transform(source, result);
 
 
 
 
+=======
+                    StreamResult result = new StreamResult(new File("Settings/file.xml"));
+                    transformer.transform(source, result);
+                    remove();
+    				StartMenu menu = new StartMenu();
+    				add(menu);
+>>>>>>> Devel
 				}catch(ParserConfigurationException pce){
 					pce.printStackTrace();
 				}catch(TransformerException te){
