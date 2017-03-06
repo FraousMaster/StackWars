@@ -32,6 +32,7 @@ public class Server extends Thread {
     private String sendMessage;
     private boolean first = true;
     private int popIncrease = 0;
+    
     public Server() throws Exception {
         serverSocket = new DatagramSocket(1203);
         players = new LinkedList<>();
@@ -190,19 +191,44 @@ public class Server extends Thread {
         if (!(messageReceived.equals(players.getLast()) || messageReceived.contains("success") || messageReceived.equals("start") || messageReceived.equals(null)
                 || messageReceived == null || messageReceived.equals("OK") || check(messageReceived) || messageReceived.equals("waiting")))
         {
-        	Ant dummy = new Ant(messageReceived);
-            ants.add(dummy);
-            int xS = Resources.getAntXOffset(dummy.getCurrentMapObject());
-            int yS = Resources.getAntYOffset(dummy.getCurrentMapObject());
-            for(Stack s : stacks)
-            {	
-            	if((dummy.getPosX() - xS) == s.getX() && (dummy.getPosY() - yS) == s.getY())
-            	{
-            		s.decreasePopulation(dummy);
-            	}
-            }
+        	{
+        		String[] a = null;
+        		Ant dummy;
+        		if(messageReceived.contains("s"))
+        		{
+        			String[] s = messageReceived.split("s");
+        			dummy = new Ant(s[0]);
+        			a = s[1].split(":");
+        			
+        		}
+        		else
+        			dummy = new Ant(messageReceived);
+        	
+	            ants.add(dummy);
+	            int xS = Resources.getAntXOffset(dummy.getCurrentMapObject());
+	            int yS = Resources.getAntYOffset(dummy.getCurrentMapObject());
+	            for(Stack s : stacks)
+	            {	
+	            	if((dummy.getPosX() - xS) == s.getX() && (dummy.getPosY() - yS) == s.getY())
+	            	{
+	            		s.decreasePopulation(dummy);
+	            	}
+	            	if(a != null && Integer.parseInt(a[0]) == s.getX() && Integer.parseInt(a[1]) == s.getY())
+	            	{
+	            		
+	            		for(Stack rallyPoint : stacks)
+	            		{
+	            			
+	            			if(Integer.parseInt(a[2]) == rallyPoint.getX() && Integer.parseInt(a[3]) == rallyPoint.getY())
+	            			{
+	            				s.setRallyPoint(rallyPoint);
+	            			}
+	            		}
+	            	}
+	            }
+    		}
             sendMessage = temp;
-        }
+    	}	
         
         updateStackPopulation();
         if (!(ants.isEmpty())) {
@@ -233,9 +259,37 @@ public class Server extends Thread {
     	{
     		if(popIncrease >= 60)
     		{
-    			if(s.getOwnedBy() != 0)
-    				s.increasePopulation();
     			
+    			if(s.getOwnedBy() != 0)
+    			{
+    				if(s.checkIfRallyPoint())
+    				{
+    					int type;
+    					if(s.getX() == s.getRallyPoint().getX())
+    					{
+    						if(s.getY() < s.getRallyPoint().getY())
+    							type = 3;
+    						
+							else
+								type = 8;
+    					}
+    					else
+    					{
+    						if(s.getX() < s.getRallyPoint().getX())
+    							type = 4;
+    						
+							else
+								type = 9;
+    					}
+    					int x = s.getX() + Resources.getAntXOffset(type);
+    					int y = s.getY() + Resources.getAntYOffset(type);
+    					Ant a = new Ant(x, y, type, s.getOwnedBy());
+    					ants.add(a);
+    					
+    				}
+    				else
+    					s.increasePopulation();
+    			}
     			checkIncrease = true;
     		}
     	}

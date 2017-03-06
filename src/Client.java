@@ -44,7 +44,7 @@ public class Client extends Thread{
 			while(true)
 			{
 				recData();
-				echo("client received "+messageReceived);
+				//echo("client received "+messageReceived);
 				if(inLobby)
 				{
 					inLobby();
@@ -55,7 +55,7 @@ public class Client extends Thread{
 				}
 				sendData();
 				//echo("client sent : "+SendMessage);
-				sleep(132);
+				sleep(33);
 			}	
 		} 
 		catch (Exception e)
@@ -181,8 +181,18 @@ public class Client extends Thread{
 				{
 					x += s.toString();
 				}
+				if(!state.getStacksToUpdate().isEmpty())
+				{
+					x += "s";
+					for(String s : state.getStacksToUpdate())
+					{
+						x += s;
+						
+					}
+				}
 				SendMessage = x;
 				state.getAntsToUpload().clear();
+				state.getStacksToUpdate().clear();
 			}
 			else
 			{

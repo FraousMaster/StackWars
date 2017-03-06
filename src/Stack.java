@@ -12,6 +12,8 @@ public class Stack extends JComponent{
     private HashMap<Point, ArrayList<Roads>> connectedStacks = new HashMap<>();
     private boolean checkFirst = true;
     private boolean selected = false;
+    private boolean gotRallyPoint = false;
+    private Stack rallyPoint;
     
     public Stack(int posX, int posY){
         population = 5;
@@ -24,6 +26,10 @@ public class Stack extends JComponent{
     	return stackPosX + ":" + stackPosY + ":" + ownedBy + ":" + population;
     }
     
+    public String updateToString(){
+    	return stackPosX + ":" + stackPosY + ":" + rallyPoint.getX() + ":" + rallyPoint.getY();
+    }
+        
     public Stack(String s){
     	String b[] = s.split(":");
     	stackPosX = Integer.parseInt(b[0]);
@@ -32,6 +38,7 @@ public class Stack extends JComponent{
     	population = Integer.parseInt(b[3]);
     	//System.out.println("building ANT" + b[1]);
     }
+    
     
     public BufferedImage getImage()
     {
@@ -53,6 +60,14 @@ public class Stack extends JComponent{
     {
     	return ownedBy;
     }
+    public Stack getRallyPoint()
+    {
+    	if(gotRallyPoint)
+    	{
+    		return rallyPoint;
+    	}
+    	return null;
+    }
     public void setOwnedBy()
     {
     	if(checkFirst)
@@ -66,15 +81,29 @@ public class Stack extends JComponent{
     {
     	ownedBy = x;
     }
+    
     public void setOwnedByEnemy(String s)
     {
     	Stack stack = new Stack(s);
     	this.ownedBy = stack.getOwnedBy();
     }
+    
+    public void setRallyPoint(Stack rallyPoint)
+    {
+		gotRallyPoint = true;
+    	this.rallyPoint = rallyPoint;
+    }
+    
+    public boolean checkIfRallyPoint()
+    {
+    	return gotRallyPoint;
+    }
+    
     public void decreasePopulation()
     {
     	population -= 1;
     }
+    
     public void decreasePopulation(Ant a)
     {
     	if(population <= 0)
@@ -86,12 +115,19 @@ public class Stack extends JComponent{
     }
     public void increasePopulation()
     {
-    	population += 1;
+    	if(gotRallyPoint)
+    	{
+    		rallyPoint.increasePopulation();
+    	}
+    	else
+    		population += 1;
     }
+    
     public void setPopulation(int x)
     {
     	population = x;
     }
+    
     public ArrayList<Roads> getConnectedStacks(int x, int y)
     {
     	Point key = new Point(x,y);

@@ -10,6 +10,7 @@ public class GameState extends Observable{
     private ArrayList<Ant> ants;
     private ArrayList<Ant> antsToUpload;
     private ArrayList<Stack> stacks;
+    private ArrayList<String> stacksToUpdate;
     private Map map;
 
     public GameState(){
@@ -17,6 +18,7 @@ public class GameState extends Observable{
         ants = new ArrayList<Ant>();
         antsToUpload = new ArrayList<Ant>();
         stacks = new ArrayList<Stack>();
+        stacksToUpdate = new ArrayList<String>();
         initGame();
     }
 
@@ -31,9 +33,15 @@ public class GameState extends Observable{
         return antsToUpload;
     }
     
+    public ArrayList<String> getStacksToUpdate(){
+        return stacksToUpdate;
+    }
+    
     public ArrayList<Stack> getStacks(){
     	return stacks;
     }
+    
+    
     
     public void updateAllStacks(String a)
     {
@@ -73,6 +81,10 @@ public class GameState extends Observable{
         antsToUpload.add(a);
     }
 
+    public void addStackUpdate(Stack s)
+    {
+        stacksToUpdate.add(s.updateToString());
+    }
     
     public Map getMap(){
         return map;
