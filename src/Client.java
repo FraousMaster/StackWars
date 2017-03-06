@@ -8,7 +8,6 @@ public class Client extends Thread{
 	private static String name;
 	private static byte[] sendData = new byte[2000];
 	private static byte[] receiveData = new byte[2000];
-	//private DatagramSocket clientSocket = null;
 	private DatagramSocket gameSocket = null ;
 	private String SendMessage;
 	private LobbyMenu menu;
@@ -21,6 +20,8 @@ public class Client extends Thread{
 	private GameState state;
 	private boolean started = false;
 	private boolean first = true;
+
+	
 	@SuppressWarnings("static-access")
 	public Client(String IP, String name, LobbyMenu menu) throws SocketException{
 		this.IP_ADDRESS = IP;
@@ -32,7 +33,6 @@ public class Client extends Thread{
 		try {
 			host = InetAddress.getByName(IP_ADDRESS);
 		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -44,7 +44,6 @@ public class Client extends Thread{
 			while(true)
 			{
 				recData();
-				echo("client received "+messageReceived);
 				if(inLobby)
 				{
 					inLobby();
@@ -128,11 +127,6 @@ public class Client extends Thread{
 		 
 	 }
 	 
-	 
-	 private void echo(String s){
-		 System.out.println(s);
-	 }
-	 
 	 private ArrayList<String> playerList(String x) throws IOException{
 		 ArrayList<String> temp = new ArrayList<String>();
 
@@ -141,7 +135,6 @@ public class Client extends Thread{
 		for(String z : newString){
 	  		temp.add(z);
   		}
-		//echo("TEMP :"+ temp);
 		return temp;
 	 }
 
