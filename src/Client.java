@@ -56,7 +56,7 @@ public class Client extends Thread{
 				}
 				sendData();
 				//echo("client sent : "+SendMessage);
-				sleep(33);
+				sleep(132);
 			}	
 		} 
 		catch (Exception e)

@@ -385,7 +385,7 @@ public class Server extends Thread {
         			
         			if(type1 == 3)
         			{
-        				if((y2- 7) > y1 && x1 == x2)
+        				if(y1 > (y2 - 7) && x1 == x2)
         				{
         					antTemp = check;
         					break;
