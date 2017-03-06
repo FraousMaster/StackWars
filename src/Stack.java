@@ -125,6 +125,7 @@ public class Stack extends JComponent{
     	if(population <= 0)
     	{
     		setOwnedBy(a.getOwnedBy());
+    		setRallyPoint(this);
     	}
     	else
     		population -= 1;
