@@ -44,7 +44,7 @@ public class GameController implements Observer{
 						}
 						else if(mouseClick.getButton() == 3)
 						{
-							if(stackSelected.getConnectedStacks(s.getX(), s.getY()) != null)
+							if(stackSelected.getConnectedStacks(s.getX(), s.getY()) != null && stackSelected.getOwnedBy() == Resources.getMyPlayerID())
 							{
 									if(!(stackSelected.getPopulation() == 0))
 									{

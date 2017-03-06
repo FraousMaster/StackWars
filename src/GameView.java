@@ -77,7 +77,7 @@ public class GameView extends Observable implements Observer{
                 	}
                 	else if(s.getOwnedBy() == 4)
                 	{
-                		g.setColor(Color.PINK);
+                		g.setColor(Color.BLACK);
                 	}
                 	else
                 	{
