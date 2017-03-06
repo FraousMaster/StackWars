@@ -112,18 +112,22 @@ public class Server extends Thread {
             	}
         		if(!first)
         		{
-        			if(!tempStackList.isEmpty())
-        			{
-        				for(Stack s : tempStackList)
-        				{
-        					stacks.add(s);
-        				}
-        			}
         			for(Stack stack : stacks)
             		{
             			if(stack.getX() == tempS.getX() && stack.getY() == tempS.getY())
             			{
             				stacks.set(stacks.indexOf(stack), tempS);
+            			}
+            			if(!tempStackList.isEmpty())
+            			{
+            				if(stack.getX() == tempS.getX() && stack.getY() == tempS.getY())
+            				{
+	            				for(Stack s : tempStackList)
+	            				{
+	            					stacks.set(stacks.indexOf(stack), s);
+	            					tempStackList.remove(tempStackList.indexOf(s));
+	            				}
+            				}
             			}
             		}
         		}
