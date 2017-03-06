@@ -11,6 +11,7 @@ public class Stack extends JComponent{
     private BufferedImage image;
     private HashMap<Point, ArrayList<Roads>> connectedStacks = new HashMap<>();
     private boolean checkFirst = true;
+    private boolean selected = false;
     
     public Stack(int posX, int posY){
         population = 5;
@@ -122,5 +123,11 @@ public class Stack extends JComponent{
     	String s = new String();
     	s += "Size: " + connectedStacks.size();    	
     	return s;
+    }
+    public boolean isSelected(){
+        return selected;
+    }
+    public void setSelected(boolean b){
+        selected = b;
     }
 }

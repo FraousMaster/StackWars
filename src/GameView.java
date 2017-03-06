@@ -16,6 +16,7 @@ public class GameView extends Observable implements Observer{
 
     private GameState gameState;
     private GameFrame gameFrame;
+    private int sprite = 1;
     
     public GameView(GameState gameState){
         gameFrame = new GameFrame();
@@ -66,18 +67,30 @@ public class GameView extends Observable implements Observer{
                 	if(s.getOwnedBy() == 1)
                 	{
                 		g.setColor(Color.GREEN);
+                		if(s.isSelected()){
+							g.drawRect(s.getX(), s.getY() ,Resources.getScalingFactorX(), Resources.getScalingFactorY());
+						}
                 	}
                 	else if(s.getOwnedBy() == 2)
                 	{
                 		g.setColor(Color.RED);
+						if(s.isSelected()){
+							g.drawRect(s.getX(), s.getY() ,Resources.getScalingFactorX(), Resources.getScalingFactorY());
+						}
                 	}
                 	else if(s.getOwnedBy() == 3)
                 	{
                 		g.setColor(Color.BLUE);
+						if(s.isSelected()){
+							g.drawRect(s.getX(), s.getY() ,Resources.getScalingFactorX(), Resources.getScalingFactorY());
+						}
                 	}
                 	else if(s.getOwnedBy() == 4)
                 	{
                 		g.setColor(Color.BLACK);
+						if(s.isSelected()){
+							g.drawRect(s.getX(), s.getY() ,Resources.getScalingFactorX(), Resources.getScalingFactorY());
+						}
                 	}
                 	else
                 	{
@@ -88,7 +101,19 @@ public class GameView extends Observable implements Observer{
                 	g.drawString("Pop: " + s.getPopulation(), s.getX() + oX, s.getY()+ oY);
                 }
 				try {
-					image = ImageIO.read(new File("Graphics/Ant/smallAnt.png"));
+
+                	if(sprite <= 2) {
+						image = ImageIO.read(new File("Graphics/Ant/smallAnt.png"));
+						//sprite++;
+					}
+					/*else if(sprite <= 4){
+						image = ImageIO.read(new File("Graphics/Ant/AntV2.png"));
+                		sprite ++;
+					}
+					else{
+						image = ImageIO.read(new File("Graphics/Ant/AntV3.png"));
+						sprite = 1;
+					}*/
 
 				} catch (IOException e) {
 					e.printStackTrace();

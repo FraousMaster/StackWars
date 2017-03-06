@@ -39,7 +39,11 @@ public class GameController implements Observer{
 							//System.out.println();
 							if(s.getOwnedBy() == Resources.getMyPlayerID())
 							{
+								if(stackSelected != null) {
+									stackSelected.setSelected(false);
+								}
 								this.stackSelected = s;
+								stackSelected.setSelected(true);
 							}
 						}
 						else if(mouseClick.getButton() == 3)
