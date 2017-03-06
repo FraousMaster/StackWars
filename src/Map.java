@@ -117,7 +117,7 @@ public class Map {
         FileReader fr;
         int i, x = 0, y = 0;
             try {
-                fr = new FileReader("Graphics/Maps/Map2.txt");
+                fr = new FileReader("Graphics/Maps/1v1MAP.txt");
 
 
                 while ((i = fr.read()) != -1)
@@ -201,7 +201,7 @@ public class Map {
             *this means direction from stack != under_stack
              */
         	if(y != 19 && dir != previousDirection.under_tile){
-	            if (56 >= mapY.get((y + 1)).get((x)) && mapY.get(y + 1).get((x)) >= 51){
+	            if (57 >= mapY.get((y + 1)).get((x)) && mapY.get(y + 1).get((x)) >= 51){
 	            	y += 1;
 	                temp.add(new Roads(x * sX, y * sY, mapY.get(y).get(x)));
 	                dir = previousDirection.over_tile;
@@ -215,7 +215,7 @@ public class Map {
             *this means direction from stack != under_stack
              */
         	if(y != 0 && dir != previousDirection.over_tile){
-	            if((56 >= mapY.get(y - 1).get(x) && mapY.get(y - 1).get((x)) >= 51)){
+	            if((57 >= mapY.get(y - 1).get(x) && mapY.get(y - 1).get((x)) >= 51)){
 	            	
 	            	y -= 1;
 	                temp.add(new Roads(x * sX, y * sY, (mapY.get(y).get(x) + 5)));
@@ -231,7 +231,7 @@ public class Map {
              */
 
         	if(x != 19 && dir != previousDirection.right_of_tile){
-                if(56 >= mapY.get(y).get((x + 1)) &&  mapY.get(y).get((x + 1)) >= 51){
+                if(57 >= mapY.get(y).get((x + 1)) &&  mapY.get(y).get((x + 1)) >= 51){
 	            	x += 1;
 	                temp.add(new Roads(x * sX, y * sY,(mapY.get(y).get(x) + 5)));
 	                dir = previousDirection.left_of_tile;
@@ -246,7 +246,7 @@ public class Map {
             *this means direction from stack != under_stack
              */
         	if(x != 0  && dir != previousDirection.left_of_tile){
-	            if(x != 19 && (56 >= mapY.get(y).get((x - 1)) && mapY.get(y).get((x - 1)) >= 51)){
+	            if(x != 19 && (57 >= mapY.get(y).get((x - 1)) && mapY.get(y).get((x - 1)) >= 51)){
 	            	x -= 1;
 	                temp.add(new Roads(x * sX, y * sY, mapY.get(y).get(x)));
 	                dir = previousDirection.right_of_tile;
