@@ -117,11 +117,7 @@ public class Map {
         FileReader fr;
         int i, x = 0, y = 0;
             try {
-<<<<<<< HEAD
-                fr = new FileReader("Graphics/Maps/ny4v4.txt");
-=======
                 fr = new FileReader("Graphics/Maps/1v1MAP.txt");
->>>>>>> cb13cd577e7817cbad3cbdcf99b4b6fd2f95ff8f
 
 
                 while ((i = fr.read()) != -1)
