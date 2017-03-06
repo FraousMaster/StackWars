@@ -102,10 +102,10 @@ public class GameView extends Observable implements Observer{
                 }
 				try {
 
-                	//if(sprite <= 2) {
-						image = ImageIO.read(new File("Graphics/Ant/smallAnt.png"));
-						//sprite++;
-					/*}
+                	if(sprite <= 2) {
+						image = ImageIO.read(new File("Graphics/Ant/AntV1.png"));
+						sprite++;
+					}
 					else if(sprite <= 4){
 						image = ImageIO.read(new File("Graphics/Ant/AntV2.png"));
                 		sprite ++;
@@ -113,7 +113,7 @@ public class GameView extends Observable implements Observer{
 					else{
 						image = ImageIO.read(new File("Graphics/Ant/AntV3.png"));
 						sprite = 1;
-					}*/
+					}
 
 				} catch (IOException e) {
 					e.printStackTrace();
