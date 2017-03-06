@@ -11,6 +11,7 @@ public class GameController implements Observer{
 	private int populationIncrease = 0;
 	private int sX = Resources.getScalingFactorX();
 	private int sY = Resources.getScalingFactorY();
+	
 	public GameController(GameView gameView, GameState gameState)
 	{
 		this.gameView = gameView;
