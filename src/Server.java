@@ -101,7 +101,7 @@ public class Server extends Thread {
         		if(tempS.getOwnedBy() == 1)
             	{
         			
-            		for(String s :Resources.getAllStacks())
+            		for(String s : Resources.getAllStacks())
             		{
                     	Stack stack = new Stack(s);
                     	stacks.add(stack);
@@ -187,11 +187,7 @@ public class Server extends Thread {
 
     private void gameRunning() {
     		
-        if(messageReceived.equals("OK")) {
-        	sendMessage = temp;
-            //System.out.println("HELLOW WORLD CAN U SEE ME");
-        }
-        else if (!(messageReceived.equals(players.getLast()) || messageReceived.contains("success") || messageReceived.equals("start") || messageReceived.equals(null)
+        if (!(messageReceived.equals(players.getLast()) || messageReceived.contains("success") || messageReceived.equals("start") || messageReceived.equals(null)
                 || messageReceived == null || messageReceived.equals("OK") || check(messageReceived) || messageReceived.equals("waiting")))
         {
         	Ant dummy = new Ant(messageReceived);
@@ -225,7 +221,7 @@ public class Server extends Thread {
             }
         }
         else
-        	sendMessage = "b";
+        	sendMessage = "s" + getAllStacks();
         
     }
     
