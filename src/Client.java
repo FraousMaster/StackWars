@@ -44,7 +44,7 @@ public class Client extends Thread{
 			while(true)
 			{
 				recData();
-				//echo("client received "+messageReceived);
+				System.out.println("client received "+messageReceived);
 
 				if(inLobby)
 				{
@@ -144,10 +144,15 @@ public class Client extends Thread{
 		
 		if(messageReceived.equals("started"))
 		{
+			System.out.println("STARTING");
 			started = true;
 		}
 		else
+		{
 			SendMessage = "waiting".toString();
+			System.out.println("IN WAITINT");
+		}
+			
 		
 		if(started)
 		{

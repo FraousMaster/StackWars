@@ -108,7 +108,6 @@ public class Server extends Thread {
                     	stacks.add(stack);
             		}
             		
-            		
             		first = false;	
             	}
         		if(!first)
@@ -117,17 +116,18 @@ public class Server extends Thread {
             		{
             			if(stack.getX() == tempS.getX() && stack.getY() == tempS.getY())
             			{
-            				stacks.set(stacks.indexOf(stack), tempS);
+            				stack.setOwnedBy(tempS.getOwnedBy());
+            				stack.setPopulation(tempS.getPopulation());
             			}
             			if(!tempStackList.isEmpty())
             			{
-            				if(stack.getX() == tempS.getX() && stack.getY() == tempS.getY())
+            				for(Stack s : tempStackList)
             				{
-	            				for(Stack s : tempStackList)
-	            				{
-	            					stacks.set(stacks.indexOf(stack), s);
-	            					tempStackList.remove(tempStackList.indexOf(s));
-	            				}
+            					if(s.getX() == stack.getX() && s.getY() == stack.getY())
+            					{
+            						stack.setOwnedBy(s.getOwnedBy());
+            						stack.setPopulation(s.getPopulation());
+            					}
             				}
             			}
             		}
