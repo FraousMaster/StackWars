@@ -117,7 +117,7 @@ public class Map {
         FileReader fr;
         int i, x = 0, y = 0;
             try {
-                fr = new FileReader("Graphics/Maps/Map2.txt");
+                fr = new FileReader("Graphics/Maps/Map6.txt");
 
 
 
