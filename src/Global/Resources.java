@@ -2,8 +2,13 @@ package Global;
 import java.io.*;
 import java.util.ArrayList;
 
-
+/**
+ * 
+ * @author Arvid, Hugo
+ *
+ */
 public class Resources {
+	
 	private static int width = 1920;
 	private static int height = 1080;
 	private static int scalingFactorX = width/20;
@@ -13,7 +18,7 @@ public class Resources {
 	private static int myPlayerID;
 	
 	private static ArrayList<String> stacks = new ArrayList<>();
-    private static ArrayList<String> allRoads = new ArrayList<>();
+    
 	private static String myStack = "";
 	
 	public Resources()
@@ -21,29 +26,41 @@ public class Resources {
 		
 	}
 	
+	/**
+	 * @return int 
+ 	 */
 	public static int getWidth()
 	{
 		return width;
 	}
 	
+	/**
+	 * @return int 
+ 	 */
 	public static int getHeight()
 	{
 		return height;
 	}
 	
+	/**
+	 * @return int 
+ 	 */
 	public static int getScalingFactorX()
 	{
 		return scalingFactorX;
 	}
 	
+	/**
+	 * @return int 
+ 	 */
 	public static int getScalingFactorY()
 	{
 		return scalingFactorY;
 	}
-	/*
+	
+	/**
 	 * @param type
-	 * Depending on the type of the map ant gets a different offset.
-	 * This depends on the resolution chosen by the player. 
+	 * @return int
 	 */
 	public static int getAntXOffset(int type)
 	{
@@ -62,6 +79,10 @@ public class Resources {
 		return xOffset;
 	}
 	
+	/**
+	 * @param type
+	 * @return int
+	 */
 	public static int getAntYOffset(int type)
 	{
 		int temp = (scalingFactorY / 2) - 10;
@@ -79,6 +100,10 @@ public class Resources {
 		return yOffset;
 	}
 	
+	/**
+	 * @param x
+	 * @param y
+	 */
 	public static void setResolution(int x, int y)
 	{
 		width = x;
@@ -87,44 +112,58 @@ public class Resources {
 		scalingFactorY = height/20;
 	}
 	
+	/**
+	 * @return File Returns the XMLFile
+	 */
 	public static File getXMLFile()
 	{
 		return setFile;
 	}
-
+	
+	/**
+	 * @param x
+	 */
 	public static void setMyPlayerID(String x)
 	{
 		myPlayerID = Integer.parseInt(x);
 	}
-
+	
+	/**
+	 * 
+	 * @return int
+	 */
 	public static int getMyPlayerID()
 	{
 		return myPlayerID;
 	}
-	
-    public static void setAllRoads(ArrayList<String> list){
-        allRoads = list;
-    }
     
-    public static ArrayList<String> getAllRoads()
-    {
-    	return allRoads;
-    }
-
+    /**
+     * @param stackString Sets all stacks when Map generation is complete.
+     */
     public static void setAllStacks(ArrayList<String> stackString)
     {
     	stacks = stackString;
     }
 
+    /**
+     * @return ArrayList<String> return a list of all stacks on current map.
+     */
     public static ArrayList<String> getAllStacks()
     {
     	return stacks;
     }
     
+    /**
+     * @param s
+     */
 	public static void setMyStack(String s)
 	{
 		myStack = s;
 	}
+	
+	/**
+	 * @return myStack Returns the stack you want to start with.
+	 */
 	public static String getMyStack()
 	{
 		return myStack;

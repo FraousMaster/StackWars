@@ -74,7 +74,6 @@ public class Map {
     		int type = r.getType();
     		a += x + ":" + y + ":" + type;
     		allRoadsInString.add(a);
-    		Resources.setAllRoads(allRoadsInString);
     	}
     }
 
@@ -135,9 +134,7 @@ public class Map {
         FileReader fr;
         int i, x = 0, y = 0;
             try {
-                fr = new FileReader("Graphics/Maps/Map5.txt");
-
-
+                fr = new FileReader("Graphics/Maps/Map4.txt");
 
                 while ((i = fr.read()) != -1)
                 {

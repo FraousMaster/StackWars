@@ -3,6 +3,11 @@ import java.net.*;
 import java.util.*;
 import Global.Resources;
 
+/**
+ * 
+ * @author Arvid Wiklund, Hugo Frost, Linus Nilsson, Johannes Edenholm
+ *
+ */
 public class Client extends Thread{
 	private static String IP_ADDRESS;
 	private static String name;
@@ -129,6 +134,12 @@ public class Client extends Thread{
 		 
 	 }
 	 
+	 /**
+	  * 
+	  * @param x
+	  * @return ArrayList<String> is a list of all players in game.
+	  * @throws IOException
+	  */
 	 private ArrayList<String> playerList(String x) throws IOException{
 		 ArrayList<String> temp = new ArrayList<String>();
 
@@ -201,7 +212,12 @@ public class Client extends Thread{
 		}
 	}
 	
-	
+	/**
+	 * 
+	 * @param x
+	 * @return ArrayList<Ant> Converts message received from server to Ants.
+	 * @throws IOException
+	 */
 	private ArrayList<Ant> freshList(String x) throws IOException{
 		ArrayList<Ant> temp = new ArrayList<Ant>();
 		if(temp.isEmpty()){
@@ -231,7 +247,11 @@ public class Client extends Thread{
 	}
 			
 	 
-	 
+	 /**
+	  * 
+	  * @param s
+	  * @return boolean Returns true if a version of that ant already exists. 
+	  */
 	 private boolean check(String s)
 	 {
 		 boolean exists = false;

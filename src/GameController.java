@@ -3,7 +3,9 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import Global.Resources;
 
-
+/**
+ * @author Arvid Wiklund
+ */
 public class GameController implements Observer{
 	private GameView gameView = null;
 	private GameState gameState = null;
@@ -17,13 +19,6 @@ public class GameController implements Observer{
 		this.gameState = gameState;
 	}
 	
-	/*
-	 * (non-Javadoc)
-	 * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
-	 * Update method for the gameController. It observes GameView, so when the panel in gameView is clicked/triggers action handler 
-	 * this method takes care of that action.
-	 * @author Arvid Wiklund
-	 */
 	@Override
 	public void update(Observable o, Object arg) {
 		
