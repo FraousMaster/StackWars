@@ -1,12 +1,9 @@
 import java.util.ArrayList;
-import java.util.ArrayList;
-import java.util.*;
-import java.util.ArrayList;
 import java.util.*;
 import Global.Resources;
 
 public class GameState extends Observable{
-
+	
     private ArrayList<Ant> ants;
     private ArrayList<Ant> antsToUpload;
     private ArrayList<Stack> stacks;
@@ -20,8 +17,8 @@ public class GameState extends Observable{
         stacks = new ArrayList<Stack>();
         stacksToUpdate = new ArrayList<String>();
         initGame();
-    }
-
+    }	
+    
     public void initGame(){
         stacks = map.getStacks();
     }
@@ -29,10 +26,19 @@ public class GameState extends Observable{
     public ArrayList<Ant> getAnts(){
         return ants;
     }
+    
+    /*
+     * @author Arvid Wiklund
+     * Return an ArrayList with newly added ants locally that is sent to the server.
+     */
     public ArrayList<Ant> getAntsToUpload(){
         return antsToUpload;
     }
     
+    /*
+     * @author Arvid Wiklund
+     * Return an ArrayList with all changes to stacks locally.
+     */
     public ArrayList<String> getStacksToUpdate(){
         return stacksToUpdate;
     }
@@ -43,7 +49,6 @@ public class GameState extends Observable{
     
     public void updateAllStacks(String a)
     {
-    	//System.out.println("HELLOW WORLD CAN U SEE ME" + a);
     	String[] dummy = a.split("&");
     	for(String b : dummy)
     	{
