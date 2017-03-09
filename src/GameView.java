@@ -12,6 +12,12 @@ import java.util.Observer;
 import javax.swing.*;
 import Global.Resources;
 
+/** Class GameView
+*   @author Hugo Frost Arvid Wiklund
+*
+*   Function: paints all components on screen.
+*
+ */
 public class GameView extends Observable implements Observer{
 
     private GameState gameState;
@@ -54,12 +60,18 @@ public class GameView extends Observable implements Observer{
         {
 			drawPanel.repaint();
         }
-                
+
+		/*******************************************************************
+		 * Class DrawPanel extends JPanel
+		 *
+		 *
+		 * Comment: Creates main game panel and repaints it 60 fps
+		 *******************************************************************/
         private class DrawPanel extends JPanel {
 
 			private static final long serialVersionUID = 1L;
 			private BufferedImage image;
-            protected void paintComponent(Graphics g) {
+			protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
                 g.drawImage(gameState.getMap().getImage(), 0, 0, D_W, D_H, null);
                 for(Stack s : gameState.getStacks())
