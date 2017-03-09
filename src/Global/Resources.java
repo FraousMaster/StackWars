@@ -2,6 +2,7 @@ package Global;
 import java.io.*;
 import java.util.ArrayList;
 
+
 public class Resources {
 	private static int width = 1920;
 	private static int height = 1080;
@@ -15,43 +16,35 @@ public class Resources {
     private static ArrayList<String> allRoads = new ArrayList<>();
 	private static String myStack = "";
 	
-	private enum playerIDs{
-		player_one,
-		player_two,
-		player_three,
-		player_four
-    };
-	    
 	public Resources()
 	{
 		
 	}
-
+	
 	public static int getWidth()
 	{
 		return width;
 	}
+	
 	public static int getHeight()
 	{
 		return height;
 	}
+	
 	public static int getScalingFactorX()
 	{
 		return scalingFactorX;
 	}
+	
 	public static int getScalingFactorY()
 	{
 		return scalingFactorY;
 	}
-	
-	public static int getMyPlayerID()
-	{
-		return myPlayerID;
-	}
-	public static File getXMLFile()
-	{
-		return setFile;
-	}
+	/*
+	 * @param type
+	 * Depending on the type of the map ant gets a different offset.
+	 * This depends on the resolution chosen by the player. 
+	 */
 	public static int getAntXOffset(int type)
 	{
 		int temp = (scalingFactorX / 2) - 15;
@@ -68,6 +61,7 @@ public class Resources {
 		}
 		return xOffset;
 	}
+	
 	public static int getAntYOffset(int type)
 	{
 		int temp = (scalingFactorY / 2) - 10;
@@ -93,38 +87,23 @@ public class Resources {
 		scalingFactorY = height/20;
 	}
 	
+	public static File getXMLFile()
+	{
+		return setFile;
+	}
+
 	public static void setMyPlayerID(String x)
 	{
-		//System.out.println(x);;
 		myPlayerID = Integer.parseInt(x);
-		/*if(x.equals("1"))
-		{
-			myPlayerID = playerIDs.player_one;
-		}
-		if(x.equals("2"))
-		{
-			myPlayerID = playerIDs.player_one;
-		}
-		if(x.equals("3"))
-		{
-			myPlayerID = playerIDs.player_three;
-		}
-		if(x.equals("4"))
-		{
-			myPlayerID = playerIDs.player_four;
-		}*/
 	}
+
+	public static int getMyPlayerID()
+	{
+		return myPlayerID;
+	}
+	
     public static void setAllRoads(ArrayList<String> list){
         allRoads = list;
-    }
-    
-    public static void setAllStacks(ArrayList<String> stackString)
-    {
-    	stacks = stackString;
-    }
-    public static ArrayList<String> getAllStacks()
-    {
-    	return stacks;
     }
     
     public static ArrayList<String> getAllRoads()
@@ -132,6 +111,16 @@ public class Resources {
     	return allRoads;
     }
 
+    public static void setAllStacks(ArrayList<String> stackString)
+    {
+    	stacks = stackString;
+    }
+
+    public static ArrayList<String> getAllStacks()
+    {
+    	return stacks;
+    }
+    
 	public static void setMyStack(String s)
 	{
 		myStack = s;

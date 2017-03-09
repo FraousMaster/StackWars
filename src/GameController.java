@@ -1,14 +1,13 @@
 import java.util.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
-import java.lang.Math.*;
 import Global.Resources;
+
 
 public class GameController implements Observer{
 	private GameView gameView = null;
 	private GameState gameState = null;
 	private Stack stackSelected;
-	private int populationIncrease = 0;
 	private int sX = Resources.getScalingFactorX();
 	private int sY = Resources.getScalingFactorY();
 	
@@ -18,6 +17,13 @@ public class GameController implements Observer{
 		this.gameState = gameState;
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
+	 * Update method for the gameController. It observes GameView, so when the panel in gameView is clicked/triggers action handler 
+	 * this method takes care of that action.
+	 * @author Arvid Wiklund
+	 */
 	@Override
 	public void update(Observable o, Object arg) {
 		
@@ -85,10 +91,6 @@ public class GameController implements Observer{
 			{
 				e.printStackTrace();
 			}
-		}
-		if(o == gameState)
-		{
-			
 		}
 	}
 }
