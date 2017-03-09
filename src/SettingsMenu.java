@@ -23,23 +23,24 @@ public class SettingsMenu extends JPanel {
 	private final String[] resSet = {"Default","1920x1080","1600x900","1360x768","1280x720"};
 	private String VOL = "Volume";
 	private String RES = "Default";
-
+	/**
+	 * Constructor for this class
+	 */
 	public SettingsMenu(){
 		setLayout(new GridBagLayout());
-		buttons();	
+		createGUI();	
 	}
 	
+	/**
+	 * Adds and creates GUI for the JPanel
+	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	private void buttons(){
+	private void createGUI(){
 		GridBagConstraints c = new GridBagConstraints();
 		volume = new JComboBox(volSet);
 		resolution = new JComboBox(resSet);
 		applyButton = new JButton("Apply");
 		backButton = new JButton("Back");
-		
-		/*
-		 * ActionListener and size
-		 */
 		
 		volume.addActionListener(new Handler());
 		resolution.addActionListener(new Handler());
@@ -49,10 +50,6 @@ public class SettingsMenu extends JPanel {
 		resolution.setPreferredSize(new Dimension(100, 50));
 		applyButton.setPreferredSize(new Dimension(100, 50));
 		backButton.setPreferredSize(new Dimension(100, 50));
-
-		/*
-		 * placements with the GridBagContraints.
-		 */
 		
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 3;
@@ -74,30 +71,37 @@ public class SettingsMenu extends JPanel {
 		c.gridy = 3;
 		add(backButton, c);
 	}
-	
+	/**
+	 * Returns the current resulution
+	 * @return
+	 */
 	private String getRes(){
 		if(RES.equals("Default")){
 			RES = "1600x900";
 		}
 		return RES;
 	}
-	
+	/**
+	 * Returns the current volume
+	 * @return
+	 */
 	private String getVol(){
 		if(VOL.equals("Volume")){
 			VOL = "3";
 		}
 		return VOL;
 	}
-	/*
-	 * cleans the Panel from visible content
+	/**
+	 * Removes the current GUI for this JPanel
 	 */
 	private void remove(){
 		this.removeAll();
 		this.revalidate();
 		this.repaint();
 	}
-	/*
+	/**
 	 * Apply-button Creates a document of type XML and places the resolution and volume values in Elements.
+	 * Handler class, takes care of actionEvents
 	 */
 	public class Handler implements ActionListener {
 

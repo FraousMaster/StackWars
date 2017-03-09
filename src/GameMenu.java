@@ -23,18 +23,22 @@ public class GameMenu extends JPanel {
 	private final String[] ants = {"Ants","5","6","7","8","9","10"};
 	private final String[] maps = {"Maps","1","2","3","4","5"};
 	private int goTo;
-
-
-	
+	/**
+	 * Constructor for this class
+	 */
 	public GameMenu(int to){
 		this.goTo = to;
 		
 		setLayout(new GridBagLayout());
-		settings();
+		createGUI();
 	}
-
+	
+	/**
+	 * Adds and creates GUI for the JPanel
+	 * Goto Determines whether to create GUI for the host or client.
+	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	private void settings(){
+	private void createGUI(){
 		
 		ImageIcon crt = new ImageIcon("Graphics/Buttons/creategame.png");
 		ImageIcon bck = new ImageIcon("Graphics/Buttons/bigBack.png");
@@ -71,9 +75,7 @@ public class GameMenu extends JPanel {
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 3;
 		c.gridy = 0;
-		if(goTo == 1)
 		add(ipField, c);
-		
 		}
 		
 		if(goTo == 0){
@@ -127,46 +129,71 @@ public class GameMenu extends JPanel {
 		add(nameField, c);
 		
 	}
-	
+	/**
+	 * Returns name 
+	 */
 	public String getName(){
 		return NAME;
 	}
-	
+	/**
+	 * Sets IP
+	 * @param input
+	 */
 	private void setIP(String input){
 		this.IP_ADDRESS = input;
 	}
-	
+	/**
+	 * Returns IP
+	 * @return
+	 */
 	public String returnIP(){
 		return IP_ADDRESS;
 	}
-	
-	private void returnName(String input){
+	/**
+	 * Sets the name,
+	 * @param input
+	 */
+	private void SetNam(String input){
 		this.NAME = input;
 		
 	}
-	
-	private void returnAnts(String input){
+	/**
+	 * Set nr of Ants
+	 * @param input
+	 */
+	private void setAnts(String input){
 		this.antNr = input;
 	}
-	
+	/**
+	 * Removes the current GUI for this JPanel
+	 */
 	public void remove(){
 		this.removeAll();
 		this.revalidate();
 		this.repaint();
 	}
-	
+	/**
+	 * prepares to create a server host
+	 * @throws UnknownHostException
+	 */
 	private void createHost() throws UnknownHostException{
 		LobbyMenu menu = new LobbyMenu(0, this );
-		add(menu);
-		
+		add(menu);	
 	}
-	
+	/**
+	 * prepares to create Client 
+	 * @throws UnknownHostException
+	 */
     private void createClient() throws UnknownHostException{
     	LobbyMenu menu = new LobbyMenu(1, this );	
 		add(menu);
 		
 	}
-	
+	 /**
+     * 
+     * @author Johannes Edenholm
+     * Handler class, takes care of actionEvents
+     */
 	public class Handler implements ActionListener {
 
 		@Override
@@ -178,11 +205,11 @@ public class GameMenu extends JPanel {
 			}
 			else if(e.getSource() == antBox ){
 				String value = antBox.getSelectedItem().toString();
-				returnAnts(value);	
+				setAnts(value);	
 			}	
 			else if(e.getSource() == gameButton ){
 				String input2 = nameField.getText();
-				returnName(input2);
+				SetNam(input2);
 				remove();
 				try {
 					createHost();
@@ -193,7 +220,7 @@ public class GameMenu extends JPanel {
 			}	
 			else if(e.getSource() == joinButton ){
 				String input2 = nameField.getText();
-				returnName(input2);
+				SetNam(input2);
 				String input = ipField.getText();
 				setIP(input);
 				remove();
