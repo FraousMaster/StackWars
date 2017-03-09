@@ -10,7 +10,6 @@ import org.w3c.dom.*;
 import Global.Resources;
 /*
  * @Author Linus Nilsson, Johannes Edenholm
- * returns a volume value
  */
 public class SettingsMenu extends JPanel {
 
@@ -38,7 +37,9 @@ public class SettingsMenu extends JPanel {
 		applyButton = new JButton("Apply");
 		backButton = new JButton("Back");
 		
-		
+		/*
+		 * ActionListener and size
+		 */
 		
 		volume.addActionListener(new Handler());
 		resolution.addActionListener(new Handler());
@@ -49,6 +50,9 @@ public class SettingsMenu extends JPanel {
 		applyButton.setPreferredSize(new Dimension(100, 50));
 		backButton.setPreferredSize(new Dimension(100, 50));
 
+		/*
+		 * placements with the GridBagContraints.
+		 */
 		
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 3;
@@ -84,13 +88,17 @@ public class SettingsMenu extends JPanel {
 		}
 		return VOL;
 	}
-	
+	/*
+	 * cleans the Panel from visible content
+	 */
 	private void remove(){
 		this.removeAll();
 		this.revalidate();
 		this.repaint();
 	}
-	
+	/*
+	 * Apply-button Creates a document of type XML and places the resolution and volume values in Elements.
+	 */
 	public class Handler implements ActionListener {
 
 		@Override
