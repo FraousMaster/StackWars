@@ -74,26 +74,40 @@ public class SettingsMenu extends JPanel {
 		c.gridy = 3;
 		add(backButton, c);
 	}
-	
+	/*
+	 * Author: Linus Nilsson
+	 * returns a resolution value
+	 */
 	private String getRes(){
 		if(RES.equals("Default")){
 			RES = "1600x900";
 		}
 		return RES;
 	}
+	/*
+	 * Author: Linus Nilsson
+	 * returns a volume value
+	 */
 	private String getVol(){
 		if(VOL.equals("Volume")){
 			VOL = "3";
 		}
 		return VOL;
 	}
-
+	/*
+	 * Author: Johannes Edenholm
+	 * remove cleans up the Panel from any visible content.
+	 */
 	private void remove(){
 		this.removeAll();
 		this.revalidate();
 		this.repaint();
 	}
-	
+	/*
+	 * Author: Linus Nilsson & Johannes Edenholm
+	 * Gives the buttons their actions. For the back-button we clean the Panel and add a new Start-Menu.
+	 * Apply-button creates an XML-file and adds the values of volume and resolution in it.
+	 */
 	public class Handler implements ActionListener {
 
 		@Override
