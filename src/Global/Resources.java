@@ -14,7 +14,7 @@ public class Resources {
 	private static int scalingFactorX = width/20;
 	private static int scalingFactorY = height/20;
 	
-	private static File setFile = new File("Settings\\file.xml");
+	private static File setFile = new File("Settings/file.xml");
 	private static int myPlayerID;
 	
 	private static ArrayList<String> stacks = new ArrayList<>();
