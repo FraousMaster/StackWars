@@ -1,10 +1,13 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-import javax.swing.border.Border;
-
 import Global.Resources;
 
+/**
+ * 
+ * @author Johannes Edenholm
+ *
+ */
 public class StartMenu extends JPanel {
 
 	private static final long serialVersionUID = 1L;
@@ -13,13 +16,17 @@ public class StartMenu extends JPanel {
 	private JButton creditsButton;
 	private JButton exitButton;
 	
+	/**
+	 * Constructor for this class
+	 */
 	public StartMenu(){	
-		
 		setLayout(new GridBagLayout());
-		buttons();		
+		createGUI();		
 	}
-	
-	private void buttons(){
+	/**
+	 * Adds and creates GUI for the JPanel
+	 */
+	private void createGUI(){
 		ImageIcon str = new ImageIcon("Graphics/Buttons/Start.png");
 		ImageIcon opt = new ImageIcon("Graphics/Buttons/Options.png");
 		ImageIcon cre = new ImageIcon("Graphics/Buttons/Credits.png");
@@ -72,13 +79,19 @@ public class StartMenu extends JPanel {
 		c.gridy = 3;
 		add(exitButton, c);
 }
-	
+	/**
+	 * Removes the current GUI for this JPanel
+	 */
 	public void remove(){
 		this.removeAll();
 		this.revalidate();
 		this.repaint();
 	}
-
+	 /**
+     * 
+     * @author Johannes Edenholm
+     * Handler class, takes care of actionEvents
+     */
 	public class Handler implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {

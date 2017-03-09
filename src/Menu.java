@@ -12,14 +12,18 @@ public class Menu extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	final StartMenu startMenu;
-	
+	/**
+	 * Constructor for this class
+	 */
 	public Menu(){
 		startMenu = new StartMenu();
-		frame();
+		createGUI();
 		add(startMenu);
 	}
-	
-	private void frame(){
+	/**
+	 * Creates configurations for the frame
+	 */
+	private void createGUI(){
 	
 		try {
 			BufferedImage Image =  ImageIO.read(new File("Graphics/Ant/ANTBILD.png"));

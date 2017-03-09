@@ -9,13 +9,17 @@ public class PlayMenu extends JPanel {
 	private JButton joinButton;
 	private JButton hostButton;
 	private JButton backButton;
-	
+	/**
+	 * Constructor for this class
+	 */
 	public PlayMenu(){
 		setLayout(new GridBagLayout());
-		buttons();	
+		createGUI();	
 	}
-	
-	private void buttons(){
+	/**
+	 * Adds and creates GUI for the JPanel
+	 */
+	private void createGUI(){
 		ImageIcon str = new ImageIcon("Graphics/Buttons/join.png");
 		ImageIcon opt = new ImageIcon("Graphics/Buttons/Host.png");
 		ImageIcon cre = new ImageIcon("Graphics/Buttons/back.png");
@@ -58,13 +62,20 @@ public class PlayMenu extends JPanel {
 		c.gridy = 2;
 		add(backButton, c);
 		}
-	
+	/**
+	 * Removes the current GUI for this JPanel
+	 */
 	public void remove(){
 		this.removeAll();
 		this.revalidate();
 		this.repaint();
 	}
-	
+	 
+	/**
+     * 
+     * @author Johannes Edenholm
+     * Handler class, takes care of actionEvents
+     */
 	public class Handler implements ActionListener {
 
 		@Override

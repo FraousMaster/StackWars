@@ -3,12 +3,13 @@ import java.awt.event.*;
 import java.net.*;
 import java.util.ArrayList;
 import javax.swing.*;
-import Global.Resources;
-
+/**
+ * 
+ * @author Johannes Edenholm, Hugo Frost, Arvid Wiklund
+ *
+ */
 public class LobbyMenu extends JPanel {
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	private JLabel p1;
 	private JLabel p2;
@@ -22,8 +23,10 @@ public class LobbyMenu extends JPanel {
 	private GameMenu lMenu;
 	private boolean isPressed = false;
 	private Game game;
-	private boolean connection = false;
-	
+	/**
+	 * Constructor for this class
+	 * from determines whether to create a server host and client or simply a Client.
+	 */
 	public LobbyMenu(int from, GameMenu menu) throws UnknownHostException{
 		String IP = null;
 		this.lMenu = menu;
@@ -49,21 +52,26 @@ public class LobbyMenu extends JPanel {
 				e.printStackTrace();
 			}
 			client.start();
-		
-			
 		}
-		create();
+		createGUI();
 	}
 
-	
+	/**
+	 * Gets arrayList of players from server
+	 * @param players
+	 */
 	public void setPlayers(ArrayList<String> players){
 		int i = 0;
 		for(String x : players){
 			setLabels(x, i);
 			i++;
 		}
-		
 	}
+	/**
+	 * Set player names to the labels, y determines which position.
+	 * @param x
+	 * @param y
+	 */
 	private void setLabels(String x, int y){
 		
 	    if(y == 0){
@@ -79,8 +87,11 @@ public class LobbyMenu extends JPanel {
 	    	p4.setText(x);
 	    }
 	}
-	
-	private void create(){
+	/**
+	 * Adds and creates GUI for the JPanel
+	 * Camefrom determines which GUI to create.
+	 */
+	private void createGUI(){
 		
 		ImageIcon crt = new ImageIcon("Graphics/Buttons/Start.png");
 		ImageIcon bck = new ImageIcon("Graphics/Buttons/back.png");
@@ -149,47 +160,48 @@ public class LobbyMenu extends JPanel {
 		c.gridy = 5;
 		add(back, c);	
 	}
-	
-	
-	public void update(){
-		this.revalidate();
-		this.repaint();
-	}
-	
-
+	/**
+	 * Removes the current GUI for this JPanel
+	 */
 	public void remove(){
 		this.removeAll();
 		this.revalidate();
 		this.repaint();
 	}
-	
+	/**
+	 * Checks if start has been pressed
+	 * @return
+	 */
 	public boolean startPressed(){
 		return isPressed;
-		
 	}
-	
-	public void startGame(){
-		System.out.println("STARTING GAME");
-		
+	/**
+	 * Starts a new game
+	 */
+	public void startGame(){	
 		 game = new Game();
-		 
 	}
-	
+	/**
+	 * Returns the game object
+	 * @return
+	 */
 	public Game returnGame(){
 		return game;
 	}
-	
+	/**
+	 * Returns the stateobject of game.
+	 * @return
+	 */
 	public GameState returnState(){
 		return game.getState();
 		
 	}
 	
-	public boolean closeConnection(){
-		return connection;
-		
-		
-	}
-	
+	 /**
+     * 
+     * @author Johannes Edenholm
+     * Handler class, takes care of actionEvents
+     */
 	public class Handler implements ActionListener {
 		GameMenu menu;
 		@Override
@@ -202,7 +214,6 @@ public class LobbyMenu extends JPanel {
 				else{
 					System.out.println("back pressed");
 				 menu = new GameMenu(1);
-				 connection = true;
 				}
 				add(menu);	
 			}
