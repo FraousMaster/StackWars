@@ -8,7 +8,10 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.*;
 import Global.Resources;
-
+/*
+ * @Author Linus Nilsson, Johannes Edenholm
+ * returns a volume value
+ */
 public class SettingsMenu extends JPanel {
 
 	private static final long serialVersionUID = 1L;
@@ -21,19 +24,12 @@ public class SettingsMenu extends JPanel {
 	private final String[] resSet = {"Default","1920x1080","1600x900","1360x768","1280x720"};
 	private String VOL = "Volume";
 	private String RES = "Default";
-	/*
-	 * Author: Linus Nilsson
-	 * SettingsMenu adds the layout for the panel.
-	 */
+
 	public SettingsMenu(){
 		setLayout(new GridBagLayout());
 		buttons();	
 	}
-	/*
-	 * Author: Linus Nilsson
-	 * buttons creates the buttons for the SettingsMenu as well
-	 * as placing them using GridBagConstraints.
-	 */
+	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private void buttons(){
 		GridBagConstraints c = new GridBagConstraints();
@@ -74,40 +70,27 @@ public class SettingsMenu extends JPanel {
 		c.gridy = 3;
 		add(backButton, c);
 	}
-	/*
-	 * Author: Linus Nilsson
-	 * returns a resolution value
-	 */
+	
 	private String getRes(){
 		if(RES.equals("Default")){
 			RES = "1600x900";
 		}
 		return RES;
 	}
-	/*
-	 * Author: Linus Nilsson
-	 * returns a volume value
-	 */
+	
 	private String getVol(){
 		if(VOL.equals("Volume")){
 			VOL = "3";
 		}
 		return VOL;
 	}
-	/*
-	 * Author: Johannes Edenholm
-	 * remove cleans up the Panel from any visible content.
-	 */
+	
 	private void remove(){
 		this.removeAll();
 		this.revalidate();
 		this.repaint();
 	}
-	/*
-	 * Author: Linus Nilsson & Johannes Edenholm
-	 * Gives the buttons their actions. For the back-button we clean the Panel and add a new Start-Menu.
-	 * Apply-button creates an XML-file and adds the values of volume and resolution in it.
-	 */
+	
 	public class Handler implements ActionListener {
 
 		@Override
