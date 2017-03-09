@@ -4,6 +4,8 @@ import Global.Resources;
 public class Ant {
 	/**
 	 * 
+	 * @author Arvid Wiklund, Linus Nilsson
+	 *
 	 */
 	
 	public enum Player{
@@ -15,9 +17,6 @@ public class Ant {
 
     private int posX, posY, currentMapObject, previousMapObject, ownedBy;
     private ArrayList<Roads> road;
-    //double speedX, speedY, angle;
-    //private BufferedImage image;
-    double speedX, speedY, angle;
     
     public Ant(int x, int y, int currentMapObject, ArrayList<Roads> road){
         posX = x;
@@ -26,6 +25,14 @@ public class Ant {
         ownedBy = Resources.getMyPlayerID();
         this.currentMapObject = currentMapObject;
     }
+    
+    /**
+     * Used in server.
+     * @param x
+     * @param y
+     * @param currentMapObject
+     * @param ownedBy
+     */
     public Ant(int x, int y, int currentMapObject, int ownedBy){
         posX = x;
         posY = y;
@@ -34,7 +41,9 @@ public class Ant {
         this.currentMapObject = currentMapObject;
     }
     
-
+    /**
+     * @param s
+     */
     public Ant(String s){
     	String b[] = s.split(":");
     	posX = Integer.parseInt(b[0]);
@@ -44,27 +53,55 @@ public class Ant {
     	//System.out.println("building ANT");
     }
     
+    /**
+     * @return String
+     */
     public String toString(){
     	return getPosX() + ":" + getPosY() + ":" + getOwnedBy() + ":" + getCurrentMapObject();
-    }
-
+    }	
+    
+    /**
+     * @return int 
+     */
     public int getPosX() {
         return posX;
     }
+    
+    /**
+     * @return int 
+     */
     public int getPosY() {
         return posY;
     }
+    
+    /**
+     * @return int 
+     */
     public int getOwnedBy(){
         return ownedBy;
         
     }
+    
+    /**
+     * @return int 
+     */
     public int getCurrentMapObject(){
         return currentMapObject;
     }
+    
+    /**
+     * @param x
+     * @param y
+     */
     public void setPos(int x, int y){
         posY = y;
         posX = x;
     }
+    
+    /**
+     * Determines the direction the ant will take.
+     * @param newMapObject
+     */
     public void setCurrentMapObject(int newMapObject){
         previousMapObject = currentMapObject;
         currentMapObject = newMapObject;

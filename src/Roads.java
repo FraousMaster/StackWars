@@ -1,6 +1,11 @@
 import java.awt.*;
 import Global.Resources;
 
+/**
+ * 
+ * @author Hugo Frost
+ *
+ */
 public class Roads {
 
     private Point pos;

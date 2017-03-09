@@ -2,6 +2,9 @@ import java.util.ArrayList;
 import java.util.*;
 import Global.Resources;
 
+/**
+ * @author Arvid Wiklund, Hugo Frost, Linus Nilsson, Johannes Edenholm
+ */
 public class GameState extends Observable{
 	
     private ArrayList<Ant> ants;
@@ -22,31 +25,43 @@ public class GameState extends Observable{
     public void initGame(){
         stacks = map.getStacks();
     }
-
+    
+    /**
+     * 
+     * @return ArrayList<Ant> Return list of all ants.
+     */
     public ArrayList<Ant> getAnts(){
         return ants;
     }
     
-    /*
-     * @author Arvid Wiklund
-     * Return an ArrayList with newly added ants locally that is sent to the server.
+    /**
+     * 
+     * @return ArrayList<Ant> Return list of all ants to be sent to the server.
      */
     public ArrayList<Ant> getAntsToUpload(){
         return antsToUpload;
     }
     
-    /*
-     * @author Arvid Wiklund
-     * Return an ArrayList with all changes to stacks locally.
+    /**
+     * 
+     * @return ArrayList<String> Return list of all stacks to be sent to the server in String form.
      */
     public ArrayList<String> getStacksToUpdate(){
         return stacksToUpdate;
     }
     
+    /**
+     * 
+     * @return ArrayList<Stack> Return list of all stacks.
+     */
     public ArrayList<Stack> getStacks(){
     	return stacks;
     }
     
+    /**
+     * 
+     * @param a is string that can be split up and converted to stacks.
+     */
     public void updateAllStacks(String a)
     {
     	String[] dummy = a.split("&");
@@ -68,6 +83,10 @@ public class GameState extends Observable{
     	}
     }
     
+    /**
+     * 
+     * @param a is a string that can be split up and converted to ants.
+     */
     public void updateAllAnts(ArrayList<Ant> a){
     	if(a != null)
         {
@@ -80,15 +99,27 @@ public class GameState extends Observable{
     	notifyObservers();
     }
     
+    /**
+     * 
+     * @param a Adds an ant, will be sent to the server in the next package.
+     */
     public void addAnt(Ant a){
         antsToUpload.add(a);
     }
-
+    
+    /**
+     * 
+     * @param s Adds a stack, will be sent to server in the next package that contains an Ant.
+     */
     public void addStackUpdate(Stack s)
     {
         stacksToUpdate.add(s.updateToString());
     }
     
+    /**
+     * 
+     * @return Map
+     */
     public Map getMap(){
         return map;
     }

@@ -4,8 +4,13 @@ import java.net.*;
 import java.util.*;
 import Global.Resources;
 
+/**
+ * 
+ * @author Arvid Wiklund, Hugo Frost, Johannes Edenholm, Linus Nilsson
+ *
+ */
 public class Server extends Thread {
-
+	
     protected DatagramSocket serverSocket = null;
     protected byte[] receiveData = new byte[2000];
     protected byte[] sendData = new byte[2000];
@@ -61,7 +66,7 @@ public class Server extends Thread {
             System.out.print(e);
         }
     }
-
+    
     private void sendData(){
 		 try {
 		 	sendData = sendMessage.getBytes();
@@ -83,7 +88,6 @@ public class Server extends Thread {
         port = receivePacket.getPort();
 	
     }
-    
     
     private void currentModeInLobby()
     {
@@ -250,6 +254,10 @@ public class Server extends Thread {
         
     }
     
+    /**
+     * Updates stack population depending on which player owns it. Also checks if there is a rally point from a stack in which case 
+     * the generated ant is sent to the stack at which a rally point exists.
+     */
     private void updateStackPopulation()
     {
     	popIncrease++;
@@ -295,6 +303,10 @@ public class Server extends Thread {
     	if(checkIncrease)
     		popIncrease = 0;
     }
+    
+    /**
+     * Makes all the calculations for the ants on the server. Updates position and checks for collision.
+     */
     private void antCalculations()
     {
     	temp = "";
@@ -347,6 +359,10 @@ public class Server extends Thread {
         }
     }
     
+    /**
+     * Converts the Stack list to string to be sent down to the clients. 
+     * @return String
+     */
     private String getAllStacks()
     {
     	
@@ -361,6 +377,10 @@ public class Server extends Thread {
     	return stacksInString;
     }
     
+    /**
+     * Checks collision for Ants.
+     * @param a is the Ant being controlled
+     */
     private void antsCollide(Ant a)
     {
     	ArrayList<Ant> temp = ants;
@@ -430,6 +450,14 @@ public class Server extends Thread {
     	}
     	ants = temp;
     }
+    
+    /**
+     * 
+     * @param a
+     * @param x
+     * @param y
+     * @return boolean True if collision occured. False if not.
+     */
     private boolean checkCollide(Ant a, int x, int y)
     {
     	int xBlock = Resources.getScalingFactorX();
@@ -517,6 +545,11 @@ public class Server extends Thread {
     	 return false;
     }
     
+    /**
+     * 
+     * @param s
+     * @return boolean If player name exists return true.
+     */
     private boolean check(String s)
     {
         boolean exists = false;

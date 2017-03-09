@@ -5,6 +5,10 @@ import java.io.*;
 
 import Global.Resources;
 
+
+/**
+ * @author Arvid Wiklund, Hugo Frost, Linus Nilsson, Johannes Edenholm
+ */
 public class Game {
     private GameView gameView = null;
     private GameController gameController = null;
@@ -12,7 +16,7 @@ public class Game {
     private AnticipatedUppdate antup;
     
     public Game() {
-    	Resources.setResolution(1920,1080);
+    	Resources.setResolution(1600,900);
     	readingSettings();
         gameState = new GameState();
         gameView = new GameView(gameState);
@@ -27,6 +31,9 @@ public class Game {
     	return gameState;
     }
     
+    /**
+     * Reads the XML file and aplies settings.
+     */
     private void readingSettings(){
         try{
         	File setFile = Resources.getXMLFile();
@@ -34,7 +41,6 @@ public class Game {
             DocumentBuilder builder = factory.newDocumentBuilder();
             Document doc = builder.parse(setFile);
             doc.getDocumentElement().normalize();
-            System.out.println("Root Element:" + doc.getDocumentElement().getNodeName());
             NodeList nodeList = doc.getElementsByTagName("Game");
             for(int i = 0; i < nodeList.getLength();i++){
                 Node node = nodeList.item(i);
@@ -43,7 +49,6 @@ public class Game {
                     String temp[];
                     String name = eElement.getElementsByTagName("Resolution").item(0).getTextContent();
                     temp = name.split("x");
-                    System.out.println("Width: " + Integer.parseInt(temp[0]) + "\n Height: " + Integer.parseInt(temp[1]));
                     Resources.setResolution(Integer.parseInt(temp[0]), Integer.parseInt(temp[1]));
                 }
             }
