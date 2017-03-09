@@ -21,12 +21,19 @@ public class SettingsMenu extends JPanel {
 	private final String[] resSet = {"Default","1920x1080","1600x900","1360x768","1280x720"};
 	private String VOL = "Volume";
 	private String RES = "Default";
-	
+	/*
+	 * Author: Linus Nilsson
+	 * SettingsMenu adds the layout for the panel.
+	 */
 	public SettingsMenu(){
 		setLayout(new GridBagLayout());
 		buttons();	
 	}
-	
+	/*
+	 * Author: Linus Nilsson
+	 * buttons creates the buttons for the SettingsMenu as well
+	 * as placing them using GridBagConstraints.
+	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private void buttons(){
 		GridBagConstraints c = new GridBagConstraints();
@@ -68,17 +75,9 @@ public class SettingsMenu extends JPanel {
 		add(backButton, c);
 	}
 	
-	private void volValue(String value){
-		this.VOL = value;
-		System.out.println(VOL);
-	}
-	private void resValue(String value){
-		this.RES = value;
-		System.out.println(RES);
-	}
 	private String getRes(){
 		if(RES.equals("Default")){
-			RES = "1920x1080";
+			RES = "1600x900";
 		}
 		return RES;
 	}
@@ -105,12 +104,12 @@ public class SettingsMenu extends JPanel {
 				add(menu);
 			}
 			else if(e.getSource() == volume ){
-				String value = volume.getSelectedItem().toString();
-				volValue(value);
+				VOL = volume.getSelectedItem().toString();
+				
 			}
 			else if(e.getSource() == resolution){
-				String value  = resolution.getSelectedItem().toString();
-				resValue(value);
+				RES  = resolution.getSelectedItem().toString();
+				
 			}
 			else if(e.getSource() == applyButton){
 				try{
