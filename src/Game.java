@@ -7,6 +7,7 @@ import Global.Resources;
 
 
 /**
+ * Game class for game, 
  * @author Arvid Wiklund, Hugo Frost, Linus Nilsson, Johannes Edenholm
  */
 public class Game {
@@ -32,7 +33,7 @@ public class Game {
     }
     
     /**
-     * Reads the XML file and aplies settings.
+     * Reads the XML file and applies settings.
      */
     private void readingSettings(){
         try{

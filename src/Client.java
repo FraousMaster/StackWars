@@ -5,6 +5,7 @@ import Global.Resources;
 
 /**
  * 
+ * Client for the game, interacts with the server. Sends data and recieves data.
  * @author Arvid Wiklund, Hugo Frost, Linus Nilsson, Johannes Edenholm
  *
  */
@@ -70,7 +71,12 @@ public class Client extends Thread{
 		}
 	 }
 	 
-	 
+	 /**
+	  * Depending on what message server receives from the client
+	  * makes a choice and sends a response to the client.
+	  * Also checks if the host has clicked on start.
+	  * @throws IOException
+	  */
 	 private void inLobby() throws IOException
 	 {
 		 if(messageReceived.equals("Start"))
@@ -111,6 +117,9 @@ public class Client extends Thread{
 		 }
 	 }
 	 
+	 /**
+	  * Receives the data
+	  */
 	 private void recData(){
 		 try {
 		 	DatagramPacket receivethis = new DatagramPacket(receiveData, receiveData.length);
@@ -122,7 +131,9 @@ public class Client extends Thread{
 			}
 	 }
 	 
-	 
+	 /**
+	  * Sends the data
+	  */
 	 private void sendData(){
 		 try {
 		 	sendData = SendMessage.getBytes();
@@ -137,7 +148,7 @@ public class Client extends Thread{
 	 /**
 	  * 
 	  * @param x
-	  * @return ArrayList<String> is a list of all players in game.
+	  * @return ArrayList<String> is a list of all players in game. This list is constantly updated and replaced.
 	  * @throws IOException
 	  */
 	 private ArrayList<String> playerList(String x) throws IOException{
@@ -151,6 +162,12 @@ public class Client extends Thread{
 		return temp;
 	 }
 
+	 /**
+	  * When start has been pressed we are in gameRunning
+	  * Depending on message from Client.
+	  * Updates ants on map, checks for collisions, sets so players owns a stack/stacks.
+	  * @throws IOException
+	  */
 	private void gameRunning() throws IOException{
 		
 		if(messageReceived.equals("started"))
@@ -163,11 +180,8 @@ public class Client extends Thread{
 			SendMessage = "waiting".toString();
 			System.out.println("IN WAITINT");
 		}
-			
-		
 		if(started)
 		{
-			//System.out.println("HELOOW WORLD CAN U SEE ME!");
 			if(!(messageReceived.equals("Start") || messageReceived.contains("started"))){
 				if(messageReceived.equals("b"))
 				{
@@ -175,7 +189,6 @@ public class Client extends Thread{
 				}
 				else if(!messageReceived.equals("")){
 					String[] a = messageReceived.split("s");
-					//System.out.println(messageReceived);
 					if(a.length > 1){
 						state.updateAllStacks(a[1]);
 					}
@@ -246,7 +259,6 @@ public class Client extends Thread{
 		return temp;
 	}
 			
-	 
 	 /**
 	  * 
 	  * @param s

@@ -8,8 +8,18 @@ import javax.swing.JPanel;
 
 import Global.Resources;
 
+
+/**
+ * Creates credit class for menu
+ * @author Johannes
+ *
+ */
 public class Credits extends JPanel {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JButton start;
 	private JButton back;
 	
@@ -17,10 +27,14 @@ public class Credits extends JPanel {
 
     public Credits(){
     	setLayout(new GridBagLayout());
-		buttons();	
+    	createGUI();	
     }
 
-    private void buttons(){
+    /**
+     * Creates Gui for this class, does not 
+     * really do anything usefull at the moment, you can quickstart the game here.
+     */
+    private void createGUI(){
     	JLabel x = new JLabel("We ");
     	JLabel z = new JLabel("are ");
     	JLabel a = new JLabel("awesome");
@@ -41,13 +55,20 @@ public class Credits extends JPanel {
     	
     	
     }
-    
+    /**
+     * removes the current Gui.
+     */
 	public void remove(){
 		this.removeAll();
 		this.revalidate();
 		this.repaint();
 	}
     
+	/**
+	 * Handler class for buttons
+	 * @author Johannes
+	 *
+	 */
     public class Handler implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
