@@ -8,7 +8,10 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.*;
 import Global.Resources;
-/*
+
+/**
+ * a menu Gui class for one of the many menus.
+ * interacts with several other menu classes depending on what JButton has been pressed. 
  * @Author Linus Nilsson, Johannes Edenholm
  */
 public class SettingsMenu extends JPanel {

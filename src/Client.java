@@ -1,11 +1,11 @@
-import java.io.*;
+ import java.io.*;
 import java.net.*;
 import java.util.*;
 import Global.Resources;
 
 /**
  * 
- * Client for the game, interacts with the server. Sends data and recieves data.
+ * Client for the game, interacts with the server and gameState. Sends data and recieves data.
  * @author Arvid Wiklund, Hugo Frost, Linus Nilsson, Johannes Edenholm
  *
  */
@@ -163,8 +163,8 @@ public class Client extends Thread{
 	 }
 
 	 /**
+	  * Handles all the received data.
 	  * When start has been pressed we are in gameRunning
-	  * Depending on message from Client.
 	  * Updates ants on map, checks for collisions, sets so players owns a stack/stacks.
 	  * @throws IOException
 	  */

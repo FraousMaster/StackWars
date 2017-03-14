@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import Global.Resources;
 
 /**
- * This class creates all the ants that are used in the server, for the clients to see.
+ * This class creates all the ants that are used in the server, for the clients to see. Interacts with stack.
  * @author Arvid Wiklund, Linus Nilsson
  */
 public class Ant {

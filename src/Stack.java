@@ -4,7 +4,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.HashMap;
 import Global.Resources;
-/*
+/**
  * @Authors Linus Nilsson and Arvid Wiklund
  * This is the ant stack object. It has the position, population and owner
  * of the stack. It also has a rallyPoint which can be activated and it knows
@@ -27,10 +27,17 @@ public class Stack extends JComponent{
         ownedBy = 0;
     }
     
+    /**
+     * assembles the stacks so they can be sent over the internet to server.
+     */
     public String toString(){
     	return stackPosX + ":" + stackPosY + ":" + ownedBy + ":" + population;
     }
     
+    /**
+     * Helps with the implementation of rally points in the game.
+     * @return
+     */
     public String updateToString(){
     	if(gotRallyPoint)
     		return stackPosX + ":" + stackPosY + ":" + rallyPoint.getX() + ":" + rallyPoint.getY();
@@ -39,6 +46,10 @@ public class Stack extends JComponent{
     		return stackPosX + ":" + stackPosY + ":" + stackPosX + ":" + stackPosY;
     }
         
+    /**
+     * rebuilds the stacks when sent to the server from the client.
+     * @param s
+     */
     public Stack(String s){
     	String b[] = s.split(":");
     	stackPosX = Integer.parseInt(b[0]);

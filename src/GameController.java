@@ -4,6 +4,8 @@ import java.awt.event.MouseEvent;
 import Global.Resources;
 
 /**
+ * Interacts with GameState and GameView. 
+ * Handles the mouse clicks in the game
  * @author Arvid Wiklund
  */
 public class GameController implements Observer{
@@ -40,7 +42,6 @@ public class GameController implements Observer{
 						{	
 							if(s.getOwnedBy() == Resources.getMyPlayerID())
 							{
-								
 								if(stackSelected != null) {
 									stackSelected.setSelected(false);
 								}
@@ -72,8 +73,8 @@ public class GameController implements Observer{
 										int x = Resources.getAntXOffset(type);
 										int y = Resources.getAntYOffset(type);
 										gameState.addAnt(new Ant(stackSelected.getX() + x, stackSelected.getY() + y, 
-												stackSelected.getConnectedStacks(s.getX(), s.getY()).get(0).getType(), 
-												stackSelected.getConnectedStacks(s.getX(), s.getY())));
+										stackSelected.getConnectedStacks(s.getX(), s.getY()).get(0).getType(), 
+										stackSelected.getConnectedStacks(s.getX(), s.getY())));
 									}
 							}
 						}

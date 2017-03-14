@@ -1,7 +1,13 @@
 import java.util.ArrayList;
 
 
-
+/**
+ * 
+ * @author Hugo Frost
+ * Interacts with GameState. 
+ * Makes the ants movements smoother by anticipating where to they are going.
+ *
+ */
 public class AnticipatedUppdate extends Thread {
 
     private ArrayList<Ant> antList = new ArrayList<>();
@@ -27,7 +33,6 @@ public class AnticipatedUppdate extends Thread {
                         a.setPos((a.getPosX() - 4), a.getPosY());
                     }
                 }
-                //System.out.print("hej \n");
                 state.updateAllAnts(antList);
                 sleep(33);
             }catch(Exception e){

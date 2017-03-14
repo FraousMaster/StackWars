@@ -15,7 +15,7 @@ import Global.Resources;
 /** Class GameView
 *   @author Hugo Frost Arvid Wiklund
 *
-*   Function: paints all components on screen.
+*  paints all components on screen. Interacts with gameState by observable.
 *
  */
 public class GameView extends Observable implements Observer{
@@ -35,7 +35,11 @@ public class GameView extends Observable implements Observer{
     
     public class GameFrame extends JFrame {
     	
-        private int D_W = Resources.getWidth();
+        /**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+		private int D_W = Resources.getWidth();
         private int D_H = Resources.getHeight();
         int x = 0;
         int y = 0;
@@ -61,12 +65,14 @@ public class GameView extends Observable implements Observer{
 			drawPanel.repaint();
         }
 
-		/*******************************************************************
+		/**
 		 * Class DrawPanel extends JPanel
 		 *
 		 *
-		 * Comment: Creates main game panel and repaints it 60 fps
-		 *******************************************************************/
+		 * Creates main game panel and repaints it 60 fps
+		 * Sets what player owns what stack.
+		 * Makes ants with movable legs.
+		 **/
         private class DrawPanel extends JPanel {
 
 			private static final long serialVersionUID = 1L;
@@ -143,6 +149,11 @@ public class GameView extends Observable implements Observer{
                 
             }
             
+			/**
+			 * Checks what direction the ant should point when moving towards a stack.
+			 * @param a
+			 * @return
+			 */
             public double getRotationRequired(Ant a)
             {
             	if(a.getCurrentMapObject() == 3)

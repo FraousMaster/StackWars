@@ -6,6 +6,8 @@ import javax.swing.*;
 /**
  * 
  * @author Johannes Edenholm, Hugo Frost, Arvid Wiklund
+ * a menu Gui class for one of the many menus.
+ * interacts with several other menu classes depending on what JButton has been pressed. 
  *
  */
 public class LobbyMenu extends JPanel {

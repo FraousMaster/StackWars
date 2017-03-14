@@ -4,7 +4,7 @@ import Global.Resources;
 /**
  * 
  * @author Hugo Frost
- *
+ * creates and has information about all the roads on the map. Interacts with map.
  */
 public class Roads {
 

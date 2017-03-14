@@ -3,7 +3,10 @@ import java.util.*;
 import Global.Resources;
 
 /**
- * @author Arvid Wiklund, Hugo Frost, Linus Nilsson, Johannes Edenholm
+ * interacts with the clients, has all the information that needs to be sent and recieved and
+ * updated to update current game for the players.
+ *
+ *@author Arvid Wiklund, Hugo Frost, Linus Nilsson, Johannes Edenholm
  */
 public class GameState extends Observable{
 	
@@ -22,13 +25,17 @@ public class GameState extends Observable{
         initGame();
     }	
     
+    /**
+     * retreives the current stacks from the map.
+     */
     public void initGame(){
         stacks = map.getStacks();
     }
     
     /**
      * 
-     * @return ArrayList<Ant> Return list of all ants.
+     * @return ArrayList<Ant> 
+     * Return list of all ants.
      */
     public ArrayList<Ant> getAnts(){
         return ants;
@@ -36,7 +43,8 @@ public class GameState extends Observable{
     
     /**
      * 
-     * @return ArrayList<Ant> Return list of all ants to be sent to the server.
+     * @return ArrayList<Ant> 
+     * Return list of all ants to be sent to the server.
      */
     public ArrayList<Ant> getAntsToUpload(){
         return antsToUpload;
@@ -44,7 +52,8 @@ public class GameState extends Observable{
     
     /**
      * 
-     * @return ArrayList<String> Return list of all stacks to be sent to the server in String form.
+     * @return ArrayList<String> 
+     * Return list of all stacks to be sent to the server in String form.
      */
     public ArrayList<String> getStacksToUpdate(){
         return stacksToUpdate;
@@ -60,7 +69,8 @@ public class GameState extends Observable{
     
     /**
      * 
-     * @param a is string that can be split up and converted to stacks.
+     * @param a 
+     * is string that can be split up and converted to stacks.
      */
     public void updateAllStacks(String a)
     {
@@ -85,7 +95,8 @@ public class GameState extends Observable{
     
     /**
      * 
-     * @param a is a string that can be split up and converted to ants.
+     * @param a 
+     * is a string that can be split up and converted to ants.
      */
     public void updateAllAnts(ArrayList<Ant> a){
     	if(a != null)
@@ -101,7 +112,8 @@ public class GameState extends Observable{
     
     /**
      * 
-     * @param a Adds an ant, will be sent to the server in the next package.
+     * @param a 
+     * Adds an ant, will be sent to the server in the next package.
      */
     public void addAnt(Ant a){
         antsToUpload.add(a);
@@ -109,7 +121,8 @@ public class GameState extends Observable{
     
     /**
      * 
-     * @param s Adds a stack, will be sent to server in the next package that contains an Ant.
+     * @param s 
+     * Adds a stack, will be sent to server in the next package that contains an Ant.
      */
     public void addStackUpdate(Stack s)
     {

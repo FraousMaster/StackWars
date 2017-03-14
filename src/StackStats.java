@@ -1,5 +1,5 @@
 import Global.Resources;
-/*
+/**
  * @Author Linus Nilsson
  * Not currently used but is for future buff systems.
  */

@@ -1,4 +1,5 @@
 import java.awt.GridBagConstraints;
+
 import java.awt.GridBagLayout;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -7,6 +8,12 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
+/**
+ * a menu Gui class for one of the many menus.
+ * Also creates the JFrame for all menus.
+ * @author Johannes Edenholm
+ *
+ */
 public class Menu extends JFrame {
 	
 

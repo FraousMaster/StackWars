@@ -5,6 +5,12 @@ import java.net.UnknownHostException;
 import javax.swing.*;
 import Global.Resources;
 
+/**
+ * a menu Gui class for one of the many menus.
+ * interacts with several other menu classes depending on what JButton has been pressed. 
+ * @author Johannes Edenholm
+ *
+ */
 public class GameMenu extends JPanel {
 
 	private static final long serialVersionUID = 1L;

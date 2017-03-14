@@ -7,7 +7,8 @@ import Global.Resources;
 
 
 /**
- * Game class for game, 
+ * Game class, Where the game starts from, interacts with GameState, GameView, GameContrroller.
+ * Simply startup class for the game.
  * @author Arvid Wiklund, Hugo Frost, Linus Nilsson, Johannes Edenholm
  */
 public class Game {

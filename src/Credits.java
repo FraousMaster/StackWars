@@ -10,8 +10,9 @@ import Global.Resources;
 
 
 /**
- * Creates credit class for menu
- * @author Johannes
+ * a menu Gui class for one of the many menus.
+ * interacts with several other menu classes depending on what JButton has been pressed. 
+ * @author Johannes Edenholm
  *
  */
 public class Credits extends JPanel {

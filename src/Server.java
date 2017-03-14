@@ -5,7 +5,9 @@ import java.util.*;
 import Global.Resources;
 
 /**
- * 
+ * Server class for the game, interacts with Client by receiving and sending data.
+ * Takes care of all the ant movements and collisions in game.
+ * Updates the newest list of ants and stacks and sends back to all the clients.
  * @author Arvid Wiklund, Hugo Frost, Johannes Edenholm, Linus Nilsson
  *
  */
@@ -46,12 +48,9 @@ public class Server extends Thread {
     }
 
     public void run() {
-        System.out.println("Hello world");
-
         try {
             while (true) {
             	recData();
-            	//System.out.println(messageReceived);
                 if(inLobby)
                 {
                 	currentModeInLobby();
@@ -67,6 +66,9 @@ public class Server extends Thread {
         }
     }
     
+    /**
+	  * Sends the data
+	  */
     private void sendData(){
 		 try {
 		 	sendData = sendMessage.getBytes();
@@ -76,7 +78,10 @@ public class Server extends Thread {
 				e.printStackTrace();
 			}
 	 }
-    
+   
+    /**
+	  * Receives the data
+	  */
     private void recData() throws IOException{
     	
     	DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
@@ -88,7 +93,11 @@ public class Server extends Thread {
         port = receivePacket.getPort();
 	
     }
-    
+    /**
+      * Depending on what message server receives from the client
+	  * makes a choice and sends a response to the client.
+	  * Also checks if the host has clicked on start.
+	  **/
     private void currentModeInLobby()
     {
     	if(starting)
@@ -146,18 +155,7 @@ public class Server extends Thread {
     			
     			if(count == 10)
 	                inLobby = false;
-    			
-    			/*String s = "";
-    			for(Stack stack : stacks)
-    			{
-    				if(stack.getOwnedBy() != 0)
-    				{
-    					s += stack.toString() + "&";
-    					//System.out.println(s);
-    				}
-    			}*/
-    			
-    			sendMessage = "started";// + s;
+    				sendMessage = "started";
             }
     		else
     			sendMessage = "Start";
@@ -189,7 +187,12 @@ public class Server extends Thread {
 	        }
     	}
     }
-
+   
+    /**
+     * Handles all the received data.
+	  * When start has been pressed we are in gameRunning
+	  * Updates ants on map, checks for collisions, sets so players owns a stack/stacks.
+	  */
     private void gameRunning() {
     		
         if (!(messageReceived.equals(players.getLast()) || messageReceived.contains("success") || messageReceived.equals("start") || messageReceived.equals(null)

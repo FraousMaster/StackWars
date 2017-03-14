@@ -7,15 +7,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import Global.Resources;
 
-
-
-
-
-/* Class Map
+/** 
+* Class Map
 *   @author Hugo Frost
 *
 *   Function: Generates the map from a text file, creates all stack objects.
 *   adds all possible road from each stack to other stacks
+*   interacts with gameState and roads.
 *
  */
 public class Map {
@@ -122,14 +120,10 @@ public class Map {
     		}
     	}
     }
-    /*******************************************************************
-     * void readFile()
+    /**
      *
-     * Arguments: none
-     * Returns: none
-     *
-     * Comment: Reads from file and stores the data in a hash map
-     *******************************************************************/
+     * Reads from file and stores the data in a hash map
+     **/
     private void readFile(){
         FileReader fr;
         int i, x = 0, y = 0;
@@ -157,7 +151,7 @@ public class Map {
             }
 
     }
-    /*******************************************************************
+    /**
      * void setRoads()
      *
      * Arguments: none
@@ -165,8 +159,8 @@ public class Map {
      *
      * Comment: Looks after a stack once one is found checks all possible positions
      * where a road could be around the stack and then calls getRoad(int x, int y, previousDirection dir)
-     * with the possition of the road and where the stack was located
-     *******************************************************************/
+     * with the position of the road and where the stack was located
+     **/
     private void setRoads(){
     	ArrayList<Roads> temp = new ArrayList<>();
         for (int i = 0; i < 20; i++) {
@@ -216,7 +210,7 @@ public class Map {
         }
         
     }
-    /*******************************************************************
+    /**
      * ArrayList<Roads> getRoad(int x, int y, previousDirection dir)
      *
      * Arguments: Position x and y for the road from where to start searching
@@ -225,14 +219,15 @@ public class Map {
      *
      * Comments: Set the reference in all the stacks once done. So eac satck knows
      * which stacks it is connected to
-     *******************************************************************/
+     **/
     private ArrayList<Roads> getRoad(int x, int y, previousDirection dir)
     {
         ArrayList<Roads> temp = new ArrayList<>();
         
         while(true){
-            /*check position under the road at pos x y (+ y)
-            *this means direction from stack != under_stack
+            /**
+             * check position under the road at pos x y (+ y)
+             * this means direction from stack != under_stack
              */
         	if(y != 19 && dir != previousDirection.under_tile){
 	            if (57 >= mapY.get((y + 1)).get((x)) && mapY.get(y + 1).get((x)) >= 51){
@@ -245,8 +240,9 @@ public class Map {
 	            	 break;
 	            }
             }
-            /*check position over the road at pos x,y (+ y)
-            *this means direction from stack != under_stack
+            /**
+             * check position over the road at pos x,y (+ y)
+             *	this means direction from stack != under_stack
              */
         	if(y != 0 && dir != previousDirection.over_tile){
 	            if((57 >= mapY.get(y - 1).get(x) && mapY.get(y - 1).get((x)) >= 51)){
@@ -260,8 +256,9 @@ public class Map {
 	            	break;
 	            }
         	}
-            /*check position right of the road at pos x,y (+ x)
-            *this means direction from stack != under_stack
+            /**
+             * check position right of the road at pos x,y (+ x)
+             *	this means direction from stack != under_stack
              */
 
         	if(x != 19 && dir != previousDirection.right_of_tile){
@@ -276,8 +273,9 @@ public class Map {
 	            	break;
 	            }
         	}
-            /*check position left of the road at pos x,y (- x)
-            *this means direction from stack != under_stack
+            /**
+             * check position left of the road at pos x,y (- x)
+             * this means direction from stack != under_stack
              */
         	if(x != 0  && dir != previousDirection.left_of_tile){
 	            if(x != 19 && (57 >= mapY.get(y).get((x - 1)) && mapY.get(y).get((x - 1)) >= 51)){
@@ -301,7 +299,7 @@ public class Map {
         return temp;
     }
 
-    /*******************************************************************
+    /**
      * void addRoadToStack(int x,int y, int x1, int y1, ArrayList<Roads> list)
      *
      * Arguments: Position x and y for the road from the first road.
@@ -310,7 +308,7 @@ public class Map {
      * Returns: none
      *
      * Comments: sets reference in each stack
-     *******************************************************************/
+     **/
     private void addRoadToStack(int x,int y, int x1, int y1, ArrayList<Roads> list){
     	boolean checkExistence = false;
     	
@@ -349,14 +347,14 @@ public class Map {
             }
         }
     }
-    /*******************************************************************
+    /**
      * void drawImage()
      *
      * Arguments: none
      * Returns: none
      *
      * Comments: generate large image from smaller ones depending on input from txt file
-     *******************************************************************/
+     **/
     private void drawImage() {
         Graphics g = im.getGraphics();
         for (int i = 0; i < 20; i++) {
@@ -407,7 +405,6 @@ public class Map {
                 }
                 else if (mapY.get(i).get(j) == sY) {//6
                     try {
-                    	//System.out.println("TRYING TO MAKE LEFT TOP MAP OBJECT");
                         image = ImageIO.read(new File("Graphics/lefttop.png"));
                         g.drawImage(image, sX * j , sY * i, sX, sY, null);
                     } catch (IOException e) {
@@ -433,7 +430,7 @@ public class Map {
             }
         }
     }
-    /*******************************************************************
+    /**
      * void setLabel()
      *
      * Arguments: none
@@ -442,7 +439,7 @@ public class Map {
      * Comments: Completes full image from drawImage()
      * At the moment the class needs work to use graphics and not the
      * JLable component. it works for now
-     *******************************************************************/
+     **/
     private void setLabel(){
         label = new JLabel() {
             @Override
