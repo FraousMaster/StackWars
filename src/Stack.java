@@ -4,7 +4,12 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.HashMap;
 import Global.Resources;
-
+/*
+ * @Authors Linus Nilsson and Arvid Wiklund
+ * This is the ant stack object. It has the position, population and owner
+ * of the stack. It also has a rallyPoint which can be activated and it knows
+ * the position and way to the connected stacks. It has a lot of get and set methods.
+ */
 public class Stack extends JComponent{
 
     private int population, stackPosX, stackPosY, ownedBy;
@@ -40,7 +45,6 @@ public class Stack extends JComponent{
     	stackPosY = Integer.parseInt(b[1]);
     	ownedBy = Integer.parseInt(b[2]);
     	population = Integer.parseInt(b[3]);
-    	//System.out.println("building ANT" + b[1]);
     }
     
     
@@ -143,7 +147,6 @@ public class Stack extends JComponent{
     public ArrayList<Roads> getConnectedStacks(int x, int y)
     {
     	Point key = new Point(x,y);
-    	//System.out.println(connectedStacks);
     	if(connectedStacks.get(key) != null)
 		{
     		return connectedStacks.get(key);
