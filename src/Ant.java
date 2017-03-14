@@ -1,13 +1,12 @@
 import java.util.ArrayList;
 import Global.Resources;
 
+/**
+ * This class creates all the ants that are used in the server, for the clients to see.
+ * @author Arvid Wiklund, Linus Nilsson
+ */
 public class Ant {
-	/**
-	 * 
-	 * @author Arvid Wiklund, Linus Nilsson
-	 *
-	 */
-	
+
 	public enum Player{
         playerOne,
         playerTwo,
@@ -27,7 +26,7 @@ public class Ant {
     }
     
     /**
-     * Used in server.
+     * Used in server to recreate the ants with current positions and owned by.
      * @param x
      * @param y
      * @param currentMapObject
@@ -42,6 +41,7 @@ public class Ant {
     }
     
     /**
+     * Used in server to recreate the ants from a string.
      * @param s
      */
     public Ant(String s){
@@ -61,6 +61,7 @@ public class Ant {
     }	
     
     /**
+     * Gets and Xpos
      * @return int 
      */
     public int getPosX() {
@@ -68,6 +69,7 @@ public class Ant {
     }
     
     /**
+     * Gets and Ypos
      * @return int 
      */
     public int getPosY() {
@@ -75,6 +77,7 @@ public class Ant {
     }
     
     /**
+     * Gets who owns this ant
      * @return int 
      */
     public int getOwnedBy(){
@@ -83,6 +86,7 @@ public class Ant {
     }
     
     /**
+     * gets where the ant is standing on the map
      * @return int 
      */
     public int getCurrentMapObject(){
@@ -90,6 +94,7 @@ public class Ant {
     }
     
     /**
+     * self explanatory.
      * @param x
      * @param y
      */
