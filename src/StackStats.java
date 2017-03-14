@@ -1,5 +1,8 @@
 import Global.Resources;
-
+/*
+ * @Author Linus Nilsson
+ * Not currently used but is for future buff systems.
+ */
 public class StackStats {
 	private int population;
 	private int xPos;

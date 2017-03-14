@@ -7,8 +7,6 @@ public class Main {
 		new Menu();
 
 		File file =	new File("Sound/famaja.wav");
-		//File file =	new File("Sound/CC Red Alert 3 Theme - Soviet March.wav");
-		//File file =	new File("Sound/Denzel Curry-  Ultimate (Lyrics).wav");
 		try {
             Clip clip = AudioSystem.getClip();
             // getAudioInputStream() also accepts a File or InputStream

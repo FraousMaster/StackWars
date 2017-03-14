@@ -25,7 +25,6 @@ public class Roads {
     public Roads(String s)
     {
     	String b[] = s.split(":");
-    	//System.out.println(s);
     	pos = new Point(Integer.parseInt(b[0]), Integer.parseInt(b[1]));
     	type = Integer.parseInt(b[2]);
     }
